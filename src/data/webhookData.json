@@ -1,0 +1,648 @@
+{
+  "tasks": [
+    {
+      "id": "task-cal-1787037548207-ujhww",
+      "title": "JuniorSquads Sessions - Git & GitHub",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-02",
+      "timeOfDay": "4:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548207-r63lc",
+      "title": "JuniorSquads Sessions - Agile | Scrum",
+      "source": "teams",
+      "estimatedTime": 1.5,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-02",
+      "timeOfDay": "6:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-4yrmd",
+      "title": "JuniorSquads Session | Soft Skills",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-02",
+      "timeOfDay": "11:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-mysx8",
+      "title": "AI Data Engineering Walkthrough Session",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-03",
+      "timeOfDay": "6:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-g2ge6",
+      "title": "Team Standup Call",
+      "source": "teams",
+      "estimatedTime": 0.33,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-03",
+      "timeOfDay": "8:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-l7ozb",
+      "title": "Interns Introduction",
+      "source": "teams",
+      "estimatedTime": 0.25,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-03",
+      "timeOfDay": "10:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-bip80",
+      "title": "JuniorSquads Sessions - Coding Practices & Code Quality",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-07",
+      "timeOfDay": "5:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-grv2d",
+      "title": "Daily Sync up",
+      "source": "teams",
+      "estimatedTime": 0.25,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-07",
+      "timeOfDay": "6:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-hs5m6",
+      "title": "JuniorSquads Sessions - System Design Basics",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-07",
+      "timeOfDay": "7:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-673bu",
+      "title": "JuniorSquads Sessions - SDLC & Programming Fundamentals",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-08",
+      "timeOfDay": "4:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-4sm2m",
+      "title": "Product Squads Customer & Business Overview Session",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-09",
+      "timeOfDay": "7:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-izaj2",
+      "title": "Meet and Greet with Our Hyderabad Interns",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-10",
+      "timeOfDay": "5:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-fxugo",
+      "title": "Daily sync up",
+      "source": "teams",
+      "estimatedTime": 0.25,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-10",
+      "timeOfDay": "5:45 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-0tyvo",
+      "title": "JuniorSquads Sessions - QA Overview",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-10",
+      "timeOfDay": "8:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548208-4yzah",
+      "title": "JuniorSquads Sessions - Cloud & Deployment Basics",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-14",
+      "timeOfDay": "7:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-0xsm9",
+      "title": "JuniorSquads Session - Database Basics",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-14",
+      "timeOfDay": "9:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-iwie1",
+      "title": "Daily sync up",
+      "source": "teams",
+      "estimatedTime": 0.25,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-17",
+      "timeOfDay": "12:00 AM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-qwxwd",
+      "title": "Friday Outing Planing- VENUE & Finalization",
+      "source": "teams",
+      "estimatedTime": 0.5,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-20",
+      "timeOfDay": "9:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-jffs6",
+      "title": "Daily Sync up",
+      "source": "teams",
+      "estimatedTime": 0.25,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-21",
+      "timeOfDay": "6:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-u259n",
+      "title": "Daily Sync up",
+      "source": "teams",
+      "estimatedTime": 0.25,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-22",
+      "timeOfDay": "6:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-0oxtk",
+      "title": "PS HYD Townhall with Pratik Modi",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-22",
+      "timeOfDay": "9:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-qlu5x",
+      "title": "JuniorSquads Sessions - Frontend & Backend Overview",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-23",
+      "timeOfDay": "5:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-t9yzz",
+      "title": "L1 Review for Deepak Kumar",
+      "source": "teams",
+      "estimatedTime": 0.5,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-23",
+      "timeOfDay": "6:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-gy1tw",
+      "title": "Daily Sync up",
+      "source": "teams",
+      "estimatedTime": 0.25,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-23",
+      "timeOfDay": "8:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-vbflz",
+      "title": "JuniorSquads Session - API Fundamentals",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-24",
+      "timeOfDay": "5:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-cgb7h",
+      "title": "Canceled: JuniorSquads Sessions | AI & Engineering Productivity",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-24",
+      "timeOfDay": "8:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-5fh3p",
+      "title": "Invitation: ProductSquads Townhall – July 2026",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-07-30",
+      "timeOfDay": "8:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-jltrr",
+      "title": "Deepak Kumar L1 Re Review",
+      "source": "teams",
+      "estimatedTime": 0.5,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-08-03",
+      "timeOfDay": "7:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-26c6l",
+      "title": "AI Engineering Launchpad (L1) Session Invitation.",
+      "source": "teams",
+      "estimatedTime": 0.5,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-08-03",
+      "timeOfDay": "9:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-fcvr1",
+      "title": "Daily Sync up",
+      "source": "teams",
+      "estimatedTime": 0.25,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-08-06",
+      "timeOfDay": "6:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-x5pj3",
+      "title": "Intern Connect – Questions and Feedback",
+      "source": "teams",
+      "estimatedTime": 0.5,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-08-07",
+      "timeOfDay": "5:30 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-lh45a",
+      "title": "Canceled: Daily sync up",
+      "source": "teams",
+      "estimatedTime": 0.25,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-08-07",
+      "timeOfDay": "5:45 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-dwtd8",
+      "title": "ISO Training: ISMS & Privacy Policy Awareness",
+      "source": "teams",
+      "estimatedTime": 1,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-08-10",
+      "timeOfDay": "6:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-7923x",
+      "title": "Daily Sync up",
+      "source": "teams",
+      "estimatedTime": 0.25,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-08-10",
+      "timeOfDay": "6:00 PM",
+      "category": "work"
+    },
+    {
+      "id": "task-cal-1787037548210-h07of",
+      "title": "Building RAG Applications: Fundamentals and Best Practices",
+      "source": "teams",
+      "estimatedTime": 0.5,
+      "status": "pending",
+      "priority": "medium",
+      "deadline": "2026-08-17",
+      "timeOfDay": "10:00 PM",
+      "category": "work"
+    }
+  ],
+  "meetings": [
+    {
+      "id": "meet-cal-1787037548207-4mfcr",
+      "title": "JuniorSquads Sessions - Git & GitHub",
+      "time": "4:30 PM - 5:30 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-qyay7",
+      "title": "JuniorSquads Sessions - Agile | Scrum",
+      "time": "6:30 PM - 8:00 PM",
+      "duration": "90 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-tqdza",
+      "title": "JuniorSquads Session | Soft Skills",
+      "time": "11:00 PM - 12:00 AM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-yrila",
+      "title": "AI Data Engineering Walkthrough Session",
+      "time": "6:00 PM - 7:00 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-wirzu",
+      "title": "Team Standup Call",
+      "time": "8:30 PM - 8:50 PM",
+      "duration": "20 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-uwyoz",
+      "title": "Interns Introduction",
+      "time": "10:00 PM - 10:15 PM",
+      "duration": "15 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-9avo9",
+      "title": "JuniorSquads Sessions - Coding Practices & Code Quality",
+      "time": "5:00 PM - 6:00 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-b4mb3",
+      "title": "Daily Sync up",
+      "time": "6:00 PM - 6:15 PM",
+      "duration": "15 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-vzlav",
+      "title": "JuniorSquads Sessions - System Design Basics",
+      "time": "7:30 PM - 8:30 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-jxs3n",
+      "title": "JuniorSquads Sessions - SDLC & Programming Fundamentals",
+      "time": "4:30 PM - 5:30 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-shftz",
+      "title": "Product Squads Customer & Business Overview Session",
+      "time": "7:30 PM - 8:30 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-kil86",
+      "title": "Meet and Greet with Our Hyderabad Interns",
+      "time": "5:30 PM - 6:30 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-3f0es",
+      "title": "Daily sync up",
+      "time": "5:45 PM - 6:00 PM",
+      "duration": "15 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-0y6fs",
+      "title": "JuniorSquads Sessions - QA Overview",
+      "time": "8:30 PM - 9:30 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548208-baznt",
+      "title": "Daily sync up",
+      "time": "10:00 PM - 10:15 PM",
+      "duration": "15 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548209-f1nby",
+      "title": "JuniorSquads Sessions - Cloud & Deployment Basics",
+      "time": "7:30 PM - 8:30 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-3a1l8",
+      "title": "JuniorSquads Session - Database Basics",
+      "time": "9:00 PM - 10:00 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-3debc",
+      "title": "Daily sync up",
+      "time": "12:00 AM - 12:15 AM",
+      "duration": "15 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-tr6ig",
+      "title": "Friday Outing Planing- VENUE & Finalization",
+      "time": "9:30 PM - 10:00 PM",
+      "duration": "30 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-koe9u",
+      "title": "PS HYD Townhall with Pratik Modi",
+      "time": "9:00 PM - 10:00 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-mjdki",
+      "title": "JuniorSquads Sessions - Frontend & Backend Overview",
+      "time": "5:30 PM - 6:30 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-fuf1l",
+      "title": "L1 Review for Deepak Kumar",
+      "time": "6:30 PM - 7:00 PM",
+      "duration": "30 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-92by2",
+      "title": "Daily Sync up",
+      "time": "8:30 PM - 8:45 PM",
+      "duration": "15 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-efrax",
+      "title": "JuniorSquads Session - API Fundamentals",
+      "time": "5:30 PM - 6:30 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-lfsx3",
+      "title": "Canceled: JuniorSquads Sessions | AI & Engineering Productivity",
+      "time": "8:30 PM - 9:30 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-h8203",
+      "title": "Invitation: ProductSquads Townhall – July 2026",
+      "time": "8:30 PM - 9:30 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-x8wgv",
+      "title": "Deepak Kumar L1 Re Review",
+      "time": "7:00 PM - 7:30 PM",
+      "duration": "30 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-6ujxk",
+      "title": "AI Engineering Launchpad (L1) Session Invitation.",
+      "time": "9:00 PM - 9:30 PM",
+      "duration": "30 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-5r8k4",
+      "title": "Intern Connect – Questions and Feedback",
+      "time": "5:30 PM - 6:00 PM",
+      "duration": "30 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-3743o",
+      "title": "Canceled: Daily sync up",
+      "time": "5:45 PM - 6:00 PM",
+      "duration": "15 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-wlt6w",
+      "title": "ISO Training: ISMS & Privacy Policy Awareness",
+      "time": "6:00 PM - 7:00 PM",
+      "duration": "60 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    },
+    {
+      "id": "meet-cal-1787037548210-gvysv",
+      "title": "Building RAG Applications: Fundamentals and Best Practices",
+      "time": "10:00 PM - 10:30 PM",
+      "duration": "30 min",
+      "organizer": "Unknown Organizer",
+      "status": "Synced"
+    }
+  ],
+  "messages": []
+}
