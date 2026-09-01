@@ -76,7 +76,7 @@ export const Layout: React.FC<LayoutProps> = ({
           className="h-14 flex items-center gap-3 px-5 cursor-pointer border-b border-zinc-200 select-none group"
           onClick={() => handleNavClick('landing')}
         >
-          <div className="w-9 h-9 rounded-xl bg-zinc-900 flex items-center justify-center shrink-0 group-hover:bg-zinc-700 transition-colors text-lg">
+          <div className="w-9 h-9 rounded-xl bg-white border-2 border-zinc-900 flex items-center justify-center shrink-0 group-hover:bg-zinc-100 transition-colors text-lg">
             🎓
           </div>
           <div className="min-w-0">
@@ -213,7 +213,7 @@ export const Layout: React.FC<LayoutProps> = ({
                 <img
                   src={profile.avatar}
                   alt={profile.name}
-                  className="w-6 h-6 rounded-md object-cover border border-zinc-200"
+                  className="w-6 h-6 rounded-md object-cover border border-zinc-200 grayscale"
                 />
                 <div className="hidden md:block text-left pr-1">
                   <p className="text-[10px] font-semibold text-zinc-900 leading-none">{profile.name}</p>
@@ -236,7 +236,7 @@ export const Layout: React.FC<LayoutProps> = ({
           <div className="w-64 flex flex-col bg-white border-r border-zinc-200 shadow-modal">
             <div className="h-14 flex items-center justify-between px-5 border-b border-zinc-200">
               <div className="flex items-center gap-3">
-                <span className="text-xl">🎓</span>
+                <div className="w-8 h-8 rounded-lg bg-white border-2 border-zinc-900 flex items-center justify-center text-base">🎓</div>
                 <span className="font-bold text-zinc-900">CareerOS</span>
               </div>
               <button

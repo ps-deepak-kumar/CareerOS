@@ -591,7 +591,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
         
         {/* ================= COLUMN A: M365 ENTERPRISE TASKS ================= */}
-        <div className="glass-panel p-5 flex flex-col gap-4 bg-zinc-100 border border-zinc-200 shadow-md">
+        <div className="glass-panel p-5 reveal-up flex flex-col gap-4 bg-zinc-100 border border-zinc-200 shadow-md">
           
           {/* Header */}
           <div className="flex flex-col gap-3 border-b border-zinc-200 pb-3.5">
@@ -766,7 +766,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* ================= COLUMN B: TARGETED SYLLABUS TASKS ================= */}
-        <div className="glass-panel p-5 flex flex-col gap-4 bg-zinc-100 border border-zinc-200 shadow-md">
+        <div className="glass-panel p-5 reveal-up flex flex-col gap-4 bg-zinc-100 border border-zinc-200 shadow-md">
           
           {/* Header */}
           <div className="flex flex-col gap-3 border-b border-zinc-200 pb-3.5">
