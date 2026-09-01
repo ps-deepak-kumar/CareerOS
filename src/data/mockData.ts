@@ -51,6 +51,27 @@ export interface RoadmapNode {
   completionPercent: number;
 }
 
+export interface CourseGithubRepo {
+  name: string;
+  url: string;
+  description: string;
+  stars?: string;
+  forks?: string;
+  language?: string;
+  topics?: string[];
+  cloneCommand?: string;
+}
+
+export interface CourseVideoProject {
+  title: string;
+  videoUrl: string; // YouTube video ID or URL
+  channel?: string;
+  duration?: string;
+  description?: string;
+  keyConcepts?: string[];
+  githubUrl?: string;
+}
+
 export interface Course {
   id: string;
   title: string;
@@ -100,6 +121,13 @@ export interface Course {
   theoryDepth?: number;       // 0 to 10
   practicalLearning?: number; // 0 to 10
   beginnerFriendly?: number;  // 0 to 10
+  // Curated GitHub Repos & Video Projects
+  githubRepos?: CourseGithubRepo[];
+  videoProjects?: CourseVideoProject[];
+  // Course lifecycle status (persisted to localStorage)
+  courseStatus?: 'active' | 'wishlist' | 'archived';
+  wishlist?: boolean; // legacy compat alias
+  addedAt?: string;   // ISO date when course was added/enrolled
 }
 
 export interface Resource {
@@ -141,6 +169,11 @@ export interface Badge {
     projectsCompleted: number;
     learningHours: number;
     badgesCount: number;
+    activeDays?: number;
+    streakDays?: number;
+    xp?: number;
+    coursesEnrolled?: number;
+    badgesEarned?: number;
   };
   skills: {
     name: string;
@@ -153,37 +186,24 @@ export interface Badge {
   }[];
 }
 
+const getLocalDateString = (date = new Date()) => {
+  const offset = date.getTimezoneOffset();
+  const localDate = new Date(date.getTime() - (offset * 60 * 1000));
+  return localDate.toISOString().split('T')[0];
+};
+
 const generateMockHeatmapActivity = (): { [dateStr: string]: number } => {
   const activity: { [dateStr: string]: number } = {};
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  for (let i = 0; i < 365; i++) {
+  // Real initial activity for current consecutive streak in the last two weeks (e.g. today and past 3 days)
+  for (let i = 0; i < 4; i++) {
     const d = new Date();
     d.setDate(today.getDate() - i);
     d.setHours(0, 0, 0, 0);
-    const dateString = d.toISOString().split('T')[0];
-
-    const isYear2026 = d.getFullYear() === 2026;
-    const isBeforeToday = d.getTime() < today.getTime();
-
-    if (isYear2026 && isBeforeToday) {
-      // Guaranteed active (score from 1 to 4)
-      const rand = Math.random();
-      let score = 1;
-      if (rand > 0.75) score = 4;
-      else if (rand > 0.50) score = 3;
-      else if (rand > 0.25) score = 2;
-      activity[dateString] = score;
-    } else {
-      const rand = Math.random();
-      let score = 0;
-      if (rand > 0.94) score = 4;
-      else if (rand > 0.86) score = 3;
-      else if (rand > 0.74) score = 2;
-      else if (rand > 0.55) score = 1;
-      activity[dateString] = score;
-    }
+    const dateString = getLocalDateString(d);
+    activity[dateString] = i === 0 ? 3 : 2;
   }
   return activity;
 };
@@ -204,12 +224,17 @@ export const initialProfile: Profile = {
   twitter: "https://twitter.com/deepak_ai",
   heatmapActivity: generateMockHeatmapActivity(),
   stats: {
-    coursesCompleted: 12,
-    goalsCompleted: 4,
-    quizzesCompleted: 86,
-    projectsCompleted: 18,
-    learningHours: 124,
-    badgesCount: 6
+    coursesCompleted: 2,
+    goalsCompleted: 1,
+    quizzesCompleted: 6,
+    projectsCompleted: 2,
+    learningHours: 24,
+    badgesCount: 3,
+    activeDays: 4,
+    streakDays: 4,
+    xp: 450,
+    coursesEnrolled: 3,
+    badgesEarned: 3
   },
   skills: [
     { name: "AI / ML Foundations", level: 82 },
@@ -225,18 +250,17 @@ export const initialProfile: Profile = {
   ]
 };
 
-const getLocalDateString = (date = new Date()) => {
-  const offset = date.getTimezoneOffset();
-  const localDate = new Date(date.getTime() - (offset * 60 * 1000));
-  return localDate.toISOString().split('T')[0];
-};
-
 const todayStr = getLocalDateString();
 const tomorrowStr = getLocalDateString(new Date(Date.now() + 24 * 60 * 60 * 1000));
 const threeDaysAfterStr = getLocalDateString(new Date(Date.now() + 3 * 24 * 60 * 60 * 1000));
+const fiveDaysAfterStr = getLocalDateString(new Date(Date.now() + 5 * 24 * 60 * 60 * 1000));
+const eightDaysAfterStr = getLocalDateString(new Date(Date.now() + 8 * 24 * 60 * 60 * 1000));
+const twoWeeksAfterStr = getLocalDateString(new Date(Date.now() + 14 * 24 * 60 * 60 * 1000));
+const threeWeeksAfterStr = getLocalDateString(new Date(Date.now() + 21 * 24 * 60 * 60 * 1000));
 
 export const initialTasks: Task[] = [
-  // Company Work
+  // --- M365 COMPANY WORK TASKS ---
+  // Today's Work Tasks
   {
     id: "task-work-1",
     title: "Fix authentication bug in gateway services",
@@ -271,16 +295,6 @@ export const initialTasks: Task[] = [
     category: "work"
   },
   {
-    id: "task-work-4",
-    title: "Prepare technical architecture documentation",
-    source: "teams",
-    estimatedTime: 2,
-    status: "pending",
-    priority: "medium",
-    deadline: tomorrowStr,
-    category: "work"
-  },
-  {
     id: "task-work-5",
     title: "M365 Integration Sync Meeting",
     source: "teams",
@@ -291,21 +305,67 @@ export const initialTasks: Task[] = [
     timeOfDay: "10:00 AM",
     category: "work"
   },
+  // This Week's Work Tasks
+  {
+    id: "task-work-4",
+    title: "Prepare technical architecture documentation for Q4 rollout",
+    source: "teams",
+    estimatedTime: 2,
+    status: "pending",
+    priority: "medium",
+    deadline: tomorrowStr,
+    timeOfDay: "1:30 PM",
+    category: "work"
+  },
   {
     id: "task-work-6",
-    title: "QA Automation Test Suite Review",
+    title: "QA Automation Test Suite & E2E Validation Review",
     source: "teams",
-    estimatedTime: 1,
-    status: "backlog",
+    estimatedTime: 1.5,
+    status: "pending",
     priority: "low",
     deadline: threeDaysAfterStr,
+    timeOfDay: "3:00 PM",
+    category: "work"
+  },
+  {
+    id: "task-work-7",
+    title: "Sprint Retrospective & Velocity Planning for AI Team",
+    source: "teams",
+    estimatedTime: 1,
+    status: "pending",
+    priority: "medium",
+    deadline: fiveDaysAfterStr,
+    timeOfDay: "11:00 AM",
+    category: "work"
+  },
+  // This Month's Work Tasks
+  {
+    id: "task-work-8",
+    title: "Enterprise Cloud Architecture Audit & Cost Optimization",
+    source: "teams",
+    estimatedTime: 4,
+    status: "pending",
+    priority: "high",
+    deadline: twoWeeksAfterStr,
+    category: "work"
+  },
+  {
+    id: "task-work-9",
+    title: "SOC2 Security Compliance & Secrets Rotation Checklist",
+    source: "teams",
+    estimatedTime: 3,
+    status: "pending",
+    priority: "medium",
+    deadline: threeWeeksAfterStr,
     category: "work"
   },
   
-  // Learning Tasks Mapped to Daily Plan
+  // --- TARGETED SYLLABUS LEARNING TASKS ---
+  // Today's Study Tasks
   {
     id: "task-learn-1",
-    title: "Study Transformer Attention Mechanics",
+    title: "Study Transformer Attention Mechanics & Dot Products",
     source: "custom",
     estimatedTime: 1,
     status: "completed",
@@ -316,7 +376,7 @@ export const initialTasks: Task[] = [
   },
   {
     id: "task-learn-2",
-    title: "Complete MCP Client Development Lesson",
+    title: "Complete MCP Client Development & JSON-RPC Protocol Lesson",
     source: "custom",
     estimatedTime: 0.75,
     status: "pending",
@@ -327,7 +387,7 @@ export const initialTasks: Task[] = [
   },
   {
     id: "task-learn-3",
-    title: "Take Multi-Head Attention Assessment Quiz",
+    title: "Take Multi-Head Attention Diagnostic Assessment Quiz",
     source: "custom",
     estimatedTime: 0.3,
     status: "pending",
@@ -338,13 +398,78 @@ export const initialTasks: Task[] = [
   },
   {
     id: "task-learn-4",
-    title: "Code Review of Sample Agentic Workflow",
+    title: "Hands-on Code Review of Sample Multi-Agent Orchestration Loop",
     source: "custom",
     estimatedTime: 0.5,
     status: "pending",
     priority: "low",
     deadline: todayStr,
     timeOfDay: "8:15 PM",
+    category: "learning"
+  },
+  // This Week's Study Tasks
+  {
+    id: "task-learn-5",
+    title: "Positional Encoding & Softmax Temperature Scaling Lab",
+    source: "custom",
+    estimatedTime: 1.5,
+    status: "pending",
+    priority: "high",
+    deadline: tomorrowStr,
+    timeOfDay: "6:30 PM",
+    category: "learning"
+  },
+  {
+    id: "task-learn-6",
+    title: "Implement Custom PyTorch Scaled Dot-Product Attention Layer",
+    source: "custom",
+    estimatedTime: 2,
+    status: "pending",
+    priority: "medium",
+    deadline: threeDaysAfterStr,
+    timeOfDay: "7:00 PM",
+    category: "learning"
+  },
+  {
+    id: "task-learn-7",
+    title: "Review Stanford CS224N Lecture 5 & Read Vaswani et al. Paper",
+    source: "custom",
+    estimatedTime: 1.5,
+    status: "pending",
+    priority: "low",
+    deadline: fiveDaysAfterStr,
+    timeOfDay: "5:30 PM",
+    category: "learning"
+  },
+  // This Month's Study Tasks
+  {
+    id: "task-learn-8",
+    title: "Complete Transformer Encoder-Decoder Architecture Module",
+    source: "custom",
+    estimatedTime: 3.5,
+    status: "pending",
+    priority: "high",
+    deadline: eightDaysAfterStr,
+    category: "learning"
+  },
+  {
+    id: "task-learn-9",
+    title: "Fine-tune Llama 3 on Custom Dataset using LoRA / QLoRA",
+    source: "custom",
+    estimatedTime: 4,
+    status: "pending",
+    priority: "high",
+    deadline: twoWeeksAfterStr,
+    category: "learning"
+  },
+  {
+    id: "task-learn-10",
+    title: "Deploy Production Multi-Agent MCP Gateway Capstone Project",
+    source: "custom",
+    estimatedTime: 5,
+    status: "pending",
+    priority: "high",
+    deadline: threeWeeksAfterStr,
     category: "learning"
   }
 ];
@@ -400,6 +525,57 @@ export const initialGoals: Goal[] = [
     studyTimePreference: "2 hours/day",
     learningStylePreference: "Hands-on coding",
     createdAt: "2026-08-01"
+  },
+  {
+    id: "goal-4",
+    title: "IBM Cloud Native & Microservices",
+    description: "Master modern microservices decomposition, Docker containerization, Kubernetes pods, and resilient service meshes.",
+    difficulty: "Intermediate",
+    currentLevel: "Intermediate",
+    targetLevel: "Advanced",
+    deadlineDays: 50,
+    progress: 40,
+    streak: 6,
+    status: "On Track",
+    category: "Enterprise Cloud",
+    expectedOutcome: "Refactor monolith architectures into fault-tolerant IBM standard microservices.",
+    studyTimePreference: "1.5 hours/day",
+    learningStylePreference: "Projects",
+    createdAt: "2026-08-10"
+  },
+  {
+    id: "goal-5",
+    title: "Microsoft Azure Solutions Architecture",
+    description: "Design high-availability cloud systems, Cosmos DB partitions, hub-and-spoke virtual networks, and zero-trust architectures.",
+    difficulty: "Advanced",
+    currentLevel: "Intermediate",
+    targetLevel: "Advanced",
+    deadlineDays: 60,
+    progress: 25,
+    streak: 3,
+    status: "On Track",
+    category: "Cloud Architecture",
+    expectedOutcome: "Attain Microsoft Azure Solutions Architect Enterprise Certification standards.",
+    studyTimePreference: "1 hour/day",
+    learningStylePreference: "Mixed",
+    createdAt: "2026-08-14"
+  },
+  {
+    id: "goal-6",
+    title: "Meta React 19 Architecture",
+    description: "Master React 19 Fiber reconciler, Concurrent Mode, React Server Components (RSC), and 60fps rendering at 1B+ scale.",
+    difficulty: "Advanced",
+    currentLevel: "Intermediate",
+    targetLevel: "Advanced",
+    deadlineDays: 40,
+    progress: 55,
+    streak: 8,
+    status: "On Track",
+    category: "Frontend Engineering",
+    expectedOutcome: "Build ultra-responsive web applications with sub-millisecond interaction latency.",
+    studyTimePreference: "1 hour/day",
+    learningStylePreference: "Hands-on coding",
+    createdAt: "2026-08-18"
   }
 ];
 
@@ -799,6 +975,260 @@ export const initialCourses: Course[] = [
         summary: "Cross-encoder rerankers apply deep query-document interaction scoring to refine first-stage retrieval results before LLM generation."
       }
     ]
+  },
+  {
+    id: "course-4",
+    title: "IBM Technology: Cloud Native, Microservices & Container Orchestration",
+    thumbnail: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&auto=format&fit=crop&q=80",
+    difficulty: "Intermediate",
+    progress: 40,
+    totalLessons: 24,
+    completedLessons: 10,
+    totalQuizzes: 4,
+    completedQuizzes: 2,
+    estimatedTime: "18h total",
+    currentChapter: "Docker Containerization & Linux Namespaces",
+    provider: "IBM Technology (Enterprise)",
+    university: "IBM Technology & Red Hat",
+    instructor: "Martin Keen (Master Inventor, IBM Technology)",
+    description: "The definitive architectural guide from IBM Technology on breaking down monoliths into resilient microservices, containerization with Docker, and Kubernetes orchestration.",
+    license: "IBM Standard Attribution",
+    rating: 4.95,
+    comprehensiveness: 9.7,
+    theoryDepth: 9.4,
+    practicalLearning: 9.8,
+    beginnerFriendly: 8.9,
+    videoUrl: "c3Z_rV3xW6Q",
+    chapters: [
+      {
+        id: "ibm-ch1",
+        title: "Microservices Architecture vs Monoliths: Bounded Contexts & RPC",
+        status: "completed",
+        videoUrl: "c3Z_rV3xW6Q",
+        explanation: "IBM Technology principles for microservices: independent deployability, domain-driven boundaries, event-driven integration, and isolated data stores.",
+        analogy: "Imagine a city where each department (fire, police, power, water) operates independently with its own radio frequency, rather than one person managing every municipal task.",
+        keyTerminology: ["Bounded Context", "API Gateway", "Decoupled Datastores", "gRPC / REST"],
+        quizQuestion: {
+          question: "What is the primary benefit of breaking a monolith into IBM-standard microservices?",
+          options: [
+            "Sharing a single relational database table across all services.",
+            "Independent deployability, isolated failure domains, and elastic horizontal scaling.",
+            "Eliminating all network latency.",
+            "Removing the need for automated testing."
+          ],
+          answerIdx: 1,
+          explanation: "Independent deployability ensures teams can ship changes rapidly without risking downtime across unrelated features."
+        },
+        practiceTask: "Draft a microservices boundary diagram separating an e-commerce monolith into Auth, Catalog, and Orders services.",
+        summary: "Microservices isolate failure domains and enable independent deployment pipelines."
+      },
+      {
+        id: "ibm-ch2",
+        title: "Docker Containerization & Linux Namespaces",
+        status: "current",
+        videoUrl: "c3Z_rV3xW6Q",
+        explanation: "Deep dive into container virtualization: Linux cgroups, namespaces, layered filesystem UnionFS, and multi-stage Docker builds.",
+        analogy: "Think of shipping containers on a cargo ship. Standardized metal boxes allow cranes, trucks, and trains to transport any goods anywhere without unpacking.",
+        keyTerminology: ["cgroups", "Namespaces", "UnionFS", "Multi-stage Builds"],
+        quizQuestion: {
+          question: "How do Linux containers isolate processes from the host operating system?",
+          options: [
+            "By installing a separate guest operating system kernel for each container.",
+            "Through Linux kernel namespaces for process/network isolation and cgroups for resource quotas.",
+            "By running exclusively in hardware firmware.",
+            "By compiling all code to WebAssembly."
+          ],
+          answerIdx: 1,
+          explanation: "Namespaces provide private views of system resources, while cgroups limit CPU and memory usage."
+        },
+        practiceTask: "Write a production multi-stage Dockerfile minimizing image size with non-root user execution.",
+        summary: "Containers package application code with dependencies for deterministic execution."
+      },
+      {
+        id: "ibm-ch3",
+        title: "Kubernetes Pods, Deployments & Service Meshes",
+        status: "locked",
+        videoUrl: "c3Z_rV3xW6Q",
+        explanation: "Cluster orchestration mechanics: control planes, kubelet reconciliation loops, ingress controllers, and Istio service mesh observability.",
+        analogy: "Think of an airport control tower coordinating dozens of planes landing and taking off on designated runways simultaneously.",
+        keyTerminology: ["Control Plane", "Kubelet Loop", "Service Mesh", "Ingress Controller"],
+        quizQuestion: {
+          question: "What is the primary role of a Kubernetes ReplicaSet?",
+          options: [
+            "To encrypt database passwords in source code.",
+            "To maintain a stable set of replica Pods running at any given time, automatically replacing failed instances.",
+            "To speed up CSS compilation.",
+            "To bypass network firewalls."
+          ],
+          answerIdx: 1,
+          explanation: "ReplicaSets monitor running pod counts and spawn new pods whenever failures or evictions occur."
+        },
+        practiceTask: "Create a Kubernetes Deployment YAML manifest with liveness and readiness health probes.",
+        summary: "Kubernetes automates self-healing container scheduling at enterprise scale."
+      },
+      {
+        id: "ibm-ch4",
+        title: "Enterprise Cloud Native Scaling & Capstone Lab",
+        status: "locked",
+        videoUrl: "c3Z_rV3xW6Q",
+        explanation: "Production hardening: auto-scaling policies, canary deployments, zero-downtime rolling updates, and distributed tracing.",
+        analogy: "Think of a highway toll plaza opening extra lanes automatically as peak rush hour traffic surges.",
+        keyTerminology: ["HPA Autoscaling", "Canary Deployment", "Distributed Tracing", "Zero-Downtime Rollout"],
+        quizQuestion: {
+          question: "How does a Canary deployment mitigate production risk?",
+          options: [
+            "By replacing all servers at once during peak hours.",
+            "By routing a small percentage of real user traffic to the new version before rolling it out to 100% of users.",
+            "By disabling server monitoring.",
+            "By deleting database backups."
+          ],
+          answerIdx: 1,
+          explanation: "Canary rollouts expose new versions to a subset of traffic, detecting errors early before widespread user impact."
+        },
+        practiceTask: "Configure a horizontal pod autoscaler (HPA) targeting 70% average CPU utilization.",
+        summary: "Cloud native patterns ensure resilient, continuous delivery in mission-critical environments."
+      }
+    ]
+  },
+  {
+    id: "course-5",
+    title: "Microsoft Learn: Azure Cloud Solution Architecture & Distributed Systems",
+    thumbnail: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&auto=format&fit=crop&q=80",
+    difficulty: "Advanced",
+    progress: 25,
+    totalLessons: 20,
+    completedLessons: 5,
+    totalQuizzes: 5,
+    completedQuizzes: 1,
+    estimatedTime: "22h total",
+    currentChapter: "High Availability & Fault-Tolerant System Design",
+    provider: "Microsoft Learn (FAANG / MANGA)",
+    university: "Microsoft Azure Architecture Center",
+    instructor: "John Savill (Principal Cloud Architect, Microsoft)",
+    description: "Comprehensive enterprise architecture from Microsoft: Virtual Networks, Cosmos DB distributed partitions, high availability, zero-trust security, and Azure Kubernetes Service (AKS).",
+    license: "Microsoft Learn Attribution",
+    rating: 4.96,
+    comprehensiveness: 9.9,
+    theoryDepth: 9.5,
+    practicalLearning: 9.9,
+    beginnerFriendly: 8.5,
+    videoUrl: "NKEFW2WJbcE",
+    chapters: [
+      {
+        id: "ms-ch1",
+        title: "Azure Core Infrastructure, Virtual Networks & Global Peering",
+        status: "completed",
+        videoUrl: "NKEFW2WJbcE",
+        explanation: "Architecting resilient cloud networks with Azure VNets, subnets, Network Security Groups (NSGs), route tables, and cross-region VNet peering.",
+        analogy: "Imagine a private gated corporate campus where every building has its own security guard checking badges before letting visitors enter specific rooms.",
+        keyTerminology: ["VNet Peering", "NSG Rules", "Private Endpoints", "ExpressRoute"],
+        quizQuestion: {
+          question: "What is the primary role of Azure Private Endpoints?",
+          options: [
+            "Exposing all database ports to the public internet.",
+            "Securing PaaS services within your private VNet IP address space to eliminate public internet exposure.",
+            "Disabling TLS encryption.",
+            "Increasing VM CPU clock speeds."
+          ],
+          answerIdx: 1,
+          explanation: "Private Endpoints assign private IPs from your VNet to Azure PaaS services, locking down traffic internally."
+        },
+        practiceTask: "Configure a hub-and-spoke VNet topology with network security group rules.",
+        summary: "Hub-and-spoke network architectures isolate workloads while centralizing traffic inspection."
+      },
+      {
+        id: "ms-ch2",
+        title: "High Availability & Fault-Tolerant System Design",
+        status: "current",
+        videoUrl: "NKEFW2WJbcE",
+        explanation: "Multi-region resilience patterns, Availability Zones, Azure Front Door global routing, and health probes.",
+        analogy: "Think of a global financial network with redundant data centers operating in Frankfurt, Tokyo, and New York simultaneously.",
+        keyTerminology: ["Availability Zones", "Azure Front Door", "Active-Active Multi-Region", "SLA 99.99%"],
+        quizQuestion: {
+          question: "What provides physically separate power, cooling, and networking within an Azure region?",
+          options: [
+            "Resource Groups",
+            "Availability Zones",
+            "Subscription IDs",
+            "Management Groups"
+          ],
+          answerIdx: 1,
+          explanation: "Availability Zones are isolated physical locations within an Azure region with independent infrastructure."
+        },
+        practiceTask: "Design an active-active dual-region architecture diagram with Azure Front Door.",
+        summary: "Multi-zone and multi-region patterns achieve enterprise 99.99% service level agreements."
+      }
+    ]
+  },
+  {
+    id: "course-6",
+    title: "Meta Engineering: Advanced React Architecture & Performance at Scale",
+    thumbnail: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&auto=format&fit=crop&q=80",
+    difficulty: "Advanced",
+    progress: 55,
+    totalLessons: 18,
+    completedLessons: 10,
+    totalQuizzes: 4,
+    completedQuizzes: 2,
+    estimatedTime: "16h total",
+    currentChapter: "Server Components (RSC) & Streaming SSR",
+    provider: "Meta Engineering (FAANG)",
+    university: "Meta Open Source & React Core Team",
+    instructor: "Dan Abramov & Meta React Core Engineers",
+    description: "Internal architectural principles from Meta: React 19 Fiber reconciler, Concurrent Mode, React Server Components (RSC), suspense boundaries, and 60fps rendering at 1B+ users.",
+    license: "Meta Open Source / MIT Attribution",
+    rating: 4.97,
+    comprehensiveness: 9.8,
+    theoryDepth: 9.7,
+    practicalLearning: 9.9,
+    beginnerFriendly: 7.5,
+    videoUrl: "8pDqJVdNa4g",
+    chapters: [
+      {
+        id: "meta-ch1",
+        title: "React Fiber Internals, Concurrent Rendering & Scheduling",
+        status: "completed",
+        videoUrl: "8pDqJVdNa4g",
+        explanation: "How Meta re-architected React with Fiber: interruptible rendering units, algebraic effects, priority queues, and cooperative scheduling.",
+        analogy: "Think of a chef preparing multiple orders. Instead of finishing a 2-hour roast before starting anything else, the chef chops onions, pauses to flip the burgers, and resumes without burning anything.",
+        keyTerminology: ["Fiber Node Tree", "Work-in-Progress Tree", "Time Slicing", "Lane Priority"],
+        quizQuestion: {
+          question: "What fundamental capability does the React Fiber reconciler enable?",
+          options: [
+            "Direct access to low-level assembly instructions.",
+            "Pausing, aborting, and prioritizing render work to keep the user interface responsive during heavy computations.",
+            "Replacing JavaScript with Python in the browser.",
+            "Removing virtual DOM comparisons."
+          ],
+          answerIdx: 1,
+          explanation: "Fiber breaks rendering into discrete units of work that can be paused to yield control back to the browser event loop."
+        },
+        practiceTask: "Profile component render lifecycles with React DevTools and optimize high-frequency re-renders.",
+        summary: "Fiber cooperative scheduling guarantees 60fps responsiveness across complex web apps."
+      },
+      {
+        id: "meta-ch2",
+        title: "Server Components (RSC) & Streaming SSR",
+        status: "current",
+        videoUrl: "8pDqJVdNa4g",
+        explanation: "Zero-bundle-size server components, streaming HTML through Suspense boundaries, and progressive client hydration.",
+        analogy: "Imagine receiving a book chapter by chapter over high-speed telegraph rather than waiting for the entire hardcover volume to be printed and shipped.",
+        keyTerminology: ["RSC Protocol", "Zero-Bundle-Size", "Streaming SSR", "Selective Hydration"],
+        quizQuestion: {
+          question: "What is the primary performance benefit of React Server Components (RSC)?",
+          options: [
+            "They run exclusively on quantum computers.",
+            "They execute on the server and send rendered UI payload to the browser without adding their dependencies to client JavaScript bundle size.",
+            "They remove all HTML tags from the webpage.",
+            "They bypass database queries completely."
+          ],
+          answerIdx: 1,
+          explanation: "Server components ship zero JavaScript dependencies to the client browser, drastically reducing initial page load time."
+        },
+        practiceTask: "Refactor a data-fetching client component into an async React Server Component.",
+        summary: "RSC combines server-side data directness with interactive client components."
+      }
+    ]
   }
 ];
 
@@ -858,7 +1288,10 @@ export const initialBadges: Badge[] = [
   { id: "badge-10", title: "Chronos Titan L", description: "Maintain study discipline for 100 consecutive focus days.", icon: "🎖️", unlocked: false },
   { id: "badge-11", title: "Titanium Project Master", description: "Complete a full course curriculum along with its capstone lab assignment.", icon: "🛠️", unlocked: false },
   { id: "badge-12", title: "Solar Active - Aug 2026", description: "Show active learning consistency throughout August 2026.", icon: "📅", unlocked: false },
-  { id: "badge-13", title: "Equinox Active - Sep 2026", description: "Show active learning consistency throughout September 2026.", icon: "🗓️", unlocked: false }
+  { id: "badge-13", title: "Equinox Active - Sep 2026", description: "Show active learning consistency throughout September 2026.", icon: "🗓️", unlocked: false },
+  { id: "badge-quiz-gold", title: "Assessment Grandmaster", description: "Scored 90%+ on an AI Diagnostic Assessment Quiz.", icon: "🥇", unlocked: false },
+  { id: "badge-quiz-silver", title: "Assessment Specialist", description: "Scored 70%+ on an AI Diagnostic Assessment Quiz.", icon: "🥈", unlocked: false },
+  { id: "badge-quiz-bronze", title: "Assessment Achiever", description: "Completed an interactive skill assessment.", icon: "🥉", unlocked: false }
 ];
 
 export const initialAgentLogs: AgentLog[] = [

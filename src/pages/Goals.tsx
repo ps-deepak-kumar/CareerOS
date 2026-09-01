@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Target, Award, Flame, Clock, Plus, ChevronRight, Cpu, Sparkles, Terminal, Trophy } from 'lucide-react';
+import { Target, Award, Flame, Clock, Plus, ChevronRight, Cpu, Sparkles, Terminal, Trophy, Trash2 } from 'lucide-react';
 import { PageId } from '../components/Layout';
 import { stateManager } from '../services/stateManager';
 import { Goal } from '../data/mockData';
@@ -7,19 +7,50 @@ import { Goal } from '../data/mockData';
 interface GoalsProps {
   onNavigate: (page: PageId) => void;
   setSelectedGoalIdForDetails: (id: string) => void;
+  setSelectedCourseIdForDetails?: (id: string) => void;
 }
 
-export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDetails }) => {
+export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDetails, setSelectedCourseIdForDetails }) => {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [activeTab, setActiveTab] = useState<'all' | 'active' | 'completed' | 'paused' | 'overdue'>('all');
 
   useEffect(() => {
-    setGoals(stateManager.getGoals());
+    const refreshGoals = () => setGoals(stateManager.getGoals());
+    refreshGoals();
+    window.addEventListener('goals-updated', refreshGoals);
+    window.addEventListener('courses-updated', refreshGoals);
+    window.addEventListener('goal-deleted', refreshGoals);
+    window.addEventListener('course-deleted', refreshGoals);
+    return () => {
+      window.removeEventListener('goals-updated', refreshGoals);
+      window.removeEventListener('courses-updated', refreshGoals);
+      window.removeEventListener('goal-deleted', refreshGoals);
+      window.removeEventListener('course-deleted', refreshGoals);
+    };
   }, []);
 
   const handleViewGoal = (id: string) => {
     setSelectedGoalIdForDetails(id);
     onNavigate('goal-details');
+  };
+
+  const handleOpenRoadmapForGoal = (goal: Goal) => {
+    const courses = stateManager.getCourses();
+    const matched = courses.find(c => 
+      c.title.toLowerCase().includes(goal.title.toLowerCase()) ||
+      goal.title.toLowerCase().includes(c.title.toLowerCase()) ||
+      (goal.category && c.title.toLowerCase().includes(goal.category.toLowerCase()))
+    ) || courses[0];
+
+    if (matched) {
+      try {
+        localStorage.setItem('career_os_active_course_id', matched.id);
+      } catch {}
+      if (setSelectedCourseIdForDetails) {
+        setSelectedCourseIdForDetails(matched.id);
+      }
+    }
+    onNavigate('roadmap');
   };
 
   const filteredGoals = goals.filter(g => {
@@ -68,7 +99,7 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
   };
 
   return (
-    <div className="flex flex-col gap-6 max-w-5xl mx-auto">
+    <div className="flex flex-col gap-6 w-full">
       
       {/* TOP HEADER */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-900 pb-5">
@@ -202,15 +233,36 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
                     )}
                   </div>
                   
-                  <button
-                    onClick={() => handleViewGoal(goal.id)}
-                    className={`flex items-center gap-0.5 font-bold tracking-wider font-display uppercase hover:underline transition-colors ${
-                      isCompleted ? 'text-emerald-400 hover:text-emerald-300' : 'text-indigo-400 hover:text-indigo-305'
-                    }`}
-                  >
-                    <span>Inspect</span>
-                    <ChevronRight size={11} className="transform group-hover:translate-x-0.5 transition-transform" />
-                  </button>
+                  <div className="flex items-center gap-2.5">
+                    <button
+                      onClick={() => handleOpenRoadmapForGoal(goal)}
+                      className="flex items-center gap-1 font-mono text-[9px] font-bold text-indigo-400 hover:text-indigo-300 uppercase transition-colors"
+                    >
+                      <Sparkles size={10} />
+                      <span>Roadmap</span>
+                    </button>
+
+                    <button
+                      onClick={() => handleViewGoal(goal.id)}
+                      className={`flex items-center gap-0.5 font-bold tracking-wider font-display uppercase hover:underline transition-colors ${
+                        isCompleted ? 'text-emerald-400 hover:text-emerald-300' : 'text-slate-300 hover:text-white'
+                      }`}
+                    >
+                      <span>Inspect</span>
+                      <ChevronRight size={11} className="transform group-hover:translate-x-0.5 transition-transform" />
+                    </button>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        stateManager.removeGoal(goal.id);
+                      }}
+                      className="p-1 rounded text-slate-600 hover:text-red-400 hover:bg-red-950/30 transition-colors"
+                      title="Remove Goal & Unlink Everywhere"
+                    >
+                      <Trash2 size={11} />
+                    </button>
+                  </div>
                 </div>
 
               </div>

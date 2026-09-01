@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Layout, PageId } from './components/Layout';
 import { AgentTerminal } from './components/AgentTerminal';
+import { ToastContainer } from './components/ToastContainer';
 import { stateManager } from './services/stateManager';
 
 // Import Pages
@@ -76,6 +77,18 @@ function App() {
     window.location.hash = `#/${page}`;
   };
 
+  // Listen for course selection events from StateManager or deep links
+  useEffect(() => {
+    const handleCourseSelected = (e: Event) => {
+      const customEvent = e as CustomEvent<{ courseId: string }>;
+      if (customEvent.detail && customEvent.detail.courseId) {
+        setSelectedCourseId(customEvent.detail.courseId);
+      }
+    };
+    window.addEventListener('course-selected', handleCourseSelected);
+    return () => window.removeEventListener('course-selected', handleCourseSelected);
+  }, []);
+
   const renderActivePage = () => {
     switch (activePage) {
       case 'landing':
@@ -95,12 +108,19 @@ function App() {
           <Goals
             onNavigate={handlePageChange}
             setSelectedGoalIdForDetails={setSelectedGoalId}
+            setSelectedCourseIdForDetails={setSelectedCourseId}
           />
         );
       case 'set-goal':
         return <SetGoal onNavigate={handlePageChange} />;
       case 'goal-details':
-        return <GoalDetails onNavigate={handlePageChange} goalId={selectedGoalId} />;
+        return (
+          <GoalDetails
+            onNavigate={handlePageChange}
+            goalId={selectedGoalId}
+            setSelectedCourseIdForDetails={setSelectedCourseId}
+          />
+        );
       case 'learning':
         return (
           <Learning
@@ -111,7 +131,13 @@ function App() {
       case 'course-details':
         return <CourseDetails onNavigate={handlePageChange} courseId={selectedCourseId} />;
       case 'roadmap':
-        return <RoadmapPage />;
+        return (
+          <RoadmapPage
+            onNavigate={handlePageChange}
+            courseId={selectedCourseId}
+            setSelectedCourseIdForDetails={setSelectedCourseId}
+          />
+        );
       case 'quiz':
         return <Quiz />;
       case 'resources':
@@ -140,6 +166,9 @@ function App() {
 
       {/* Floating interactive multi-agent system monitor terminal */}
       <AgentTerminal />
+
+      {/* Global reactive notifications container */}
+      <ToastContainer />
     </>
   );
 }

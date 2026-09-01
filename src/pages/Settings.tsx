@@ -26,7 +26,7 @@ export const SettingsPage: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-6 max-w-4xl">
+    <div className="flex flex-col gap-6 w-full">
       
       {/* 1. TOP HEADER */}
       <div>

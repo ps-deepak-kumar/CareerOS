@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   MapPin, Briefcase, GraduationCap, Globe, 
-  Edit, Plus, Trash2, X, Save, Trophy, BookOpen, Target, FileText, CheckCircle2, Cpu
+  Edit, Plus, Trash2, X, Save, Trophy, BookOpen, Target, FileText, CheckCircle2, Cpu, Flame, Zap, Sparkles, Clock, Award
 } from 'lucide-react';
 import { stateManager } from '../services/stateManager';
 import { Profile, Badge } from '../data/mockData';
@@ -51,6 +51,9 @@ export const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     loadProfile();
+    const handleProfileUpdated = () => loadProfile();
+    window.addEventListener('profile-updated', handleProfileUpdated);
+    return () => window.removeEventListener('profile-updated', handleProfileUpdated);
   }, []);
 
   if (!profile) {
@@ -159,7 +162,7 @@ export const ProfilePage: React.FC = () => {
   const coursesStrokeDashOffset = 226 - (226 * coursesPercent) / 100;
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 max-w-6xl mx-auto text-slate-350 font-sans">
+    <div className="flex flex-col lg:flex-row gap-6 w-full text-slate-350 font-sans">
       
       {/* LEFT COLUMN: USER PROFILE SIDEBAR */}
       <div className="w-full lg:w-80 flex flex-col gap-5 shrink-0">
@@ -339,37 +342,53 @@ export const ProfilePage: React.FC = () => {
           <div className="hidden sm:block border-l border-brand-border/40 h-14" />
 
           {/* Breakdowns columns */}
-          <div className="grid grid-cols-2 gap-x-8 gap-y-3.5 text-xs w-full sm:w-auto font-sans">
-            <div className="flex items-center justify-between gap-6 bg-slate-950/40 px-3.5 py-2 rounded-lg border border-brand-border">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-5 gap-y-3 text-xs w-full sm:w-auto font-sans">
+            <div className="flex items-center justify-between gap-4 bg-slate-950/50 px-3 py-2 rounded-xl border border-brand-border">
               <div className="flex items-center gap-1.5 font-semibold text-slate-300">
-                <Target size={13} className="text-indigo-400" />
-                <span>Goals Completed</span>
+                <Flame size={13} className="text-orange-400" />
+                <span>Active Days</span>
               </div>
-              <span className="font-mono font-bold text-white text-sm">{profile.stats.goalsCompleted}</span>
+              <span className="font-mono font-bold text-orange-400 text-sm">{profile.stats.activeDays ?? 0}d</span>
             </div>
 
-            <div className="flex items-center justify-between gap-6 bg-slate-955/40 px-3.5 py-2 rounded-lg border border-brand-border">
-              <div className="flex items-center gap-1.5 font-semibold text-slate-350">
-                <FileText size={13} className="text-[#FFA116]" />
-                <span>Quizzes Taken</span>
+            <div className="flex items-center justify-between gap-4 bg-slate-950/50 px-3 py-2 rounded-xl border border-brand-border">
+              <div className="flex items-center gap-1.5 font-semibold text-slate-300">
+                <Zap size={13} className="text-amber-400" />
+                <span>Streak</span>
               </div>
-              <span className="font-mono font-bold text-white text-sm">{profile.stats.quizzesCompleted}</span>
+              <span className="font-mono font-bold text-amber-400 text-sm">{profile.stats.streakDays ?? 0}d</span>
             </div>
 
-            <div className="flex items-center justify-between gap-6 bg-slate-955/40 px-3.5 py-2 rounded-lg border border-brand-border">
-              <div className="flex items-center gap-1.5 font-semibold text-slate-350">
-                <CheckCircle2 size={13} className="text-emerald-450" />
-                <span>Projects Built</span>
+            <div className="flex items-center justify-between gap-4 bg-slate-950/50 px-3 py-2 rounded-xl border border-brand-border">
+              <div className="flex items-center gap-1.5 font-semibold text-slate-300">
+                <BookOpen size={13} className="text-indigo-400" />
+                <span>Enrolled</span>
               </div>
-              <span className="font-mono font-bold text-white text-sm">{profile.stats.projectsCompleted}</span>
+              <span className="font-mono font-bold text-white text-sm">{profile.stats.coursesEnrolled || stateManager.getCourses().filter(c => !c.wishlist).length}</span>
             </div>
 
-            <div className="flex items-center justify-between gap-6 bg-slate-955/40 px-3.5 py-2 rounded-lg border border-brand-border">
-              <div className="flex items-center gap-1.5 font-semibold text-slate-355">
-                <BookOpen size={13} className="text-blue-400" />
-                <span>Focus Duration</span>
+            <div className="flex items-center justify-between gap-4 bg-slate-950/50 px-3 py-2 rounded-xl border border-brand-border">
+              <div className="flex items-center gap-1.5 font-semibold text-slate-300">
+                <Target size={13} className="text-cyan-400" />
+                <span>Goals Done</span>
               </div>
-              <span className="font-mono font-bold text-white text-sm">{profile.stats.learningHours}h</span>
+              <span className="font-mono font-bold text-cyan-400 text-sm">{profile.stats.goalsCompleted}</span>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 bg-slate-950/50 px-3 py-2 rounded-xl border border-brand-border">
+              <div className="flex items-center gap-1.5 font-semibold text-slate-300">
+                <Clock size={13} className="text-emerald-400" />
+                <span>Focus Time</span>
+              </div>
+              <span className="font-mono font-bold text-emerald-400 text-sm">{profile.stats.learningHours}h</span>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 bg-slate-950/50 px-3 py-2 rounded-xl border border-brand-border">
+              <div className="flex items-center gap-1.5 font-semibold text-slate-300">
+                <Trophy size={13} className="text-yellow-400" />
+                <span>Badges</span>
+              </div>
+              <span className="font-mono font-bold text-yellow-400 text-sm">{stateManager.getBadges().filter(b => b.unlocked).length}</span>
             </div>
           </div>
 

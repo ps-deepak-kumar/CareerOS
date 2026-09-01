@@ -7,6 +7,12 @@ import { careerMcp } from './mcp/careerMcp';
 import { learningMcp } from './mcp/learningMcp';
 import { resourceMcp } from './mcp/resourceMcp';
 import { productivityMcp } from './mcp/productivityMcp';
+import { 
+  getVideoForTopic, generateCustomCourse, generateRoadmapNodesForCourse, 
+  getSkillNameForTopic, getLecturePairForTopic, getGithubReposForTopic, getVideoProjectsForTopic 
+} from '../data/coursesData';
+import { showToast } from '../components/ToastContainer';
+import { verificationAgent } from './ai/verificationAgent';
 
 export type { AgentLog };
 
@@ -22,32 +28,125 @@ const KEYS = {
   LOGS: 'career_os_logs'
 };
 
-// Data version migration: if stored courses lack chapter content, reset to rich defaults
+// Data version migration: seamlessly merge initial courses (including enterprise tracks) without erasing user courses
 const migrateCoursesIfNeeded = (): void => {
   try {
     const raw = localStorage.getItem(KEYS.COURSES);
-    if (!raw) return;
+    if (!raw) {
+      localStorage.setItem(KEYS.COURSES, JSON.stringify(initialCourses));
+      return;
+    }
     const stored: Course[] = JSON.parse(raw);
-    // Check if any base course chapter is missing rich content fields
-    const needsMigration = stored.some(c =>
-      ['course-1', 'course-2', 'course-3'].includes(c.id) &&
-      c.chapters.some(ch => !ch.explanation)
-    );
-    if (needsMigration) {
-      // Merge: replace base courses but keep any user-enrolled custom courses
-      const userCourses = stored.filter(c => !['course-1', 'course-2', 'course-3'].includes(c.id));
-      localStorage.setItem(KEYS.COURSES, JSON.stringify([...initialCourses, ...userCourses]));
+    let updated = false;
+    const merged = [...stored];
+    
+    // Ensure all 6 base courses are present and have rich chapter content
+    initialCourses.forEach(initCourse => {
+      const existingIdx = merged.findIndex(c => c.id === initCourse.id || c.title.toLowerCase().trim() === initCourse.title.toLowerCase().trim());
+      if (existingIdx === -1) {
+        merged.push(initCourse);
+        updated = true;
+      } else if (merged[existingIdx].chapters.some(ch => !ch.explanation)) {
+        merged[existingIdx] = initCourse;
+        updated = true;
+      }
+    });
+
+    // Ensure all courses have curated GitHub repos & video build projects
+    merged.forEach(c => {
+      if (!c.githubRepos || c.githubRepos.length === 0) {
+        c.githubRepos = getGithubReposForTopic(c.title);
+        updated = true;
+      }
+      if (!c.videoProjects || c.videoProjects.length === 0) {
+        c.videoProjects = getVideoProjectsForTopic(c.title);
+        updated = true;
+      }
+    });
+
+    if (updated) {
+      localStorage.setItem(KEYS.COURSES, JSON.stringify(merged));
     }
   } catch {
-    // If parse fails, reset completely
     localStorage.setItem(KEYS.COURSES, JSON.stringify(initialCourses));
   }
 };
 
-// Run migration once on module load
+// Task migration: merge initial tasks (including weekly & monthly horizons) without erasing custom tasks
+const migrateTasksIfNeeded = (): void => {
+  try {
+    const raw = localStorage.getItem(KEYS.TASKS);
+    if (!raw) {
+      localStorage.setItem(KEYS.TASKS, JSON.stringify(initialTasks));
+      return;
+    }
+    const stored: Task[] = JSON.parse(raw);
+    let updated = false;
+    const merged = [...stored];
+
+    initialTasks.forEach(initTask => {
+      const exists = merged.some(t => t.id === initTask.id || t.title.toLowerCase().trim() === initTask.title.toLowerCase().trim());
+      if (!exists) {
+        merged.push(initTask);
+        updated = true;
+      }
+    });
+
+    if (updated) {
+      localStorage.setItem(KEYS.TASKS, JSON.stringify(merged));
+    }
+  } catch {
+    localStorage.setItem(KEYS.TASKS, JSON.stringify(initialTasks));
+  }
+};
+
+// Run migrations once on module load
 migrateCoursesIfNeeded();
+migrateTasksIfNeeded();
 
+// Heatmap sanitization: prune any previous active days older than 14 days (last two weeks) and save sanitized profile locally
+const sanitizeProfileHeatmapIfNeeded = (): void => {
+  try {
+    const raw = localStorage.getItem(KEYS.PROFILE);
+    if (!raw) return;
+    const profile: Profile = JSON.parse(raw);
+    if (!profile.heatmapActivity) return;
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayStr = getLocalDateString(today);
+
+    const fourteenDaysAgo = new Date();
+    fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
+    fourteenDaysAgo.setHours(0, 0, 0, 0);
+    const cutoffStr = getLocalDateString(fourteenDaysAgo);
+
+    let changed = false;
+    const cleanedHeatmap: { [dateStr: string]: number } = {};
+    for (const [dateKey, val] of Object.entries(profile.heatmapActivity)) {
+      if (dateKey >= cutoffStr && dateKey <= todayStr && (val || 0) > 0) {
+        cleanedHeatmap[dateKey] = val;
+      } else {
+        changed = true;
+      }
+    }
+
+    if (!cleanedHeatmap[todayStr] || cleanedHeatmap[todayStr] === 0) {
+      cleanedHeatmap[todayStr] = 1;
+      changed = true;
+    }
+
+    if (changed || profile.stats.activeDays !== Object.keys(cleanedHeatmap).length) {
+      profile.heatmapActivity = cleanedHeatmap;
+      const activeDaysList = Object.keys(profile.heatmapActivity).filter(d => (profile.heatmapActivity[d] || 0) > 0);
+      profile.stats.activeDays = activeDaysList.length;
+      profile.stats.streakDays = calculateRealStreak(activeDaysList);
+      localStorage.setItem(KEYS.PROFILE, JSON.stringify(profile));
+    }
+  } catch (e) {
+    // ignore
+  }
+};
 
 // Initializer helper
 const getStored = <T>(key: string, defaults: T): T => {
@@ -73,6 +172,38 @@ export const getLocalDateString = (date = new Date()) => {
   return localDate.toISOString().split('T')[0];
 };
 
+// Run profile heatmap sanitization on load
+sanitizeProfileHeatmapIfNeeded();
+
+export const calculateRealStreak = (activityDays: string[]): number => {
+  if (!activityDays || activityDays.length === 0) return 0;
+  const unique = Array.from(new Set(activityDays)).sort();
+  const todayStr = getLocalDateString(new Date());
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = getLocalDateString(yesterday);
+
+  const hasToday = unique.includes(todayStr);
+  const hasYesterday = unique.includes(yesterdayStr);
+
+  if (!hasToday && !hasYesterday) return 0;
+
+  let streak = 1;
+  const checkDate = hasToday ? new Date() : yesterday;
+  checkDate.setHours(0, 0, 0, 0);
+
+  while (true) {
+    checkDate.setDate(checkDate.getDate() - 1);
+    const checkStr = getLocalDateString(checkDate);
+    if (unique.includes(checkStr)) {
+      streak++;
+    } else {
+      break;
+    }
+  }
+  return streak;
+};
+
 export const stateManager = {
   // State getters
   getProfile: (): Profile => {
@@ -85,40 +216,151 @@ export const stateManager = {
       profile.heatmapActivity = {};
     }
 
-    let updated = false;
-    if (profile.heatmapActivity[todayStr] === undefined || profile.heatmapActivity[todayStr] === 0) {
-      profile.heatmapActivity[todayStr] = 1;
-      updated = true;
-    }
+    // Strict 2-week window (last 14 days): remove all previous active days older than 14 days
+    const fourteenDaysAgo = new Date();
+    fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
+    fourteenDaysAgo.setHours(0, 0, 0, 0);
+    const cutoffStr = getLocalDateString(fourteenDaysAgo);
 
-    // Fill all days in 2026 before today's date
-    const checkDate = new Date(2026, 0, 1, 12, 0, 0); // Start at Jan 1, 2026 (noon to avoid DST issues)
-    const todayTime = today.getTime();
-
-    while (checkDate.getTime() < todayTime) {
-      const dateStr = getLocalDateString(checkDate);
-      if (!profile.heatmapActivity[dateStr] || profile.heatmapActivity[dateStr] === 0) {
-        const rand = Math.random();
-        let score = 1;
-        if (rand > 0.75) score = 4;
-        else if (rand > 0.50) score = 3;
-        else if (rand > 0.25) score = 2;
-        profile.heatmapActivity[dateStr] = score;
-        updated = true;
+    const cleanedHeatmap: { [dateStr: string]: number } = {};
+    for (const [dateKey, val] of Object.entries(profile.heatmapActivity)) {
+      if (dateKey >= cutoffStr && dateKey <= todayStr && typeof val === 'number' && val > 0) {
+        cleanedHeatmap[dateKey] = val;
       }
-      checkDate.setDate(checkDate.getDate() + 1);
     }
 
-    if (updated) {
-      setStored(KEYS.PROFILE, profile);
+    // Mark today as visited with at least 1 unit if not present
+    if (!cleanedHeatmap[todayStr] || cleanedHeatmap[todayStr] === 0) {
+      cleanedHeatmap[todayStr] = 1;
     }
 
+    profile.heatmapActivity = cleanedHeatmap;
+
+    // Accurate real active days calculation (only last 2 weeks active days)
+    const activeDaysList = Object.keys(profile.heatmapActivity).filter(d => (profile.heatmapActivity[d] || 0) > 0);
+    profile.stats.activeDays = activeDaysList.length;
+    profile.stats.streakDays = calculateRealStreak(activeDaysList);
+
+    // Sync live counters with active stored collections
+    try {
+      const liveCourses = getStored<Course[]>(KEYS.COURSES, initialCourses);
+      const liveGoals = getStored<Goal[]>(KEYS.GOALS, initialGoals);
+      const liveBadges = getStored<Badge[]>(KEYS.BADGES, initialBadges);
+
+      profile.stats.coursesEnrolled = liveCourses.filter(c => !c.wishlist && c.courseStatus !== 'wishlist').length;
+      profile.stats.coursesCompleted = liveCourses.filter(c => c.progress === 100).length;
+      profile.stats.goalsCompleted = liveGoals.filter(g => g.status === 'Completed').length;
+      profile.stats.badgesEarned = liveBadges.filter(b => b.unlocked).length;
+    } catch {}
+
+    setStored(KEYS.PROFILE, profile);
     return profile;
   },
   getTasks: (): Task[] => getStored(KEYS.TASKS, initialTasks),
-  getGoals: (): Goal[] => getStored(KEYS.GOALS, initialGoals),
+  getGoals: (): Goal[] => {
+    let goals = getStored<Goal[]>(KEYS.GOALS, initialGoals);
+    const courses = getStored<Course[]>(KEYS.COURSES, initialCourses);
+    let goalsUpdated = false;
+
+    // Auto-sync: Ensure every enrolled active course (not wishlist) has a corresponding goal
+    courses.filter(c => !c.wishlist && c.courseStatus !== 'wishlist').forEach(course => {
+      const cTitle = course.title.toLowerCase().trim();
+      const hasGoal = goals.some(g => 
+        g.title.toLowerCase().trim() === cTitle ||
+        g.title.toLowerCase().includes(cTitle) ||
+        cTitle.includes(g.title.toLowerCase().trim()) ||
+        g.id === `goal-${course.id}`
+      );
+
+      if (!hasGoal) {
+        goals.push({
+          id: `goal-${course.id}`,
+          title: course.title,
+          description: course.description || `Targeted curriculum for building master level competency in ${course.title}.`,
+          difficulty: course.difficulty,
+          currentLevel: course.difficulty === 'Advanced' ? 'Intermediate' : 'Beginner',
+          targetLevel: course.difficulty,
+          deadlineDays: 45,
+          progress: course.progress || 0,
+          streak: 1,
+          status: 'On Track',
+          category: course.provider || 'Computer Science',
+          expectedOutcome: `Master all chapters and complete capstone verification in ${course.title}.`,
+          studyTimePreference: course.estimatedTime || '1 hour/day',
+          learningStylePreference: 'Mixed',
+          createdAt: new Date().toISOString().split('T')[0]
+        });
+        goalsUpdated = true;
+      }
+    });
+
+    if (goalsUpdated) {
+      setStored(KEYS.GOALS, goals);
+    }
+    return goals;
+  },
   getRoadmap: (): RoadmapNode[] => getStored(KEYS.ROADMAP, initialRoadmap),
-  getCourses: (): Course[] => getStored(KEYS.COURSES, initialCourses),
+  getCourses: (): Course[] => {
+    let courses = getStored<Course[]>(KEYS.COURSES, initialCourses);
+    const goals = getStored<Goal[]>(KEYS.GOALS, initialGoals);
+
+    // Thorough migration & guarantee: Ensure EVERY course has complete GitHub repos, video projects, and rich chapter metadata
+    let coursesUpdated = false;
+    courses.forEach(c => {
+      if (!c.githubRepos || c.githubRepos.length === 0) {
+        c.githubRepos = getGithubReposForTopic(c.title);
+        coursesUpdated = true;
+      }
+      if (!c.videoProjects || c.videoProjects.length === 0) {
+        c.videoProjects = getVideoProjectsForTopic(c.title);
+        coursesUpdated = true;
+      }
+      if (c.chapters && c.chapters.length > 0) {
+        c.chapters.forEach((ch, idx) => {
+          if (!ch.explanation) {
+            ch.explanation = `Comprehensive mathematical and architectural foundations governing ${ch.title}.`;
+            coursesUpdated = true;
+          }
+          if (!ch.analogy) {
+            ch.analogy = `Think of ${ch.title} as a specialized cognitive routing mechanism that prioritizes high-entropy contextual patterns.`;
+            coursesUpdated = true;
+          }
+          if (!ch.keyTerminology || ch.keyTerminology.length === 0) {
+            ch.keyTerminology = ['Architecture', 'Optimization', 'Inference', 'Production'];
+            coursesUpdated = true;
+          }
+          if (!ch.practiceTask) {
+            ch.practiceTask = `Implement a production PyTorch module for ${ch.title} and verify latency benchmarks.`;
+            coursesUpdated = true;
+          }
+          if (!ch.quizQuestion) {
+            ch.quizQuestion = {
+              question: `What is the primary architectural objective of ${ch.title}?`,
+              options: [
+                "It restricts contextual representation to unidirectional paths.",
+                "It facilitates parallel contextual representation learning across deep tokens.",
+                "It eliminates the need for activation functions during training.",
+                "It strictly isolates gradient updates to single layers."
+              ],
+              answerIdx: 1,
+              explanation: `Modular designs and self-attention in ${ch.title} enable parallel computation with high contextual precision.`
+            };
+            coursesUpdated = true;
+          }
+          if (!ch.videoUrl) {
+            ch.videoUrl = getLecturePairForTopic(c.title).indian.videoId || 'aircAruvnKk';
+            coursesUpdated = true;
+          }
+        });
+      }
+    });
+
+    if (coursesUpdated) {
+      setStored(KEYS.COURSES, courses);
+    }
+
+    return courses;
+  },
   getResources: (): Resource[] => getStored(KEYS.RESOURCES, initialResources),
   getBadges: (): Badge[] => getStored(KEYS.BADGES, initialBadges),
   getAgentLogs: (): AgentLog[] => getStored(KEYS.LOGS, initialAgentLogs),
@@ -128,16 +370,54 @@ export const stateManager = {
   saveTasks: (t: Task[]) => setStored(KEYS.TASKS, t),
   saveGoals: (g: Goal[]) => setStored(KEYS.GOALS, g),
   saveRoadmap: (r: RoadmapNode[]) => setStored(KEYS.ROADMAP, r),
-  saveCourses: (c: Course[]) => setStored(KEYS.COURSES, c),
+  saveCourses: (c: Course[]) => {
+    setStored(KEYS.COURSES, c);
+    // Notify all listeners that courses have changed
+    window.dispatchEvent(new CustomEvent('courses-updated'));
+  },
   saveResources: (r: Resource[]) => setStored(KEYS.RESOURCES, r),
   saveBadges: (b: Badge[]) => setStored(KEYS.BADGES, b),
   saveAgentLogs: (l: AgentLog[]) => setStored(KEYS.LOGS, l),
+
+  /**
+   * Records real daily activity and increments XP and heatmap
+   */
+  logActivity: (points: number = 1) => {
+    const profile = stateManager.getProfile();
+    const todayStr = getLocalDateString(new Date());
+    if (!profile.heatmapActivity) profile.heatmapActivity = {};
+    profile.heatmapActivity[todayStr] = (profile.heatmapActivity[todayStr] || 0) + points;
+
+    // Prune days older than last 2 weeks (14 days)
+    const fourteenDaysAgo = new Date();
+    fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
+    fourteenDaysAgo.setHours(0, 0, 0, 0);
+    const cutoffStr = getLocalDateString(fourteenDaysAgo);
+
+    for (const d of Object.keys(profile.heatmapActivity)) {
+      if (d < cutoffStr || d > todayStr) {
+        delete profile.heatmapActivity[d];
+      }
+    }
+
+    const activeDaysList = Object.keys(profile.heatmapActivity).filter(d => (profile.heatmapActivity[d] || 0) > 0);
+    profile.stats.activeDays = activeDaysList.length;
+    profile.stats.streakDays = calculateRealStreak(activeDaysList);
+    profile.stats.xp = (profile.stats.xp || 0) + points * 10;
+
+    // Check streak-related badges
+    stateManager.checkStreakBadges();
+
+    setStored(KEYS.PROFILE, profile);
+    window.dispatchEvent(new CustomEvent('heatmap-updated'));
+    window.dispatchEvent(new CustomEvent('profile-updated'));
+  },
 
   // Business Logic Methods
   addTask: (title: string, category: 'work' | 'learning', priority: 'low' | 'medium' | 'high', estimatedTime: number, timeOfDay?: string): Task => {
     const tasks = stateManager.getTasks();
     const newTask: Task = {
-      id: `task-${Date.now()}`,
+      id: `task-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
       title,
       source: 'custom',
       estimatedTime,
@@ -210,20 +490,196 @@ export const stateManager = {
     return resources;
   },
 
-  logActivity: (points: number, dateStr?: string): Profile => {
+  /** 
+   * Permanently removes a course everywhere across the platform:
+   * - Courses collection & active ID
+   * - Linked roadmap nodes (by courseId and title matching)
+   * - Linked goals (by title/category matching)
+   * - Linked daily tasks (by course title matching)
+   * - Associated profile skills if no remaining courses use that skill
+   * - Recalculates all profile stats
+   * - Dispatches events to update all UI views reactively
+   */
+  removeCourse: (id: string): Course[] => {
+    const allCourses = stateManager.getCourses();
+    const courseToRemove = allCourses.find(c => c.id === id);
+    const updatedCourses = allCourses.filter(c => c.id !== id);
+    stateManager.saveCourses(updatedCourses);
+
+    const targetTitle = courseToRemove ? courseToRemove.title.toLowerCase().trim() : '';
+
+    // 1. Remove matching roadmap nodes
+    const roadmap = stateManager.getRoadmap();
+    const updatedRoadmap = roadmap.filter(node => {
+      if (node.id.includes(id)) return false;
+      if (targetTitle && node.title.toLowerCase().includes(targetTitle)) return false;
+      return true;
+    });
+    stateManager.saveRoadmap(updatedRoadmap);
+
+    // 2. Remove matching goals
+    const goals = stateManager.getGoals();
+    const updatedGoals = goals.filter(g => {
+      if (g.id.includes(id)) return false;
+      const gTitle = g.title.toLowerCase().trim();
+      const gCat = (g.category || '').toLowerCase().trim();
+      if (targetTitle && (gTitle === targetTitle || gTitle.includes(targetTitle) || targetTitle.includes(gTitle) || gCat === targetTitle)) {
+        return false;
+      }
+      return true;
+    });
+    stateManager.saveGoals(updatedGoals);
+
+    // 3. Remove matching tasks
+    const tasks = stateManager.getTasks();
+    const updatedTasks = tasks.filter(t => {
+      if (targetTitle && t.title.toLowerCase().includes(targetTitle)) return false;
+      return true;
+    });
+    stateManager.saveTasks(updatedTasks);
+
+    // 4. Update Profile Skills & Stats
     const profile = stateManager.getProfile();
-    const today = dateStr || getLocalDateString();
-    if (!profile.heatmapActivity) {
-      profile.heatmapActivity = {};
+    if (courseToRemove && profile.skills) {
+      const skillInfo = getSkillNameForTopic(courseToRemove.title);
+      // Check if any other remaining course or goal uses this skill
+      const otherCoursesUseSkill = updatedCourses.some(c => 
+        c.title.toLowerCase().includes(skillInfo.name.toLowerCase()) ||
+        skillInfo.name.toLowerCase().includes(c.title.toLowerCase())
+      );
+      const otherGoalsUseSkill = updatedGoals.some(g => 
+        g.title.toLowerCase().includes(skillInfo.name.toLowerCase()) ||
+        skillInfo.name.toLowerCase().includes(g.title.toLowerCase())
+      );
+
+      if (!otherCoursesUseSkill && !otherGoalsUseSkill) {
+        profile.skills = profile.skills.filter(s => s.name.toLowerCase() !== skillInfo.name.toLowerCase());
+      }
     }
-    const currentScore = profile.heatmapActivity[today] || 0;
-    profile.heatmapActivity[today] = Math.min(10, currentScore + points);
+
+    // Recalculate stats
+    profile.stats.coursesEnrolled = updatedCourses.filter(c => !c.wishlist && c.courseStatus !== 'wishlist').length;
+    profile.stats.coursesCompleted = updatedCourses.filter(c => c.progress === 100).length;
+    profile.stats.goalsCompleted = updatedGoals.filter(g => g.status === 'Completed').length;
     stateManager.saveProfile(profile);
-    
-    // Auto-check for newly achieved streaks/badges
-    stateManager.checkStreakBadges();
-    
-    return stateManager.getProfile();
+
+    // 5. Clean active course ID in localStorage
+    const activeStoredId = localStorage.getItem('career_os_active_course_id');
+    if (activeStoredId === id) {
+      const fallbackCourse = updatedCourses.find(c => !c.wishlist) || updatedCourses[0];
+      if (fallbackCourse) {
+        localStorage.setItem('career_os_active_course_id', fallbackCourse.id);
+      } else {
+        localStorage.removeItem('career_os_active_course_id');
+      }
+    }
+
+    // 6. Log Agent activity
+    stateManager.addLog({
+      timestamp: new Date().toLocaleTimeString(),
+      agent: 'Roadmap Agent',
+      action: 'remove_course_cascade',
+      status: 'success',
+      message: `Permanently purged "${courseToRemove?.title || id}" and unlinked all associated roadmap nodes, study goals, daily tasks, and profile skills.`,
+      reasoning: 'Executed full cascading removal across all platform sub-modules.'
+    });
+
+    // 7. Dispatch events
+    window.dispatchEvent(new CustomEvent('courses-updated'));
+    window.dispatchEvent(new CustomEvent('roadmap-updated'));
+    window.dispatchEvent(new CustomEvent('goals-updated'));
+    window.dispatchEvent(new CustomEvent('tasks-updated'));
+    window.dispatchEvent(new CustomEvent('profile-updated'));
+    window.dispatchEvent(new CustomEvent('course-deleted', { detail: { courseId: id } }));
+
+    showToast(`Course "${courseToRemove?.title || id}" removed everywhere.`, 'error');
+
+    return updatedCourses;
+  },
+
+  /**
+   * Permanently removes a Goal and executes full cascading removal of
+   * corresponding course, roadmap nodes, daily tasks, and profile skills.
+   */
+  removeGoal: (goalId: string): Goal[] => {
+    const goals = stateManager.getGoals();
+    const goalToRemove = goals.find(g => g.id === goalId);
+    const updatedGoals = goals.filter(g => g.id !== goalId);
+    stateManager.saveGoals(updatedGoals);
+
+    if (goalToRemove) {
+      const gTitle = goalToRemove.title.toLowerCase().trim();
+      const courses = stateManager.getCourses();
+      const matchingCourse = courses.find(c => 
+        c.id === goalId ||
+        c.id === `course-sync-${goalId}` ||
+        c.id === goalId.replace('goal-', '') ||
+        c.title.toLowerCase().trim() === gTitle ||
+        c.title.toLowerCase().includes(gTitle) ||
+        gTitle.includes(c.title.toLowerCase().trim())
+      );
+
+      if (matchingCourse) {
+        stateManager.removeCourse(matchingCourse.id);
+      } else {
+        // Remove matching roadmap nodes
+        const roadmap = stateManager.getRoadmap().filter(n => !n.id.includes(goalId) && (!gTitle || !n.title.toLowerCase().includes(gTitle)));
+        stateManager.saveRoadmap(roadmap);
+
+        // Remove tasks
+        const tasks = stateManager.getTasks().filter(t => !gTitle || !t.title.toLowerCase().includes(gTitle));
+        stateManager.saveTasks(tasks);
+
+        window.dispatchEvent(new CustomEvent('goals-updated'));
+        window.dispatchEvent(new CustomEvent('roadmap-updated'));
+        window.dispatchEvent(new CustomEvent('tasks-updated'));
+        window.dispatchEvent(new CustomEvent('profile-updated'));
+        window.dispatchEvent(new CustomEvent('goal-deleted', { detail: { goalId } }));
+
+        showToast(`Goal "${goalToRemove.title}" removed everywhere.`, 'error');
+      }
+    }
+    return updatedGoals;
+  },
+
+  /** Moves a course to the Wishlist (saves for later, not actively studying) */
+  addCourseToWishlist: (id: string): Course[] => {
+    const courses = stateManager.getCourses();
+    const idx = courses.findIndex(c => c.id === id);
+    if (idx !== -1) {
+      courses[idx] = { ...courses[idx], courseStatus: 'wishlist', wishlist: true };
+      stateManager.saveCourses(courses);
+      showToast(`Saved "${courses[idx].title}" to Wishlist`, 'info');
+      stateManager.addLog({
+        timestamp: new Date().toLocaleTimeString(),
+        agent: 'Roadmap Agent',
+        action: 'wishlist_course',
+        status: 'success',
+        message: `Course "${courses[idx].title}" saved to Wishlist.`,
+        reasoning: 'User deferred course for future study.'
+      });
+    }
+    return stateManager.getCourses();
+  },
+
+  /** Moves a wishlisted course back to Active status */
+  moveCourseToActive: (id: string): Course[] => {
+    const courses = stateManager.getCourses();
+    const idx = courses.findIndex(c => c.id === id);
+    if (idx !== -1) {
+      courses[idx] = { ...courses[idx], courseStatus: 'active', wishlist: false };
+      stateManager.saveCourses(courses);
+      showToast(`Moved "${courses[idx].title}" to Active Track!`, 'success');
+      stateManager.addLog({
+        timestamp: new Date().toLocaleTimeString(),
+        agent: 'Roadmap Agent',
+        action: 'activate_course',
+        status: 'success',
+        message: `Course "${courses[idx].title}" activated in curriculum.`,
+        reasoning: 'User resumed active learning.'
+      });
+    }
+    return stateManager.getCourses();
   },
 
   addLog: (log: AgentLog): void => {
@@ -445,7 +901,7 @@ export const stateManager = {
     const createdGoal: Goal = {
       id: `goal-${Date.now()}`,
       title,
-      description: `Syllabus targeted for master level expertise in ${title}.`,
+      description: `Targeted curriculum for building master level competency in ${title}.`,
       difficulty,
       currentLevel: difficulty === 'Advanced' ? 'Intermediate' : 'Beginner',
       targetLevel: difficulty,
@@ -463,45 +919,188 @@ export const stateManager = {
     goals.push(createdGoal);
     stateManager.saveGoals(goals);
 
-    // Save corresponding roadmap node updates
-    const roadmap = stateManager.getRoadmap();
-    const newNodeId = `node-${Date.now()}`;
-    const newRoadmapNode: RoadmapNode = {
-      id: newNodeId,
-      title: `Mastery capstone for ${title}`,
-      phase: 'APPLICATIONS',
-      status: 'current',
-      difficulty,
-      estimatedTime: '24 hours',
-      prerequisites: ['node-5'],
-      completionPercent: 0
-    };
-    roadmap.push(newRoadmapNode);
-    stateManager.saveRoadmap(roadmap);
-
-    // Save new course matching the goal
+    // Generate complete rich course package (4 tailored chapters, video lectures, test assessments, terminology)
+    const newCourse = generateCustomCourse(title, difficulty, expectedOutcome, studyTime);
     const courses = stateManager.getCourses();
-    const newCourse: Course = {
-      id: `course-${Date.now()}`,
-      title: `${title} Masterclass (Personalized AI Plan)`,
-      thumbnail: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&auto=format&fit=crop&q=80",
-      difficulty,
-      progress: 0,
-      totalLessons: 15,
-      completedLessons: 0,
-      totalQuizzes: 3,
-      completedQuizzes: 0,
-      estimatedTime: '15h total',
-      currentChapter: 'Core Concepts and Pre-requisites',
-      chapters: [
-        { id: `ch-${Date.now()}-1`, title: `Foundations of ${title}`, status: 'current' },
-        { id: `ch-${Date.now()}-2`, title: `Advanced Architectures in ${title}`, status: 'locked' },
-        { id: `ch-${Date.now()}-3`, title: `Hands-on Coding & Capstone Lab`, status: 'locked' }
-      ]
-    };
     courses.push(newCourse);
     stateManager.saveCourses(courses);
 
+    // Generate and save matching roadmap nodes for this course
+    const courseRoadmapNodes = generateRoadmapNodesForCourse(newCourse);
+    const existingRoadmap = stateManager.getRoadmap();
+    // Add unique nodes to global roadmap
+    const updatedRoadmap = [...existingRoadmap];
+    courseRoadmapNodes.forEach(node => {
+      if (!updatedRoadmap.some(r => r.id === node.id)) {
+        updatedRoadmap.push(node);
+      }
+    });
+    stateManager.saveRoadmap(updatedRoadmap);
+
+    // Register or boost the associated skill in the user's Profile & Skills Matrix
+    const skillInfo = getSkillNameForTopic(title);
+    const profile = stateManager.getProfile();
+    if (!profile.skills) profile.skills = [];
+    
+    const existingSkillIdx = profile.skills.findIndex(
+      s => s.name.toLowerCase() === skillInfo.name.toLowerCase() ||
+           s.name.toLowerCase().includes(title.toLowerCase()) ||
+           title.toLowerCase().includes(s.name.toLowerCase())
+    );
+
+    const initialLevel = difficulty === 'Advanced' ? 55 : difficulty === 'Intermediate' ? 42 : 30;
+    if (existingSkillIdx !== -1) {
+      profile.skills[existingSkillIdx].level = Math.max(profile.skills[existingSkillIdx].level, initialLevel);
+    } else {
+      profile.skills.push({
+        name: skillInfo.name,
+        level: initialLevel
+      });
+    }
+    stateManager.saveProfile(profile);
+
+    // Save active course ID in localStorage for deep linking
+    try {
+      localStorage.setItem('career_os_active_course_id', newCourse.id);
+    } catch {}
+
+    // Dispatch system events
+    window.dispatchEvent(new CustomEvent('profile-updated'));
+    window.dispatchEvent(new CustomEvent('roadmap-updated'));
+    window.dispatchEvent(new CustomEvent('goals-updated'));
+    window.dispatchEvent(new CustomEvent('course-selected', { detail: { courseId: newCourse.id } }));
+
+    // Run verification agent in background
+    setTimeout(() => {
+      verificationAgent.auditCourse(newCourse, true);
+    }, 400);
+
+    showToast(`🎯 Goal & Course created with tailored roadmap!`, 'success');
+
     return createdGoal;
+  },
+
+  /**
+   * Registers a course with full syllabus, video playlists, roadmap nodes, and updates skills in profile
+   */
+  addCourseWithRoadmap: (course: Course): Course => {
+    const courses = stateManager.getCourses();
+    const existingIdx = courses.findIndex(c => c.id === course.id);
+    if (existingIdx !== -1) {
+      courses[existingIdx] = { ...courses[existingIdx], ...course, courseStatus: 'active', wishlist: false };
+    } else {
+      courses.push(course);
+    }
+    stateManager.saveCourses(courses);
+
+    // 1. Atomically sync/create the corresponding Goal in career_os_goals
+    const goals = stateManager.getGoals();
+    const existingGoalIdx = goals.findIndex(g => 
+      g.title.toLowerCase().trim() === course.title.toLowerCase().trim() ||
+      g.id === `goal-${course.id}`
+    );
+    if (existingGoalIdx !== -1) {
+      goals[existingGoalIdx] = {
+        ...goals[existingGoalIdx],
+        title: course.title,
+        status: 'On Track',
+        difficulty: course.difficulty,
+        progress: course.progress || 0
+      };
+    } else {
+      goals.push({
+        id: `goal-${course.id}`,
+        title: course.title,
+        description: course.description || `Targeted curriculum for building master level competency in ${course.title}.`,
+        difficulty: course.difficulty,
+        currentLevel: course.difficulty === 'Advanced' ? 'Intermediate' : 'Beginner',
+        targetLevel: course.difficulty,
+        deadlineDays: 45,
+        progress: course.progress || 0,
+        streak: 1,
+        status: 'On Track',
+        category: course.provider || 'Computer Science',
+        expectedOutcome: `Master all chapters and complete capstone verification in ${course.title}.`,
+        studyTimePreference: course.estimatedTime || '1 hour/day',
+        learningStylePreference: 'Mixed',
+        createdAt: new Date().toISOString().split('T')[0]
+      });
+    }
+    stateManager.saveGoals(goals);
+
+    // 2. Sync roadmap nodes
+    const courseNodes = generateRoadmapNodesForCourse(course);
+    const roadmap = stateManager.getRoadmap();
+    courseNodes.forEach(node => {
+      if (!roadmap.some(r => r.id === node.id)) {
+        roadmap.push(node);
+      }
+    });
+    stateManager.saveRoadmap(roadmap);
+
+    // 3. Sync skill into profile
+    const skillInfo = getSkillNameForTopic(course.title);
+    const profile = stateManager.getProfile();
+    if (!profile.skills) profile.skills = [];
+    if (!profile.skills.some(s => s.name.toLowerCase() === skillInfo.name.toLowerCase())) {
+      profile.skills.push({
+        name: skillInfo.name,
+        level: course.difficulty === 'Advanced' ? 55 : course.difficulty === 'Intermediate' ? 42 : 30
+      });
+      stateManager.saveProfile(profile);
+      window.dispatchEvent(new CustomEvent('profile-updated'));
+    }
+
+    try {
+      localStorage.setItem('career_os_active_course_id', course.id);
+    } catch {}
+
+    window.dispatchEvent(new CustomEvent('roadmap-updated'));
+    window.dispatchEvent(new CustomEvent('goals-updated'));
+    window.dispatchEvent(new CustomEvent('courses-updated'));
+    window.dispatchEvent(new CustomEvent('course-selected', { detail: { courseId: course.id } }));
+    
+    // Run verification agent in background
+    setTimeout(() => {
+      verificationAgent.auditCourse(course, true);
+    }, 400);
+
+    showToast(`📚 Course "${course.title}" enrolled & synced to Goals!`, 'success');
+    return course;
+  },
+
+  // ── Quiz & Badge Awarding ───────────────────────────────────────────────────
+  awardQuizBadge: (badgeType: 'master' | 'proficient' | 'learner', topic: string, score: number, total: number) => {
+    const badges = stateManager.getBadges();
+    let targetBadgeId = 'badge-quiz-bronze';
+    if (badgeType === 'master') targetBadgeId = 'badge-quiz-gold';
+    else if (badgeType === 'proficient') targetBadgeId = 'badge-quiz-silver';
+
+    let badgeUpdated = false;
+    const badgeIndex = badges.findIndex(b => b.id === targetBadgeId);
+    if (badgeIndex !== -1 && !badges[badgeIndex].unlocked) {
+      badges[badgeIndex] = {
+        ...badges[badgeIndex],
+        unlocked: true,
+        unlockedAt: new Date().toISOString()
+      };
+      badgeUpdated = true;
+      stateManager.saveBadges(badges);
+      showToast(`🏆 Badge Unlocked: ${badges[badgeIndex].title}!`, 'badge');
+    }
+
+    // Log XP & Activity
+    const xpPoints = badgeType === 'master' ? 4 : badgeType === 'proficient' ? 3 : 2;
+    stateManager.logActivity(xpPoints);
+
+    stateManager.addLog({
+      timestamp: new Date().toLocaleTimeString(),
+      agent: 'Assessment Agent',
+      action: 'award_badge',
+      status: 'success',
+      message: `Awarded ${targetBadgeId.toUpperCase()} for ${topic} assessment (${score}/${total}).`,
+      reasoning: `Student demonstrated ${Math.round((score / total) * 100)}% accuracy in diagnostic evaluation.`
+    });
   }
 };
+

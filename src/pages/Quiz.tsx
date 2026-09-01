@@ -1,118 +1,489 @@
 import React, { useState, useEffect } from 'react';
-import { Brain, ArrowRight, CheckCircle2, XCircle, AlertCircle, RefreshCw } from 'lucide-react';
+import { 
+  Brain, ArrowRight, CheckCircle2, XCircle, AlertCircle, RefreshCw, 
+  Sparkles, Award, Lightbulb, HelpCircle, BookOpen, Layers, Trophy, 
+  ChevronDown, ChevronUp, Flame, Check, X, ShieldAlert, ArrowLeft
+} from 'lucide-react';
 import { stateManager } from '../services/stateManager';
 import { assessmentMcp, QuizQuestion } from '../services/mcp/assessmentMcp';
+import { Course } from '../data/mockData';
+
+interface UserAnswerRecord {
+  question: QuizQuestion;
+  selectedIdx: number;
+  isCorrect: boolean;
+}
 
 export const Quiz: React.FC = () => {
+  // Screen mode: 'setup' | 'quiz' | 'results'
+  const [screen, setScreen] = useState<'setup' | 'quiz' | 'results'>('setup');
+
+  // Setup options
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [topicSource, setTopicSource] = useState<'custom' | 'course'>('custom');
+  const [selectedCourseId, setSelectedCourseId] = useState<string>('');
+  const [customTopic, setCustomTopic] = useState<string>('Cloud Computing');
+  const [difficulty, setDifficulty] = useState<'Easy' | 'Medium' | 'Hard'>('Medium');
+  const [questionCount, setQuestionCount] = useState<number>(5);
+  const [allowHints, setAllowHints] = useState<boolean>(true);
+
+  // Active quiz states
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedOpt, setSelectedOpt] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [showHint, setShowHint] = useState(false);
   const [score, setScore] = useState(0);
-  const [quizFinished, setQuizFinished] = useState(false);
+  const [userAnswers, setUserAnswers] = useState<UserAnswerRecord[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Results state
+  const [awardedBadge, setAwardedBadge] = useState<string | null>(null);
+  const [showReviewList, setShowReviewList] = useState(true);
 
   useEffect(() => {
-    assessmentMcp.create_quiz('Attention Mechanics').then(data => {
-      setQuestions(data);
-    });
+    const loadedCourses = stateManager.getCourses();
+    setCourses(loadedCourses);
+    if (loadedCourses.length > 0) {
+      setSelectedCourseId(loadedCourses[0].id);
+    }
   }, []);
+
+  const popularTopics = [
+    'Cloud Computing', 'Machine Learning', 'Python', 'Transformers',
+    'Data Structures', 'SQL', 'Cybersecurity', 'Docker', 'Kubernetes', 'System Design'
+  ];
+
+  const handleStartQuiz = async () => {
+    setIsLoading(true);
+    let activeTopic = customTopic.trim() || 'Software Engineering';
+
+    if (topicSource === 'course') {
+      const found = courses.find(c => c.id === selectedCourseId);
+      if (found) {
+        activeTopic = found.title;
+      }
+    }
+
+    try {
+      const generatedQuestions = await assessmentMcp.create_quiz(activeTopic, difficulty, questionCount);
+      setQuestions(generatedQuestions);
+      setCurrentIdx(0);
+      setSelectedOpt(null);
+      setIsAnswered(false);
+      setShowHint(false);
+      setScore(0);
+      setUserAnswers([]);
+      setAwardedBadge(null);
+      setScreen('quiz');
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleOptionSelect = (idx: number) => {
     if (isAnswered) return;
     setSelectedOpt(idx);
   };
 
-  const handleSubmit = () => {
-    if (selectedOpt === null || isAnswered) return;
-    
-    const correct = selectedOpt === questions[currentIdx].correctIndex;
+  const handleSubmitAnswer = () => {
+    if (selectedOpt === null || isAnswered || !questions[currentIdx]) return;
+
+    const currentQ = questions[currentIdx];
+    const correct = selectedOpt === currentQ.correctIndex;
     setIsCorrect(correct);
     setIsAnswered(true);
+
     if (correct) {
       setScore(prev => prev + 1);
     }
+
+    setUserAnswers(prev => [
+      ...prev,
+      {
+        question: currentQ,
+        selectedIdx: selectedOpt,
+        isCorrect: correct
+      }
+    ]);
   };
 
-  const handleNext = () => {
+  const handleNextQuestion = () => {
     if (currentIdx < questions.length - 1) {
-      setCurrentIdx(currentIdx + 1);
+      setCurrentIdx(prev => prev + 1);
       setSelectedOpt(null);
       setIsAnswered(false);
+      setShowHint(false);
     } else {
       finishQuiz();
     }
   };
 
   const finishQuiz = () => {
-    setQuizFinished(true);
+    const finalScore = score + (isCorrect ? 0 : 0); // already updated
+    const totalQ = questions.length;
+    const accuracy = Math.round((finalScore / totalQ) * 100);
+
+    // Determine and save badge
+    let badgeType: 'master' | 'proficient' | 'learner' | 'retry' = 'retry';
+    if (accuracy >= 90) badgeType = 'master';
+    else if (accuracy >= 70) badgeType = 'proficient';
+    else if (accuracy >= 50) badgeType = 'learner';
+
+    const activeTopic = topicSource === 'course' 
+      ? courses.find(c => c.id === selectedCourseId)?.title || customTopic 
+      : customTopic;
+
+    if (badgeType !== 'retry') {
+      stateManager.awardQuizBadge(badgeType, activeTopic, finalScore, totalQ);
+      setAwardedBadge(badgeType);
+    }
+
+    // Update profile stats
     const profile = stateManager.getProfile();
-    profile.stats.quizzesCompleted += 1;
+    profile.stats.quizzesCompleted = (profile.stats.quizzesCompleted || 0) + 1;
     stateManager.saveProfile(profile);
 
-    stateManager.addLog({
-      timestamp: new Date().toLocaleTimeString(),
-      agent: 'Assessment Agent',
-      action: 'complete_quiz',
-      status: score >= 2 ? 'success' : 'warning',
-      message: `Completed assessment run. Score: ${score}/${questions.length} (${Math.round((score / questions.length) * 100)}% accuracy).`,
-      reasoning: score >= 2 
-        ? 'Prerequisites verified. Active nodes open.'
-        : 'Diagnostic warning triggered: Review Positional Fourier wave files.',
-      tool: 'assessmentMcp.save_quiz_result()'
-    });
+    setScreen('results');
   };
 
-  const handleRestart = () => {
+  const handleResetToSetup = () => {
+    setScreen('setup');
+    setQuestions([]);
     setCurrentIdx(0);
     setSelectedOpt(null);
     setIsAnswered(false);
+    setShowHint(false);
     setScore(0);
-    setQuizFinished(false);
+    setUserAnswers([]);
   };
 
-  if (questions.length === 0) {
-    return <div className="text-center text-xs text-slate-500 py-10 italic">Initializing quiz metrics...</div>;
+  // ─── 1. SETUP SCREEN ────────────────────────────────────────────────────────
+  if (screen === 'setup') {
+    return (
+      <div className="max-w-3xl mx-auto py-6 flex flex-col gap-6">
+        
+        {/* Header */}
+        <div className="border-b border-slate-900 pb-5">
+          <div className="flex items-center gap-2 text-indigo-400 font-mono text-[9px] font-bold uppercase tracking-widest">
+            <Brain size={14} />
+            <span>Interactive Diagnostic Engine</span>
+          </div>
+          <h2 className="text-xl font-bold font-display text-white mt-1">AI Test Assessments & Skill Verification</h2>
+          <p className="text-xs text-slate-400 mt-1">
+            Configure topic, question count, difficulty, and hints. Earn verifiable achievement badges based on score.
+          </p>
+        </div>
+
+        {/* Configuration Card */}
+        <div className="glass-panel p-6 bg-[#0c0d16] border border-brand-border rounded-2xl flex flex-col gap-6">
+          
+          {/* Section 1: Topic Selection Source */}
+          <div className="flex flex-col gap-3">
+            <label className="text-xs font-bold font-display text-white uppercase tracking-wider flex items-center gap-1.5">
+              <span>1. Choose Assessment Subject</span>
+            </label>
+
+            <div className="grid grid-cols-2 gap-3 p-1 bg-slate-950 rounded-xl border border-slate-900">
+              <button
+                type="button"
+                onClick={() => setTopicSource('custom')}
+                className={`py-2 px-3 rounded-lg text-xs font-bold font-display transition-all ${
+                  topicSource === 'custom'
+                    ? 'bg-indigo-600 text-white shadow-md'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                ✍️ Write Topic / Subject
+              </button>
+              <button
+                type="button"
+                onClick={() => setTopicSource('course')}
+                className={`py-2 px-3 rounded-lg text-xs font-bold font-display transition-all ${
+                  topicSource === 'course'
+                    ? 'bg-indigo-600 text-white shadow-md'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                📚 Select from Enrolled Courses
+              </button>
+            </div>
+
+            {/* Custom topic input or Course dropdown */}
+            {topicSource === 'custom' ? (
+              <div className="flex flex-col gap-2 mt-1">
+                <input
+                  type="text"
+                  value={customTopic}
+                  onChange={(e) => setCustomTopic(e.target.value)}
+                  placeholder="Enter topic name (e.g. Cloud Computing, Python, Transformers, SQL...)"
+                  className="w-full bg-slate-950 border border-slate-850 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 transition-colors"
+                />
+
+                {/* Popular Topic Pills */}
+                <div className="flex flex-wrap gap-1.5 mt-1">
+                  <span className="text-[9px] font-mono font-bold uppercase text-slate-550 mr-1 self-center">Popular:</span>
+                  {popularTopics.map(t => (
+                    <button
+                      key={t}
+                      type="button"
+                      onClick={() => setCustomTopic(t)}
+                      className={`px-2.5 py-1 text-[9px] font-mono rounded-lg border transition-all ${
+                        customTopic.toLowerCase() === t.toLowerCase()
+                          ? 'bg-indigo-950/60 border-indigo-500 text-indigo-300 font-bold'
+                          : 'bg-slate-950 border-slate-900 text-slate-400 hover:text-white hover:border-slate-800'
+                      }`}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="mt-1">
+                {courses.length > 0 ? (
+                  <select
+                    value={selectedCourseId}
+                    onChange={(e) => setSelectedCourseId(e.target.value)}
+                    className="w-full bg-slate-950 border border-slate-850 rounded-xl px-4 py-2.5 text-xs text-indigo-300 font-semibold focus:outline-none focus:border-indigo-500"
+                  >
+                    {courses.map(c => (
+                      <option key={c.id} value={c.id}>
+                        {c.title} • ({c.difficulty} Track, {c.progress}% completed)
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-900 text-slate-500 text-xs text-center">
+                    No active courses found. Please create a goal or write a custom topic above.
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Section 2: Number of Questions & Difficulty Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 border-t border-slate-900 pt-5">
+            
+            {/* Question count */}
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold font-display text-white uppercase tracking-wider">
+                2. Number of Questions
+              </label>
+              <div className="grid grid-cols-4 gap-2">
+                {[5, 10, 15, 20].map(count => (
+                  <button
+                    key={count}
+                    type="button"
+                    onClick={() => setQuestionCount(count)}
+                    className={`py-2 text-xs font-mono font-bold rounded-xl border transition-all text-center ${
+                      questionCount === count
+                        ? 'bg-indigo-600 border-indigo-500 text-white shadow-md'
+                        : 'bg-slate-950 border-slate-900 text-slate-400 hover:border-slate-800'
+                    }`}
+                  >
+                    {count} Qs
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Difficulty */}
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold font-display text-white uppercase tracking-wider">
+                3. Difficulty Level
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                {(['Easy', 'Medium', 'Hard'] as const).map(level => {
+                  const isSelected = difficulty === level;
+                  const activeColor = 
+                    level === 'Easy' ? 'bg-emerald-600 border-emerald-500 text-white' :
+                    level === 'Medium' ? 'bg-indigo-600 border-indigo-500 text-white' :
+                    'bg-red-600 border-red-500 text-white';
+
+                  return (
+                    <button
+                      key={level}
+                      type="button"
+                      onClick={() => setDifficulty(level)}
+                      className={`py-2 text-xs font-display font-bold rounded-xl border transition-all text-center ${
+                        isSelected
+                          ? activeColor
+                          : 'bg-slate-950 border-slate-900 text-slate-400 hover:border-slate-800'
+                      }`}
+                    >
+                      {level}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+          </div>
+
+          {/* Section 3: Hints toggle & Rewards Preview */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 border-t border-slate-900 pt-5 items-center">
+            
+            {/* Hints Toggle */}
+            <div className="flex items-center justify-between p-3.5 bg-slate-950 rounded-xl border border-slate-900">
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-lg bg-amber-950/40 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                  <Lightbulb size={14} />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-white">Enable AI Hints</p>
+                  <p className="text-[10px] text-slate-500">Provide guidance during questions</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setAllowHints(!allowHints)}
+                className={`w-11 h-6 rounded-full transition-colors relative p-0.5 ${
+                  allowHints ? 'bg-indigo-600' : 'bg-slate-800'
+                }`}
+              >
+                <div className={`w-5 h-5 rounded-full bg-white transition-transform ${
+                  allowHints ? 'translate-x-5' : 'translate-x-0'
+                }`} />
+              </button>
+            </div>
+
+            {/* Reward badges preview pill */}
+            <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-amber-950/15 via-indigo-950/15 to-transparent rounded-xl border border-amber-900/25 text-xs">
+              <Trophy size={16} className="text-amber-400 shrink-0" />
+              <div>
+                <p className="text-[10.5px] font-bold text-amber-300">Earn Verifiable Badges</p>
+                <p className="text-[9.5px] text-slate-400">🥇 Gold (90%+) • 🥈 Silver (70%+) • 🥉 Bronze (50%+)</p>
+              </div>
+            </div>
+
+          </div>
+
+          {/* CTA Start Button */}
+          <button
+            type="button"
+            onClick={handleStartQuiz}
+            disabled={isLoading || (topicSource === 'custom' && !customTopic.trim())}
+            className="btn-primary py-3 text-sm font-bold font-display uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:shadow-indigo-500/20 transition-all rounded-xl"
+          >
+            {isLoading ? (
+              <>
+                <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                <span>Compiling AI Assessment Questions...</span>
+              </>
+            ) : (
+              <>
+                <Sparkles size={16} />
+                <span>Start Assessment ({questionCount} Questions)</span>
+                <ArrowRight size={15} />
+              </>
+            )}
+          </button>
+
+        </div>
+
+      </div>
+    );
   }
 
-  const currentQuestion = questions[currentIdx];
-  const percentComplete = Math.round(((currentIdx) / questions.length) * 100);
+  // ─── 2. ACTIVE QUIZ SCREEN ──────────────────────────────────────────────────
+  if (screen === 'quiz' && questions.length > 0) {
+    const currentQ = questions[currentIdx];
+    const percentComplete = Math.round(((currentIdx + 1) / questions.length) * 100);
 
-  return (
-    <div className="max-w-2xl mx-auto py-6">
-      
-      {!quizFinished ? (
-        <div className="glass-panel p-6 flex flex-col gap-5 bg-[#0e0f17]/45">
+    return (
+      <div className="max-w-2xl mx-auto py-6 flex flex-col gap-5">
+        
+        {/* Top Control Bar */}
+        <div className="flex items-center justify-between">
+          <button
+            onClick={handleResetToSetup}
+            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors"
+          >
+            <ArrowLeft size={14} />
+            <span>Exit Assessment</span>
+          </button>
           
-          <div className="flex justify-between items-center border-b border-brand-border pb-3 text-xs">
+          <div className="flex items-center gap-2 font-mono text-xs">
+            <span className="bg-indigo-950/40 text-indigo-300 border border-indigo-900/40 px-2.5 py-0.5 rounded-md font-bold uppercase text-[9.5px]">
+              {currentQ.topic || customTopic}
+            </span>
+            <span className="bg-slate-900 text-slate-400 px-2 py-0.5 rounded-md text-[9.5px] uppercase font-bold">
+              {difficulty}
+            </span>
+          </div>
+        </div>
+
+        {/* Main Quiz Box */}
+        <div className="glass-panel p-6 flex flex-col gap-5 bg-[#0e0f17]/70 border border-brand-border rounded-2xl relative overflow-hidden">
+          
+          {/* Header row with progress */}
+          <div className="flex justify-between items-center text-xs">
             <span className="font-semibold text-white uppercase tracking-wider font-display flex items-center gap-1.5">
-              <Brain size={14} className="text-indigo-400" />
+              <Brain size={15} className="text-indigo-400" />
               <span>Assessment Diagnostic Test</span>
             </span>
-            <span className="font-mono text-slate-500">Question {currentIdx + 1} of {questions.length}</span>
+            <span className="font-mono font-bold text-slate-400">
+              Question {currentIdx + 1} of {questions.length}
+            </span>
           </div>
 
-          <div className="w-full h-1 bg-slate-900 rounded-full overflow-hidden">
-            <div className="h-full bg-indigo-500 transition-all duration-300" style={{ width: `${percentComplete}%` }} />
+          {/* Progress Bar */}
+          <div className="w-full h-1.5 bg-slate-950 rounded-full overflow-hidden border border-slate-900">
+            <div 
+              className="h-full bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300 rounded-full" 
+              style={{ width: `${percentComplete}%` }} 
+            />
           </div>
 
-          <h3 className="text-xs sm:text-sm font-bold text-white leading-relaxed mt-1 select-text">
-            {currentQuestion.question}
+          {/* Question text */}
+          <h3 className="text-sm sm:text-base font-bold text-white leading-relaxed mt-1 select-text">
+            {currentQ.question}
           </h3>
 
-          <div className="flex flex-col gap-2">
-            {currentQuestion.options.map((opt, oIdx) => {
+          {/* Hint Drawer */}
+          {allowHints && currentQ.hint && (
+            <div className="flex flex-col gap-1.5">
+              {!showHint ? (
+                <button
+                  onClick={() => setShowHint(true)}
+                  className="self-start text-[10px] font-mono text-amber-400/90 hover:text-amber-300 flex items-center gap-1 bg-amber-950/20 border border-amber-900/30 px-2.5 py-1 rounded-lg transition-colors"
+                >
+                  <Lightbulb size={11} />
+                  <span>Reveal AI Guidance Hint</span>
+                </button>
+              ) : (
+                <div className="bg-amber-950/15 border border-amber-900/30 p-3 rounded-xl text-xs text-amber-200/90 flex gap-2 animate-fade-in">
+                  <Lightbulb size={14} className="text-amber-400 shrink-0 mt-0.5" />
+                  <p className="text-[11px] leading-relaxed">
+                    <span className="font-bold">Hint: </span>
+                    {currentQ.hint}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Options list */}
+          <div className="flex flex-col gap-2.5">
+            {currentQ.options.map((opt, oIdx) => {
               const isSelected = selectedOpt === oIdx;
-              let optBorder = 'border-slate-800 bg-slate-950/40 text-slate-350 hover:border-slate-700';
-              if (isSelected) optBorder = 'border-indigo-500 text-white bg-indigo-950/15';
-              
+              let optStyle = 'border-slate-850 bg-slate-950/50 text-slate-300 hover:border-slate-700';
+
+              if (isSelected) {
+                optStyle = 'border-indigo-500 text-white bg-indigo-950/25 shadow-[0_0_12px_rgba(99,102,241,0.2)] font-semibold';
+              }
+
               if (isAnswered) {
-                if (oIdx === currentQuestion.correctIndex) {
-                  optBorder = 'border-emerald-500/50 text-emerald-300 bg-emerald-950/10';
+                if (oIdx === currentQ.correctIndex) {
+                  optStyle = 'border-emerald-500/80 text-emerald-200 bg-emerald-950/30 font-bold';
                 } else if (isSelected) {
-                  optBorder = 'border-red-500/50 text-red-300 bg-red-950/10';
+                  optStyle = 'border-red-500/80 text-red-200 bg-red-950/30';
                 } else {
-                  optBorder = 'border-slate-900/60 bg-slate-950/5 text-slate-500 opacity-60';
+                  optStyle = 'border-slate-900 bg-slate-950/20 text-slate-600 opacity-50';
                 }
               }
 
@@ -121,118 +492,273 @@ export const Quiz: React.FC = () => {
                   key={oIdx}
                   onClick={() => handleOptionSelect(oIdx)}
                   disabled={isAnswered}
-                  className={`w-full text-left p-3 rounded-lg border text-xs leading-normal font-medium transition-all ${optBorder}`}
+                  className={`w-full text-left p-3.5 rounded-xl border text-xs leading-normal transition-all flex items-start gap-3 ${optStyle}`}
                 >
-                  {opt}
+                  <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-mono font-bold ${
+                    isSelected ? 'border-indigo-400 bg-indigo-600 text-white' : 'border-slate-800 text-slate-500'
+                  }`}>
+                    {String.fromCharCode(65 + oIdx)}
+                  </div>
+                  <span className="flex-1">{opt}</span>
                 </button>
               );
             })}
           </div>
 
+          {/* Answer Feedback Banner */}
           {isAnswered && (
-            <div className={`p-4 rounded-lg border text-xs leading-relaxed flex gap-3 ${
-              isCorrect ? 'bg-emerald-950/5 border-emerald-900/15' : 'bg-red-950/5 border-red-900/15'
+            <div className={`p-4 rounded-xl border text-xs leading-relaxed flex gap-3 animate-fade-in ${
+              isCorrect 
+                ? 'bg-emerald-950/20 border-emerald-900/30 text-emerald-200' 
+                : 'bg-red-950/20 border-red-900/30 text-red-200'
             }`}>
               {isCorrect ? (
-                <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                <CheckCircle2 size={18} className="text-emerald-400 shrink-0 mt-0.5" />
               ) : (
-                <XCircle size={16} className="text-red-500 shrink-0 mt-0.5" />
+                <XCircle size={18} className="text-red-400 shrink-0 mt-0.5" />
               )}
-              <div className="text-left">
-                <p className="font-bold text-white mb-0.5">{isCorrect ? 'Correct Answer!' : 'Incorrect Answer'}</p>
-                <p className="text-slate-400">{currentQuestion.explanation}</p>
+              <div className="text-left flex-1">
+                <p className="font-bold text-white text-xs mb-1">
+                  {isCorrect ? '✅ Correct Answer!' : '❌ Incorrect Answer'}
+                </p>
+                <p className="text-slate-300 text-[11px] leading-relaxed">
+                  {currentQ.explanation}
+                </p>
               </div>
             </div>
           )}
 
+          {/* Action buttons */}
           <div className="flex justify-end pt-2 text-xs">
             {!isAnswered ? (
               <button 
-                onClick={handleSubmit}
+                onClick={handleSubmitAnswer}
                 disabled={selectedOpt === null}
-                className={`btn-primary ${selectedOpt === null ? 'opacity-40 cursor-not-allowed' : ''}`}
+                className={`btn-primary py-2 px-5 font-bold font-display uppercase tracking-wider ${
+                  selectedOpt === null ? 'opacity-40 cursor-not-allowed' : ''
+                }`}
               >
                 Submit Answer
               </button>
             ) : (
               <button 
-                onClick={handleNext}
-                className="btn-accent"
+                onClick={handleNextQuestion}
+                className="btn-accent py-2 px-5 font-bold font-display uppercase tracking-wider flex items-center gap-1.5"
               >
-                <span>{currentIdx === questions.length - 1 ? 'Finish Assessment' : 'Next Question'}</span>
-                <ArrowRight size={13} />
+                <span>{currentIdx === questions.length - 1 ? 'View Final Results' : 'Next Question'}</span>
+                <ArrowRight size={14} />
               </button>
             )}
           </div>
 
         </div>
-      ) : (
-        /* QUIZ COMPLETE */
-        <div className="glass-panel p-6 flex flex-col gap-6 text-center bg-[#0e0f17]/45">
-          <div className="w-12 h-12 rounded-full bg-slate-900 border border-indigo-500/25 flex items-center justify-center mx-auto text-indigo-400 shadow-md">
-            <CheckCircle2 size={20} />
+
+      </div>
+    );
+  }
+
+  // ─── 3. RESULTS & BADGES SCREEN ─────────────────────────────────────────────
+  if (screen === 'results') {
+    const totalQ = questions.length;
+    const accuracy = Math.round((score / totalQ) * 100);
+    const incorrectCount = totalQ - score;
+
+    return (
+      <div className="max-w-3xl mx-auto py-6 flex flex-col gap-6">
+        
+        {/* Results Header Panel */}
+        <div className="glass-panel p-6 flex flex-col gap-6 text-center bg-[#0c0d16] border border-brand-border rounded-2xl">
+          
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-900/40 to-slate-900 border border-indigo-500/30 flex items-center justify-center mx-auto text-indigo-400 shadow-lg">
+            {accuracy >= 70 ? <Trophy size={26} className="text-amber-400" /> : <CheckCircle2 size={26} className="text-indigo-400" />}
           </div>
           
           <div>
-            <h3 className="text-sm font-bold font-display text-white uppercase tracking-wider">Assessment Results Compiled</h3>
-            <p className="text-[11px] text-slate-550 mt-1 font-mono uppercase font-semibold">Evaluation status: Complete</p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 max-w-xs mx-auto w-full font-mono">
-            <div className="bg-slate-950/30 p-3 rounded-lg border border-brand-border text-xs">
-              <p className="text-[9px] text-slate-500 uppercase font-bold">Total Score</p>
-              <p className="text-lg font-bold text-white mt-1">{score} / {questions.length}</p>
-            </div>
-            
-            <div className="bg-slate-950/30 p-3 rounded-lg border border-brand-border text-xs">
-              <p className="text-[9px] text-slate-500 uppercase font-bold">Accuracy</p>
-              <p className="text-lg font-bold text-indigo-400 mt-1">
-                {Math.round((score / questions.length) * 100)}%
-              </p>
-            </div>
-          </div>
-
-          <div className="text-left bg-slate-950 p-4 rounded-lg border border-slate-900 max-w-sm mx-auto w-full text-xs font-sans">
-            <h4 className="font-bold text-white mb-2 font-display flex items-center gap-1.5 uppercase text-[9px] tracking-wider">
-              <AlertCircle size={12} className="text-indigo-400" />
-              <span>Skill Gap Diagnostic</span>
-            </h4>
-            
-            <div className="space-y-1.5 border-b border-slate-900 pb-2 mb-2">
-              <div className="flex justify-between">
-                <span className="text-slate-400">Self-Attention Equations:</span>
-                <span className="font-bold text-emerald-450">92% (Pass)</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-400">Positional Encodings:</span>
-                <span className="font-bold text-yellow-500">54% (Review)</span>
-              </div>
-            </div>
-
-            <p className="text-[10px] text-slate-500 leading-normal italic">
-              💡 **AI Tracer note**: "Slight understanding gap detected in Fourier Positional Encoding. Review chapter wave files before moving forward."
+            <h2 className="text-lg sm:text-xl font-bold font-display text-white uppercase tracking-wider">
+              Assessment Evaluation Complete
+            </h2>
+            <p className="text-xs text-slate-400 mt-1 font-mono">
+              Diagnostic subject: <span className="text-indigo-300 font-bold">{customTopic}</span> ({difficulty} Level)
             </p>
           </div>
 
-          <div className="flex gap-2.5 justify-center text-xs">
+          {/* Key Score Metrics Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono max-w-xl mx-auto w-full">
+            <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-900">
+              <p className="text-[9px] text-slate-500 uppercase font-bold">Total Score</p>
+              <p className="text-lg font-bold text-white mt-1">{score} / {totalQ}</p>
+            </div>
+            
+            <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-900">
+              <p className="text-[9px] text-slate-500 uppercase font-bold">Accuracy</p>
+              <p className={`text-lg font-bold mt-1 ${accuracy >= 70 ? 'text-emerald-400' : accuracy >= 50 ? 'text-amber-400' : 'text-red-400'}`}>
+                {accuracy}%
+              </p>
+            </div>
+
+            <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-900">
+              <p className="text-[9px] text-slate-500 uppercase font-bold">Correct</p>
+              <p className="text-lg font-bold text-emerald-400 mt-1">+{score}</p>
+            </div>
+
+            <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-900">
+              <p className="text-[9px] text-slate-500 uppercase font-bold">Incorrect</p>
+              <p className="text-lg font-bold text-red-400 mt-1">-{incorrectCount}</p>
+            </div>
+          </div>
+
+          {/* Badge Unlocked Banner */}
+          {awardedBadge && (
+            <div className="p-4 rounded-xl bg-gradient-to-r from-amber-950/30 via-indigo-950/20 to-amber-950/30 border border-amber-500/40 max-w-lg mx-auto w-full flex items-center justify-between gap-3 text-left">
+              <div className="flex items-center gap-3">
+                <div className="text-3xl">
+                  {awardedBadge === 'master' ? '🥇' : awardedBadge === 'proficient' ? '🥈' : '🥉'}
+                </div>
+                <div>
+                  <span className="text-[8.5px] font-mono font-bold uppercase tracking-widest text-amber-400">Credential Unlocked & Saved</span>
+                  <h4 className="text-xs sm:text-sm font-bold text-white">
+                    {awardedBadge === 'master' ? 'Assessment Grandmaster Badge' : awardedBadge === 'proficient' ? 'Assessment Specialist Badge' : 'Assessment Achiever Badge'}
+                  </h4>
+                  <p className="text-[10px] text-slate-400">Permanently unlocked in your Competency Milestones / Achievements.</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Skill Diagnostic Feedback */}
+          <div className="text-left bg-slate-950 p-4 rounded-xl border border-slate-900 max-w-lg mx-auto w-full text-xs">
+            <h4 className="font-bold text-white mb-2 font-display flex items-center gap-1.5 uppercase text-[9.5px] tracking-wider text-indigo-400">
+              <AlertCircle size={13} />
+              <span>AI Skill Gap Diagnostic</span>
+            </h4>
+            
+            <p className="text-[11px] text-slate-300 leading-relaxed">
+              {accuracy >= 90 ? (
+                <span>🎉 Excellent mastery! You demonstrated high proficiency in core concepts and edge cases. Ready to tackle advanced capstone labs.</span>
+              ) : accuracy >= 70 ? (
+                <span>👍 Solid performance! You understand the foundational mechanics well. Review the specific missed questions below to cement 100% mastery.</span>
+              ) : (
+                <span>💡 Diagnostic recommendation: Review textbook syllabus chapters and analogy breakdowns before attempting higher-difficulty assessments.</span>
+              )}
+            </p>
+          </div>
+
+          {/* Action CTAs */}
+          <div className="flex flex-wrap gap-3 justify-center text-xs">
             <button 
-              onClick={handleRestart}
-              className="btn-secondary"
+              onClick={handleResetToSetup}
+              className="btn-secondary py-2.5 px-4 flex items-center gap-1.5 font-bold font-display uppercase tracking-wider"
             >
-              <RefreshCw size={11} />
-              <span>Retake</span>
+              <RefreshCw size={13} />
+              <span>Configure New Quiz</span>
             </button>
             <button 
               onClick={() => window.location.hash = '#/learning'}
-              className="btn-primary"
+              className="btn-primary py-2.5 px-4 flex items-center gap-1.5 font-bold font-display uppercase tracking-wider"
             >
-              Return to Textbook
+              <BookOpen size={13} />
+              <span>Return to Textbook</span>
+            </button>
+            <button 
+              onClick={() => window.location.hash = '#/achievements'}
+              className="btn-secondary py-2.5 px-4 flex items-center gap-1.5 font-bold font-display uppercase tracking-wider text-amber-300 border-amber-900/30"
+            >
+              <Award size={13} />
+              <span>View Badges</span>
             </button>
           </div>
-        </div>
-      )}
 
-    </div>
-  );
+        </div>
+
+        {/* Detailed Question-by-Question Review List */}
+        <div className="glass-panel p-6 bg-[#0c0d16] border border-brand-border rounded-2xl flex flex-col gap-4">
+          <div className="flex justify-between items-center border-b border-slate-900 pb-3">
+            <h3 className="text-xs sm:text-sm font-bold font-display text-white uppercase tracking-wider flex items-center gap-2">
+              <span>Detailed Assessment Breakdown</span>
+              <span className="text-[10px] font-mono text-slate-500">({userAnswers.length} Questions Reviewed)</span>
+            </h3>
+            <button
+              onClick={() => setShowReviewList(!showReviewList)}
+              className="text-slate-400 hover:text-white text-xs flex items-center gap-1"
+            >
+              <span>{showReviewList ? 'Collapse' : 'Expand'}</span>
+              {showReviewList ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+            </button>
+          </div>
+
+          {showReviewList && (
+            <div className="flex flex-col gap-4">
+              {userAnswers.map((record, qIdx) => (
+                <div 
+                  key={qIdx}
+                  className={`p-4 rounded-xl border flex flex-col gap-3 text-xs ${
+                    record.isCorrect 
+                      ? 'bg-emerald-950/10 border-emerald-900/25' 
+                      : 'bg-red-950/10 border-red-900/25'
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start gap-2">
+                      <span className="font-mono text-[10px] font-bold text-slate-500 shrink-0 mt-0.5">
+                        Q{qIdx + 1}.
+                      </span>
+                      <p className="font-bold text-white leading-snug">
+                        {record.question.question}
+                      </p>
+                    </div>
+                    <div className="shrink-0">
+                      {record.isCorrect ? (
+                        <span className="flex items-center gap-1 text-[9px] font-mono font-bold text-emerald-400 bg-emerald-950/40 border border-emerald-800/40 px-2 py-0.5 rounded">
+                          <Check size={11} /> Correct (+1)
+                        </span>
+                      ) : (
+                        <span className="flex items-center gap-1 text-[9px] font-mono font-bold text-red-400 bg-red-950/40 border border-red-800/40 px-2 py-0.5 rounded">
+                          <X size={11} /> Incorrect (0)
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Options with indicator */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px]">
+                    {record.question.options.map((opt, oIdx) => {
+                      const isUserSelection = record.selectedIdx === oIdx;
+                      const isCorrectAns = record.question.correctIndex === oIdx;
+
+                      let optColor = 'text-slate-400 bg-slate-950/40 border-slate-900';
+                      if (isCorrectAns) {
+                        optColor = 'text-emerald-300 bg-emerald-950/30 border-emerald-700/40 font-bold';
+                      } else if (isUserSelection && !record.isCorrect) {
+                        optColor = 'text-red-300 bg-red-950/30 border-red-700/40 line-through';
+                      }
+
+                      return (
+                        <div key={oIdx} className={`p-2 rounded-lg border flex items-center justify-between gap-2 ${optColor}`}>
+                          <span className="truncate">{String.fromCharCode(65 + oIdx)}. {opt}</span>
+                          {isCorrectAns && <Check size={12} className="text-emerald-400 shrink-0" />}
+                          {isUserSelection && !record.isCorrect && <X size={12} className="text-red-400 shrink-0" />}
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Explanation */}
+                  <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-900 text-[10.5px] text-slate-300 leading-relaxed">
+                    <span className="font-bold text-indigo-400">Explanation: </span>
+                    {record.question.explanation}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+      </div>
+    );
+  }
+
+  return null;
 };
+
 export default Quiz;
+

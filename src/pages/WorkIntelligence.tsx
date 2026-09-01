@@ -337,7 +337,7 @@ export const WorkIntelligence: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6 max-w-5xl mx-auto">
+    <div className="flex flex-col gap-6 w-full">
       
       {/* TOP HEADER */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-900 pb-5">

@@ -26,11 +26,11 @@ export const SetGoal: React.FC<SetGoalProps> = ({ onNavigate }) => {
     "Analyzing organizational gap parameters...",
     "Querying Career MCP to identify baseline skills...",
     "Learning Agent parsing sequence dependencies on roadmap...",
-    "Compiling prerequisites for multi-head attention systems...",
-    "Resource Agent fetching youtube assets and research documentation...",
-    "Daily Planner syncing free blocks with Teams exchange...",
-    "Guardian verification: timelines checked and verified...",
-    "Syllabus blueprint successfully structured."
+    "Curating top-starred production GitHub repositories & clone specs...",
+    "Resource Agent fetching verified video project build walkthroughs...",
+    "Daily Planner syncing free focus blocks with Teams exchange...",
+    "Guardian verification: quality metrics & lab links validated...",
+    "University-grade Masterclass & Curriculum blueprint successfully structured."
   ];
 
   const handleNextStep = () => {
@@ -88,11 +88,36 @@ export const SetGoal: React.FC<SetGoalProps> = ({ onNavigate }) => {
               type="text" 
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="e.g. Master Agentic AI System Design"
+              placeholder="e.g. IBM Cloud Native, Microsoft Azure, Meta React 19, Agentic AI..."
               className="bg-slate-900 border border-slate-800 rounded-lg p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/40"
               required
             />
-            <p className="text-[10px] text-slate-500 font-semibold font-mono uppercase">Provide a clear skill parameter.</p>
+            
+            {/* Quick Enterprise & FAANG Goal Presets */}
+            <div className="flex flex-col gap-1.5 mt-1">
+              <span className="text-[9px] text-slate-500 font-bold uppercase font-mono">Popular Enterprise & FAANG Tracks:</span>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  'IBM Cloud Native & Microservices',
+                  'Microsoft Azure Solutions Architecture',
+                  'Meta React 19 Architecture',
+                  'Netflix Chaos Engineering',
+                  'AWS Serverless Architecture',
+                  'Agentic AI & MCP Gateway'
+                ].map(preset => (
+                  <button
+                    key={preset}
+                    type="button"
+                    onClick={() => setTitle(preset)}
+                    className="px-2 py-1 rounded bg-slate-950/80 hover:bg-indigo-950/50 border border-slate-850 hover:border-indigo-500/40 text-[9.5px] font-mono text-slate-400 hover:text-indigo-300 transition-colors"
+                  >
+                    {preset}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <p className="text-[10px] text-slate-500 font-semibold font-mono uppercase">Provide a clear skill parameter or select a company track.</p>
           </div>
         );
       

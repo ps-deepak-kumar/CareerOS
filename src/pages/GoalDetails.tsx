@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PageId } from '../components/Layout';
 import { 
   ArrowLeft, Flame, Clock, Award, BookOpen, 
-  HelpCircle, Code, Sparkles, TrendingUp 
+  HelpCircle, Code, Sparkles, TrendingUp, Trash2, AlertTriangle
 } from 'lucide-react';
 import { stateManager } from '../services/stateManager';
 import { Goal } from '../data/mockData';
@@ -11,10 +11,12 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 interface GoalDetailsProps {
   onNavigate: (page: PageId) => void;
   goalId: string;
+  setSelectedCourseIdForDetails?: (id: string) => void;
 }
 
-export const GoalDetails: React.FC<GoalDetailsProps> = ({ onNavigate, goalId }) => {
+export const GoalDetails: React.FC<GoalDetailsProps> = ({ onNavigate, goalId, setSelectedCourseIdForDetails }) => {
   const [goal, setGoal] = useState<Goal | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     const goals = stateManager.getGoals();
@@ -27,6 +29,41 @@ export const GoalDetails: React.FC<GoalDetailsProps> = ({ onNavigate, goalId }) 
   if (!goal) {
     return <div className="text-center text-xs text-slate-500 py-10 italic">Loading goal data...</div>;
   }
+
+  const handleInspectRoadmap = () => {
+    if (!goal) return;
+    const courses = stateManager.getCourses();
+    const matched = courses.find(c => 
+      c.title.toLowerCase().includes(goal.title.toLowerCase()) ||
+      goal.title.toLowerCase().includes(c.title.toLowerCase()) ||
+      (goal.category && c.title.toLowerCase().includes(goal.category.toLowerCase()))
+    ) || courses[0];
+
+    if (matched) {
+      try {
+        localStorage.setItem('career_os_active_course_id', matched.id);
+      } catch {}
+      if (setSelectedCourseIdForDetails) {
+        setSelectedCourseIdForDetails(matched.id);
+      }
+    }
+    onNavigate('roadmap');
+  };
+
+  const handleOpenCourseTextbook = () => {
+    if (!goal) return;
+    const courses = stateManager.getCourses();
+    const matched = courses.find(c => 
+      c.title.toLowerCase().includes(goal.title.toLowerCase()) ||
+      goal.title.toLowerCase().includes(c.title.toLowerCase()) ||
+      (goal.category && c.title.toLowerCase().includes(goal.category.toLowerCase()))
+    ) || courses[0];
+
+    if (matched && setSelectedCourseIdForDetails) {
+      setSelectedCourseIdForDetails(matched.id);
+    }
+    onNavigate('course-details');
+  };
 
   // Mock data for Recharts
   const activityHoursData = [
@@ -48,20 +85,30 @@ export const GoalDetails: React.FC<GoalDetailsProps> = ({ onNavigate, goalId }) 
   ];
 
   return (
-    <div className="flex flex-col gap-6 max-w-5xl mx-auto">
+    <div className="flex flex-col gap-6 w-full">
       
       {/* BACK HEADER */}
-      <div className="flex items-center gap-4">
-        <button 
-          onClick={() => onNavigate('goals')}
-          className="p-2 rounded-lg bg-slate-950/40 border border-brand-border text-slate-400 hover:text-white hover:bg-slate-900 transition-all shrink-0"
-        >
-          <ArrowLeft size={16} />
-        </button>
-        <div>
-          <span className="text-[9px] text-indigo-400 uppercase tracking-widest font-bold font-mono">Syllabus Analytics</span>
-          <h2 className="text-lg sm:text-xl font-bold font-display text-white mt-0.5">{goal.title}</h2>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex items-center gap-4">
+          <button 
+            onClick={() => onNavigate('goals')}
+            className="p-2 rounded-lg bg-slate-950/40 border border-brand-border text-slate-400 hover:text-white hover:bg-slate-900 transition-all shrink-0"
+          >
+            <ArrowLeft size={16} />
+          </button>
+          <div>
+            <span className="text-[9px] text-indigo-400 uppercase tracking-widest font-bold font-mono">Syllabus Analytics</span>
+            <h2 className="text-lg sm:text-xl font-bold font-display text-white mt-0.5">{goal.title}</h2>
+          </div>
         </div>
+
+        <button
+          onClick={() => setShowDeleteModal(true)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-950/20 hover:bg-red-950/50 border border-red-900/30 hover:border-red-500/50 text-red-400 hover:text-red-300 text-xs font-mono transition-colors self-end sm:self-auto"
+        >
+          <Trash2 size={13} />
+          <span>Remove Goal</span>
+        </button>
       </div>
 
       {/* METRICS GRID */}
@@ -156,13 +203,23 @@ export const GoalDetails: React.FC<GoalDetailsProps> = ({ onNavigate, goalId }) 
             </div>
           </div>
 
-          <button
-            onClick={() => onNavigate('roadmap')}
-            className="btn-accent text-xs mt-2 w-full"
-          >
-            <span>Inspect Roadmap Phase Tree</span>
-            <Sparkles size={12} />
-          </button>
+          <div className="flex flex-col gap-2 mt-3">
+            <button
+              onClick={handleInspectRoadmap}
+              className="btn-accent text-xs w-full flex items-center justify-center gap-1.5 py-2.5 font-bold uppercase tracking-wider font-display"
+            >
+              <Sparkles size={13} />
+              <span>Inspect Skill Roadmap</span>
+            </button>
+
+            <button
+              onClick={handleOpenCourseTextbook}
+              className="btn-secondary text-xs w-full flex items-center justify-center gap-1.5 py-2.5 font-bold uppercase tracking-wider font-display text-indigo-300 border border-indigo-900/40 hover:text-white"
+            >
+              <BookOpen size={13} />
+              <span>Open Course Textbook</span>
+            </button>
+          </div>
         </div>
 
         {/* RIGHT COLUMN: CHARTS */}
@@ -223,6 +280,46 @@ export const GoalDetails: React.FC<GoalDetailsProps> = ({ onNavigate, goalId }) 
         </div>
 
       </div>
+
+      {/* DELETE CONFIRMATION MODAL */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 max-w-md w-full flex flex-col gap-4 shadow-2xl animate-in fade-in zoom-in duration-200">
+            <div className="flex items-center gap-3 text-red-400">
+              <div className="p-2.5 rounded-lg bg-red-950/50 border border-red-900/50">
+                <AlertTriangle size={20} />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-white font-display">Remove Goal & Unlink Everywhere?</h3>
+                <p className="text-[10px] text-slate-400 font-mono mt-0.5">Cascading purge across CareerOS</p>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Are you sure you want to permanently remove <strong className="text-white">"{goal.title}"</strong>? 
+              This will automatically unlink its textbook chapters, roadmap milestones, scheduled study blocks, and competency profile metrics.
+            </p>
+
+            <div className="flex justify-end gap-3 mt-2">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="px-4 py-2 rounded-lg border border-slate-800 hover:bg-slate-800 text-xs font-mono text-slate-300 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  stateManager.removeGoal(goal.id);
+                  onNavigate('goals');
+                }}
+                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold font-mono transition-colors shadow-lg shadow-red-900/30"
+              >
+                Confirm Delete Everywhere
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
