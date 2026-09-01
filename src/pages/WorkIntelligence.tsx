@@ -340,9 +340,9 @@ export const WorkIntelligence: React.FC = () => {
     <div className="flex flex-col gap-6 w-full">
       
       {/* TOP HEADER */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-900 pb-5">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-zinc-200 pb-5">
         <div>
-          <h2 className="text-xl font-bold font-display text-white">Work Intelligence Integrations</h2>
+          <h2 className="text-xl font-bold font-display text-zinc-900">Work Intelligence Integrations</h2>
           <p className="text-xs text-slate-550 mt-0.5 font-display">Manage tasks, meetings, and calendar sync channels with corporate platforms.</p>
         </div>
 
@@ -351,56 +351,56 @@ export const WorkIntelligence: React.FC = () => {
           onClick={handleToggleConnection}
           className={`px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 select-none transition-all ${
             isConnected 
-              ? 'border-emerald-500/20 bg-emerald-950/10 text-emerald-400 font-display uppercase tracking-wider' 
-              : 'border-slate-800 bg-slate-900/60 text-slate-500 font-display uppercase tracking-wider'
+              ? 'border-emerald-500/20 bg-zinc-100 text-zinc-600 font-display uppercase tracking-wider' 
+              : 'border-zinc-200 bg-zinc-50 text-zinc-400 font-display uppercase tracking-wider'
           }`}
         >
-          {isConnected ? <ToggleRight className="text-emerald-450" size={18} /> : <ToggleLeft className="text-slate-700" size={18} />}
+          {isConnected ? <ToggleRight className="text-zinc-600" size={18} /> : <ToggleLeft className="text-slate-700" size={18} />}
           <span>{isConnected ? 'Teams Active' : 'Sync Paused'}</span>
         </button>
       </div>
 
       {/* MICROSOFT 365 GRAPH CALENDAR CARD */}
       {isConnected && (
-        <div className="glass-panel p-5 bg-[#0c0d15]/40 border-brand-border flex flex-col gap-4">
-          <div className="flex items-center gap-2 border-b border-brand-border/60 pb-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></span>
-            <Calendar className="text-blue-400" size={16} />
-            <h3 className="text-xs font-bold font-display text-white uppercase tracking-wider">Microsoft Teams / 365 Calendar Integration</h3>
+        <div className="glass-panel p-5 bg-zinc-100 border-zinc-200 flex flex-col gap-4">
+          <div className="flex items-center gap-2 border-b border-zinc-200 pb-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 animate-pulse"></span>
+            <Calendar className="text-zinc-700" size={16} />
+            <h3 className="text-xs font-bold font-display text-zinc-900 uppercase tracking-wider">Microsoft Teams / 365 Calendar Integration</h3>
           </div>
 
           {!msAccount ? (
             <div className="flex flex-col gap-3 items-center py-6 text-center">
-              <p className="text-xs text-slate-405 max-w-md leading-relaxed">
+              <p className="text-xs text-zinc-500 max-w-md leading-relaxed">
                 Connect your work or corporate Microsoft 365 account to dynamically import actual Outlook and Teams calendar items, schedulable tasks, and meeting coordination parameters.
               </p>
               <button
                 onClick={handleConnectMicrosoft}
                 disabled={isSyncing}
-                className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded font-bold text-xs select-none font-display uppercase tracking-wider transition-all flex items-center gap-2"
+                className="px-5 py-2.5 bg-blue-600 hover:bg-zinc-700 disabled:opacity-50 text-zinc-900 rounded font-bold text-xs select-none font-display uppercase tracking-wider transition-all flex items-center gap-2"
               >
                 <span>Connect Microsoft Calendar</span>
               </button>
             </div>
           ) : (
             <div className="flex flex-col gap-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs items-center bg-slate-950/40 p-3 rounded border border-slate-900">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs items-center bg-zinc-100 p-3 rounded border border-zinc-200">
                 <div className="flex flex-col gap-1">
                   <span className="text-[9px] text-slate-550 uppercase font-mono font-bold">Integration Status</span>
-                  <span className="flex items-center gap-1.5 text-emerald-440 font-semibold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  <span className="flex items-center gap-1.5 text-zinc-600 font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-800"></span>
                     Connected
                   </span>
                 </div>
                 <div className="flex flex-col gap-1">
                   <span className="text-[9px] text-slate-550 uppercase font-mono font-bold">Active Account</span>
-                  <span className="text-white font-mono font-bold truncate" title={msAccount.username}>
+                  <span className="text-zinc-900 font-mono font-bold truncate" title={msAccount.username}>
                     {msAccount.username}
                   </span>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="text-[9px] text-slate-555 uppercase font-mono font-bold">Last Synchronized</span>
-                  <span className="text-slate-350 font-mono">
+                  <span className="text-[9px] text-zinc-500 uppercase font-mono font-bold">Last Synchronized</span>
+                  <span className="text-zinc-700 font-mono">
                     {msSyncTime || 'Never'}
                   </span>
                 </div>
@@ -408,7 +408,7 @@ export const WorkIntelligence: React.FC = () => {
 
               {/* Range Filters */}
               <div className="flex justify-between items-center gap-4 flex-wrap">
-                <div className="flex bg-slate-900 border border-brand-border rounded p-0.5 select-none text-[10px]">
+                <div className="flex bg-zinc-100 border border-zinc-200 rounded p-0.5 select-none text-[10px]">
                   {(['today', '7days', 'month'] as const).map(filter => (
                     <button
                       key={filter}
@@ -418,7 +418,7 @@ export const WorkIntelligence: React.FC = () => {
                         fetchMsCalendar(filter);
                       }}
                       className={`px-3 py-1 rounded font-bold font-display tracking-wider uppercase transition-all ${
-                        msEventsFilter === filter ? 'bg-blue-600 text-white shadow' : 'text-slate-450 hover:text-slate-200'
+                        msEventsFilter === filter ? 'bg-blue-600 text-zinc-900 shadow' : 'text-slate-450 hover:text-zinc-700'
                       }`}
                     >
                       {filter === 'today' ? 'Today' : filter === '7days' ? '7 Days' : 'This Month'}
@@ -430,7 +430,7 @@ export const WorkIntelligence: React.FC = () => {
                   <button
                     onClick={() => fetchMsCalendar(msEventsFilter)}
                     disabled={isSyncing}
-                    className="px-3 py-1.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded font-semibold text-[10px] text-slate-300 font-display uppercase tracking-wider transition-all"
+                    className="px-3 py-1.5 bg-zinc-100 hover:bg-slate-850 border border-zinc-200 rounded font-semibold text-[10px] text-zinc-600 font-display uppercase tracking-wider transition-all"
                   >
                     Refresh Calendar
                   </button>
@@ -447,9 +447,9 @@ export const WorkIntelligence: React.FC = () => {
 
           {syncMessage && (
             <div className={`p-3 rounded text-xs border ${
-              syncStatus === 'success' ? 'bg-emerald-950/20 border-emerald-900/35 text-emerald-400' :
+              syncStatus === 'success' ? 'bg-zinc-100 border-emerald-900/35 text-zinc-600' :
               syncStatus === 'error' ? 'bg-red-950/20 border-red-900/35 text-red-400' :
-              'bg-slate-900/40 border-slate-800 text-slate-350'
+              'bg-zinc-50 border-zinc-200 text-zinc-700'
             }`}>
               {syncMessage}
             </div>
@@ -459,13 +459,13 @@ export const WorkIntelligence: React.FC = () => {
 
       {/* FALLBACK LEGACY ICALENDAR SYNC PANEL */}
       {isConnected && (
-        <div className="glass-panel p-5 bg-[#0c0d15]/40 border-brand-border/60">
+        <div className="glass-panel p-5 bg-zinc-100 border-zinc-200">
           <div className="flex items-center gap-2 mb-3">
-            <Calendar className="text-slate-500" size={16} />
-            <h3 className="text-xs font-bold font-display text-slate-400 uppercase tracking-wider">iCalendar Subscription Feed (Fallback Sync)</h3>
+            <Calendar className="text-zinc-400" size={16} />
+            <h3 className="text-xs font-bold font-display text-zinc-500 uppercase tracking-wider">iCalendar Subscription Feed (Fallback Sync)</h3>
           </div>
           
-          <p className="text-[11px] text-slate-400 mb-4 leading-relaxed">
+          <p className="text-[11px] text-zinc-500 mb-4 leading-relaxed">
             Alternatively, subscribe to public/published calendars in `.ics` format. Note: This does not support online Microsoft Graph interactive authentication.
           </p>
 
@@ -475,20 +475,20 @@ export const WorkIntelligence: React.FC = () => {
               value={calendarUrl}
               onChange={(e) => setCalendarUrl(e.target.value)}
               placeholder="e.g. https://outlook.office365.com/owa/calendar/.../calendar.ics"
-              className="bg-slate-900 border border-slate-800 rounded px-3 py-2 text-xs text-white placeholder-slate-550 focus:outline-none focus:border-indigo-500/40 flex-1"
+              className="bg-zinc-100 border border-zinc-200 rounded px-3 py-2 text-xs text-zinc-900 placeholder-slate-550 focus:outline-none focus:border-zinc-300 flex-1"
             />
             <div className="flex gap-2">
               <button 
                 type="button"
                 onClick={handleUseMockOld}
-                className="px-3 py-2 bg-slate-900 text-slate-355 hover:text-white rounded border border-slate-850 text-xs font-semibold select-none font-display uppercase tracking-wider transition-all"
+                className="px-3 py-2 bg-zinc-100 text-zinc-700 hover:text-zinc-900 rounded border border-zinc-200 text-xs font-semibold select-none font-display uppercase tracking-wider transition-all"
               >
                 Use Mock Calendar
               </button>
               <button 
                 type="submit"
                 disabled={isSyncingOld}
-                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white rounded font-semibold text-xs select-none font-display uppercase tracking-wider transition-all"
+                className="px-4 py-2 bg-zinc-900 hover:bg-zinc-900 disabled:opacity-50 text-zinc-900 rounded font-semibold text-xs select-none font-display uppercase tracking-wider transition-all"
               >
                 {isSyncingOld ? 'Syncing...' : 'Sync Calendar'}
               </button>
@@ -497,9 +497,9 @@ export const WorkIntelligence: React.FC = () => {
 
           {syncMessageOld && (
             <div className={`mt-3 p-3 rounded text-xs border ${
-              syncStatusOld === 'success' ? 'bg-emerald-950/20 border-emerald-900/35 text-emerald-450' :
+              syncStatusOld === 'success' ? 'bg-zinc-100 border-emerald-900/35 text-zinc-600' :
               syncStatusOld === 'error' ? 'bg-red-950/20 border-red-900/35 text-red-400' :
-              'bg-slate-900/40 border-slate-800 text-slate-350'
+              'bg-zinc-50 border-zinc-200 text-zinc-700'
             }`}>
               {syncMessageOld}
             </div>
@@ -512,21 +512,21 @@ export const WorkIntelligence: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
           {/* ASSIGNED TASKS */}
-          <div className="glass-panel p-4 flex flex-col gap-4 bg-[#0c0d15]/40">
-            <h3 className="text-xs font-bold font-display text-white border-b border-brand-border pb-2 flex items-center gap-1.5 uppercase tracking-wider">
-              <Briefcase size={13} className="text-blue-400" />
+          <div className="glass-panel p-4 flex flex-col gap-4 bg-zinc-100">
+            <h3 className="text-xs font-bold font-display text-zinc-900 border-b border-zinc-200 pb-2 flex items-center gap-1.5 uppercase tracking-wider">
+              <Briefcase size={13} className="text-zinc-700" />
               <span>Planner Tasks</span>
             </h3>
             
             <div className="flex flex-col gap-3">
               {tasks.map(task => (
-                <div key={task.id} className="p-3 bg-slate-900/20 border border-brand-border rounded-lg flex items-start gap-2.5 text-xs text-slate-350">
-                  <CheckCircle2 size={14} className={task.status === 'completed' ? 'text-emerald-500 mt-0.5' : 'text-slate-750 mt-0.5'} />
+                <div key={task.id} className="p-3 bg-zinc-50 border border-zinc-200 rounded-lg flex items-start gap-2.5 text-xs text-zinc-700">
+                  <CheckCircle2 size={14} className={task.status === 'completed' ? 'text-zinc-600 mt-0.5' : 'text-slate-750 mt-0.5'} />
                   <div>
-                    <h4 className={`font-semibold leading-snug ${task.status === 'completed' ? 'text-slate-500 line-through font-normal' : 'text-white'}`}>
+                    <h4 className={`font-semibold leading-snug ${task.status === 'completed' ? 'text-zinc-400 line-through font-normal' : 'text-zinc-900'}`}>
                       {task.title}
                     </h4>
-                    <p className="text-[9px] text-slate-500 font-mono mt-1 font-bold uppercase">Priority: {task.priority} • Est: {task.estimatedTime}h</p>
+                    <p className="text-[9px] text-zinc-400 font-mono mt-1 font-bold uppercase">Priority: {task.priority} • Est: {task.estimatedTime}h</p>
                   </div>
                 </div>
               ))}
@@ -534,23 +534,23 @@ export const WorkIntelligence: React.FC = () => {
           </div>
 
           {/* CHATS */}
-          <div className="glass-panel p-4 flex flex-col gap-4 bg-[#0c0d15]/40">
-            <h3 className="text-xs font-bold font-display text-white border-b border-brand-border pb-2 flex items-center gap-1.5 uppercase tracking-wider">
-              <MessageSquare size={13} className="text-cyan-400" />
+          <div className="glass-panel p-4 flex flex-col gap-4 bg-zinc-100">
+            <h3 className="text-xs font-bold font-display text-zinc-900 border-b border-zinc-200 pb-2 flex items-center gap-1.5 uppercase tracking-wider">
+              <MessageSquare size={13} className="text-zinc-600" />
               <span>Important Chats</span>
             </h3>
 
             <div className="flex flex-col gap-3">
               {messages.map(msg => (
-                <div key={msg.id} className="p-3 bg-slate-900/20 border border-brand-border rounded-lg flex flex-col gap-1 text-xs text-slate-350">
-                  <div className="flex justify-between items-center text-[9px] text-slate-555 font-bold font-mono uppercase">
-                    <span className="text-slate-300">{msg.sender}</span>
+                <div key={msg.id} className="p-3 bg-zinc-50 border border-zinc-200 rounded-lg flex flex-col gap-1 text-xs text-zinc-700">
+                  <div className="flex justify-between items-center text-[9px] text-zinc-500 font-bold font-mono uppercase">
+                    <span className="text-zinc-600">{msg.sender}</span>
                     <span>{msg.time}</span>
                   </div>
-                  <p className="text-slate-400 leading-normal mt-1 truncate" title={msg.message}>
+                  <p className="text-zinc-500 leading-normal mt-1 truncate" title={msg.message}>
                     {msg.message}
                   </p>
-                  <span className="text-[8px] font-bold text-cyan-400 bg-cyan-950/20 border border-cyan-900/25 px-1.5 py-0.2 rounded w-fit mt-1 font-mono">
+                  <span className="text-[8px] font-bold text-zinc-600 bg-zinc-100 border border-cyan-900/25 px-1.5 py-0.2 rounded w-fit mt-1 font-mono">
                     #{msg.channel}
                   </span>
                 </div>
@@ -559,27 +559,27 @@ export const WorkIntelligence: React.FC = () => {
           </div>
 
           {/* MEETINGS */}
-          <div className="glass-panel p-4 flex flex-col gap-4 bg-[#0c0d15]/40">
-            <h3 className="text-xs font-bold font-display text-white border-b border-brand-border pb-2 flex items-center gap-1.5 uppercase tracking-wider">
-              <Calendar size={13} className="text-indigo-405" />
+          <div className="glass-panel p-4 flex flex-col gap-4 bg-zinc-100">
+            <h3 className="text-xs font-bold font-display text-zinc-900 border-b border-zinc-200 pb-2 flex items-center gap-1.5 uppercase tracking-wider">
+              <Calendar size={13} className="text-zinc-700" />
               <span>Calendar Synchronizer</span>
             </h3>
 
-            <div className="flex flex-col gap-3 text-xs text-slate-350">
+            <div className="flex flex-col gap-3 text-xs text-zinc-700">
               {meetings.map((meeting) => (
-                <div key={meeting.id} className="p-3 border border-brand-border rounded-lg bg-slate-900/20 flex justify-between items-center gap-4">
+                <div key={meeting.id} className="p-3 border border-zinc-200 rounded-lg bg-zinc-50 flex justify-between items-center gap-4">
                   <div className="flex-1">
-                    <h4 className="font-semibold text-white leading-snug">{meeting.title}</h4>
-                    <p className="text-[9px] text-slate-500 mt-1">{meeting.time} • Organizer: {meeting.organizer}</p>
+                    <h4 className="font-semibold text-zinc-900 leading-snug">{meeting.title}</h4>
+                    <p className="text-[9px] text-zinc-400 mt-1">{meeting.time} • Organizer: {meeting.organizer}</p>
                   </div>
                   <div className="flex flex-col items-end gap-1.5 shrink-0">
-                    <span className="text-[8px] text-slate-550 uppercase font-mono font-bold bg-slate-950 px-1.5 py-0.5 rounded border border-slate-900">{meeting.status}</span>
+                    <span className="text-[8px] text-slate-550 uppercase font-mono font-bold bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200">{meeting.status}</span>
                     {meeting.meetingUrl && (
                       <a 
                         href={meeting.meetingUrl} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-[8px] px-2 py-0.5 bg-blue-600 hover:bg-blue-500 text-white rounded font-bold font-mono tracking-wider uppercase transition-all select-none"
+                        className="text-[8px] px-2 py-0.5 bg-blue-600 hover:bg-zinc-700 text-zinc-900 rounded font-bold font-mono tracking-wider uppercase transition-all select-none"
                       >
                         Join Teams
                       </a>
@@ -593,13 +593,13 @@ export const WorkIntelligence: React.FC = () => {
         </div>
       ) : (
         /* DISCONNECTED */
-        <div className="glass-panel p-10 text-center flex flex-col items-center gap-4 bg-slate-900/10 border-slate-800">
-          <div className="w-10 h-10 rounded-full bg-slate-900 border border-slate-850 flex items-center justify-center text-slate-500 shadow-md">
+        <div className="glass-panel p-10 text-center flex flex-col items-center gap-4 bg-zinc-50 border-zinc-200">
+          <div className="w-10 h-10 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center text-zinc-400 shadow-md">
             <Briefcase size={16} />
           </div>
           <div>
-            <h3 className="text-xs font-bold font-display text-white uppercase tracking-wider">Exchange Sync Paused</h3>
-            <p className="text-[11px] text-slate-400 max-w-sm mx-auto mt-1 leading-relaxed">
+            <h3 className="text-xs font-bold font-display text-zinc-900 uppercase tracking-wider">Exchange Sync Paused</h3>
+            <p className="text-[11px] text-zinc-500 max-w-sm mx-auto mt-1 leading-relaxed">
               Teams sync channel closed. Enable the connection switcher above to synchronize calendar items.
             </p>
           </div>

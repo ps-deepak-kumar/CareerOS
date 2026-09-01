@@ -95,20 +95,20 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
 
   const getBadgeColor = (providerText: string = '') => {
     const p = providerText.toLowerCase();
-    if (p.includes('ibm')) return 'bg-blue-950/70 text-blue-300 border-blue-700/50';
-    if (p.includes('microsoft')) return 'bg-cyan-950/70 text-cyan-300 border-cyan-700/50';
-    if (p.includes('meta')) return 'bg-blue-950/70 text-blue-300 border-blue-700/50';
-    if (p.includes('netflix')) return 'bg-rose-950/70 text-rose-300 border-rose-700/50';
-    if (p.includes('aws') || p.includes('amazon')) return 'bg-amber-950/70 text-amber-300 border-amber-700/50';
-    if (p.includes('mit') || p.includes('stanford') || p.includes('harvard')) return 'bg-indigo-950/70 text-indigo-300 border-indigo-700/50';
-    return 'bg-slate-900/80 text-slate-300 border-slate-700/60';
+    if (p.includes('ibm')) return 'bg-zinc-100 text-zinc-700 border-blue-700/50';
+    if (p.includes('microsoft')) return 'bg-zinc-100 text-zinc-600 border-cyan-700/50';
+    if (p.includes('meta')) return 'bg-zinc-100 text-zinc-700 border-blue-700/50';
+    if (p.includes('netflix')) return 'bg-zinc-100 text-zinc-600 border-rose-700/50';
+    if (p.includes('aws') || p.includes('amazon')) return 'bg-zinc-100 text-zinc-600 border-amber-700/50';
+    if (p.includes('mit') || p.includes('stanford') || p.includes('harvard')) return 'bg-zinc-100 text-zinc-700 border-zinc-300';
+    return 'bg-zinc-50 text-zinc-600 border-zinc-200';
   };
 
   const renderStars = (rating: number = 4.8) => {
     return (
-      <div className="flex items-center gap-1 font-mono text-xs select-none bg-amber-950/50 border border-amber-500/30 px-2 py-0.5 rounded-full">
-        <Star size={11} className="fill-amber-400 text-amber-400" />
-        <span className="font-bold text-amber-300">{rating}</span>
+      <div className="flex items-center gap-1 font-mono text-xs select-none bg-zinc-100 border border-amber-500/30 px-2 py-0.5 rounded-full">
+        <Star size={11} className="fill-amber-400 text-zinc-600" />
+        <span className="font-bold text-zinc-600">{rating}</span>
       </div>
     );
   };
@@ -199,25 +199,25 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full pb-12 font-sans text-slate-200">
+    <div className="flex flex-col gap-6 w-full pb-12 font-sans text-zinc-700">
 
       {/* TOP HEADER */}
-      <div className="glass-panel p-6 bg-gradient-to-r from-slate-900/95 via-[#0e1122]/95 to-slate-900/95 border border-brand-border rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-5 shadow-xl">
+      <div className="glass-panel p-5 border border-zinc-200 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-5 shadow-xl">
         <div className="flex items-start gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500/25 via-purple-500/20 to-blue-500/15 border border-indigo-500/40 flex items-center justify-center shrink-0 text-2xl shadow-inner">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-zinc-100/25 via-purple-500/20 to-blue-500/15 border border-zinc-300 flex items-center justify-center shrink-0 text-2xl shadow-inner">
             🎓
           </div>
           <div>
             <div className="flex items-center gap-2.5 flex-wrap">
-              <h2 className="text-xl sm:text-2xl font-bold font-sans text-white tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold font-sans text-zinc-900 tracking-tight">
                 Curriculum & Masterclass Cabinets
               </h2>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase tracking-wider bg-indigo-500/15 text-indigo-300 border border-indigo-500/35 flex items-center gap-1">
-                <Sparkles size={11} className="text-amber-400" />
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase tracking-wider bg-zinc-100 text-zinc-700 border border-zinc-300 flex items-center gap-1">
+                <Sparkles size={11} className="text-zinc-600" />
                 AI Powered
               </span>
             </div>
-            <p className="text-xs text-slate-300 mt-1">
+            <p className="text-xs text-zinc-600 mt-1">
               Personalized university-grade textbooks, curated production GitHub repositories, and step-by-step video lab builds.
             </p>
           </div>
@@ -225,23 +225,23 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
 
         {/* Live Status Counters */}
         <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider w-full md:w-auto justify-between md:justify-end">
-          <div className="px-3.5 py-1.5 rounded-xl bg-indigo-950/60 border border-indigo-800/50 text-indigo-300 shadow-sm">
+          <div className="px-3.5 py-1.5 rounded-xl bg-zinc-100 border border-zinc-300 text-zinc-700 shadow-sm">
             {activeCourses.length} Active
           </div>
-          <div className="px-3.5 py-1.5 rounded-xl bg-amber-950/60 border border-amber-800/50 text-amber-300 shadow-sm">
+          <div className="px-3.5 py-1.5 rounded-xl bg-zinc-100 border border-amber-800/50 text-zinc-600 shadow-sm">
             {wishlistCourses.length} Wishlist
           </div>
-          <div className="px-3.5 py-1.5 rounded-xl bg-emerald-950/60 border border-emerald-800/50 text-emerald-300 shadow-sm">
+          <div className="px-3.5 py-1.5 rounded-xl bg-zinc-100 border border-emerald-800/50 text-zinc-600 shadow-sm">
             {completedCourses.length} Mastered
           </div>
         </div>
       </div>
 
       {/* SEARCH, VIEW CONTROLS & MAIN TAB SWITCHER */}
-      <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 border-b border-brand-border/60 pb-3">
+      <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 border-b border-zinc-200 pb-3">
         
         {/* Tab Buttons */}
-        <div className="flex bg-[#090b16] p-1.5 rounded-xl border border-brand-border/80 overflow-x-auto text-xs gap-1 shadow-md">
+        <div className="flex bg-white p-1.5 rounded-xl border border-zinc-200 overflow-x-auto text-xs gap-1 shadow-md">
           {([
             { id: 'my', label: 'Active Curriculums', count: activeCourses.length },
             { id: 'wishlist', label: '🔖 Saved Wishlist', count: wishlistCourses.length },
@@ -259,13 +259,13 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
               }}
               className={`px-4 py-2 rounded-lg font-bold font-sans uppercase tracking-wider transition-all flex items-center gap-1.5 shrink-0 ${
                 activeTab === tab.id
-                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/30'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                  ? 'bg-gradient-to-r from-zinc-800 to-zinc-900 text-zinc-900 shadow-md shadow-zinc-200'
+                  : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
               }`}
             >
               <span>{tab.label}</span>
               {tab.count !== null && (
-                <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-slate-900 border border-slate-700 text-slate-300">
+                <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-600">
                   {tab.count}
                 </span>
               )}
@@ -275,22 +275,22 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
 
         {/* Search & Layout View Toggle */}
         <div className="flex items-center gap-2.5">
-          <div className="flex items-center gap-2 bg-[#090b16] border border-brand-border rounded-xl px-3.5 py-2 w-full md:w-64 focus-within:border-indigo-500 transition-all text-xs shadow-inner">
-            <Search size={13} className="text-indigo-400 shrink-0" />
+          <div className="flex items-center gap-2 bg-white border border-zinc-200 rounded-xl px-3.5 py-2 w-full md:w-64 focus-within:border-zinc-300 transition-all text-xs shadow-inner">
+            <Search size={13} className="text-zinc-700 shrink-0" />
             <input 
               type="text" 
               value={searchTopic}
               onChange={(e) => setSearchTopic(e.target.value)}
               placeholder="Search courses, topics..."
-              className="bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none w-full"
+              className="bg-transparent text-xs text-zinc-900 placeholder-slate-500 focus:outline-none w-full"
             />
           </div>
 
-          <div className="flex bg-[#090b16] p-1 rounded-xl border border-brand-border/80 text-xs">
+          <div className="flex bg-white p-1 rounded-xl border border-zinc-200 text-xs">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded-lg transition-all ${
-                viewMode === 'grid' ? 'bg-indigo-600 text-white font-bold shadow-sm' : 'text-slate-400 hover:text-white'
+                viewMode === 'grid' ? 'bg-zinc-900 text-zinc-900 font-bold shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
               }`}
               title="Grid View"
             >
@@ -299,7 +299,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
             <button
               onClick={() => setViewMode('list')}
               className={`p-2 rounded-lg transition-all ${
-                viewMode === 'list' ? 'bg-indigo-600 text-white font-bold shadow-sm' : 'text-slate-400 hover:text-white'
+                viewMode === 'list' ? 'bg-zinc-900 text-zinc-900 font-bold shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
               }`}
               title="List View"
             >
@@ -311,18 +311,18 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
 
       {/* FILTER BUTTONS & LEVEL SELECTORS */}
       {activeTab !== 'discovery' && (
-        <div className="flex items-center justify-between gap-3 flex-wrap bg-[#0c0e1c] border border-brand-border/90 p-3 rounded-2xl shadow-md">
+        <div className="flex items-center justify-between gap-3 flex-wrap bg-white border border-zinc-200 p-3 rounded-2xl shadow-md">
           {/* Level Filter */}
           <div className="flex items-center gap-1.5 flex-wrap text-xs">
-            <span className="text-[10px] font-mono font-bold uppercase text-slate-400 pl-1">Level:</span>
+            <span className="text-[10px] font-mono font-bold uppercase text-zinc-500 pl-1">Level:</span>
             {(['all', 'Beginner', 'Intermediate', 'Advanced'] as const).map(diff => (
               <button
                 key={diff}
                 onClick={() => setDifficultyFilter(diff)}
                 className={`px-3 py-1 rounded-lg text-xs font-bold font-sans uppercase tracking-wider transition-all ${
                   difficultyFilter === diff
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'bg-slate-900/80 border border-brand-border text-slate-400 hover:text-white'
+                    ? 'bg-zinc-900 text-zinc-900 shadow-sm'
+                    : 'bg-zinc-50 border border-zinc-200 text-zinc-500 hover:text-zinc-900'
                 }`}
               >
                 {diff === 'all' ? 'All Levels' : diff}
@@ -332,15 +332,15 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
 
           {/* Provider Filter */}
           <div className="flex items-center gap-1.5 flex-wrap text-xs">
-            <span className="text-[10px] font-mono font-bold uppercase text-slate-400 pl-1">Provider:</span>
+            <span className="text-[10px] font-mono font-bold uppercase text-zinc-500 pl-1">Provider:</span>
             {(['all', 'university', 'enterprise', 'community'] as const).map(prov => (
               <button
                 key={prov}
                 onClick={() => setProviderCategory(prov)}
                 className={`px-3 py-1 rounded-lg text-xs font-bold font-sans uppercase tracking-wider capitalize transition-all ${
                   providerCategory === prov
-                    ? 'bg-slate-700 text-white font-bold shadow-sm'
-                    : 'bg-slate-900/80 border border-brand-border text-slate-400 hover:text-white'
+                    ? 'bg-slate-700 text-zinc-900 font-bold shadow-sm'
+                    : 'bg-zinc-50 border border-zinc-200 text-zinc-500 hover:text-zinc-900'
                 }`}
               >
                 {prov === 'all' ? 'All Providers' : prov}
@@ -372,10 +372,10 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                   return (
                     <div
                       key={course.id}
-                      className="p-5 bg-gradient-to-b from-[#181b30] via-[#121526] to-[#0c0e1c] border-2 border-indigo-500/30 hover:border-indigo-400/80 rounded-2xl flex flex-col justify-between gap-4 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.65),0_2px_4px_rgba(99,102,241,0.2)] hover:shadow-[0_20px_45px_rgba(99,102,241,0.28)] relative group overflow-hidden"
+                      className="p-5 bg-zinc-50 to-zinc-50 border-2 border-zinc-300 hover:border-zinc-300 rounded-2xl flex flex-col justify-between gap-4 transition-all duration-300 hover:-translate-y-1.5 shadow-card hover:shadow-[0_20px_45px_rgba(99,102,241,0.28)] relative group overflow-hidden"
                     >
                       {/* Top Accent Gradient Bar */}
-                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" />
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-zinc-50 to-cyan-400" />
 
                       {/* Top Action Hover Overlay */}
                       <div className="absolute top-3.5 right-3.5 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
@@ -383,7 +383,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                           <button
                             title="Save to Wishlist"
                             onClick={() => handleWishlist(course.id)}
-                            className="p-1.5 rounded-lg bg-slate-950/95 border border-brand-border text-slate-300 hover:text-amber-400 hover:border-amber-500/50 transition-all shadow-md"
+                            className="p-1.5 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-600 hover:text-zinc-600 hover:border-amber-500/50 transition-all shadow-md"
                           >
                             <Bookmark size={13} />
                           </button>
@@ -391,7 +391,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                           <button
                             title="Move to Active"
                             onClick={() => handleMoveToActive(course.id)}
-                            className="p-1.5 rounded-lg bg-slate-950/95 border border-amber-900/50 text-amber-400 hover:border-indigo-500 hover:text-white transition-all shadow-md"
+                            className="p-1.5 rounded-lg bg-zinc-100 border border-amber-900/50 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 transition-all shadow-md"
                           >
                             <BookmarkCheck size={13} />
                           </button>
@@ -399,7 +399,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                         <button
                           title="Remove Course"
                           onClick={() => setConfirmRemoveId(course.id)}
-                          className="p-1.5 rounded-lg bg-slate-950/95 border border-brand-border text-slate-300 hover:text-rose-400 hover:border-rose-500/50 transition-all shadow-md"
+                          className="p-1.5 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-600 hover:text-zinc-600 hover:border-rose-500/50 transition-all shadow-md"
                         >
                           <Trash2 size={13} />
                         </button>
@@ -408,13 +408,13 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                       {/* Remove confirmation overlay */}
                       {isConfirmingRemove && (
                         <div className="absolute inset-0 bg-black/95 backdrop-blur-md rounded-2xl z-20 flex flex-col items-center justify-center gap-3 p-5 text-center">
-                          <p className="text-sm text-white font-bold">Remove this curriculum?</p>
-                          <p className="text-xs text-slate-400">Will be removed from your active courses.</p>
+                          <p className="text-sm text-zinc-900 font-bold">Remove this curriculum?</p>
+                          <p className="text-xs text-zinc-500">Will be removed from your active courses.</p>
                           <div className="flex gap-2.5 mt-2">
                             <button onClick={() => setConfirmRemoveId(null)} className="btn-secondary text-xs py-1.5 px-4">
                               Cancel
                             </button>
-                            <button onClick={() => handleRemoveCourse(course.id)} className="px-4 py-1.5 rounded-lg text-xs font-bold text-white bg-red-600 hover:bg-red-500 transition-colors shadow-md">
+                            <button onClick={() => handleRemoveCourse(course.id)} className="px-4 py-1.5 rounded-lg text-xs font-bold text-zinc-900 bg-red-600 hover:bg-red-500 transition-colors shadow-md">
                               Remove
                             </button>
                           </div>
@@ -422,12 +422,12 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                       )}
 
                       {/* Top Metadata Banner */}
-                      <div className="flex items-center justify-between gap-2 border-b border-indigo-500/20 pb-3 pt-1">
+                      <div className="flex items-center justify-between gap-2 border-b border-zinc-300 pb-3 pt-1">
                         <div className="flex items-center gap-2 flex-wrap">
                           <span className={`px-2.5 py-1 rounded-md text-[9.5px] font-mono font-bold uppercase tracking-wider border shadow-sm ${
-                            course.difficulty === 'Beginner' ? 'bg-emerald-950/80 text-emerald-300 border-emerald-600/50' :
-                            course.difficulty === 'Intermediate' ? 'bg-indigo-950/80 text-indigo-300 border-indigo-600/50' :
-                            'bg-purple-950/80 text-purple-300 border-purple-600/50'
+                            course.difficulty === 'Beginner' ? 'bg-zinc-100 text-zinc-600 border-emerald-600/50' :
+                            course.difficulty === 'Intermediate' ? 'bg-zinc-100 text-zinc-700 border-zinc-300' :
+                            'bg-zinc-100 text-zinc-700 border-purple-600/50'
                           }`}>
                             {course.difficulty}
                           </span>
@@ -440,44 +440,44 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
 
                       {/* Title & Description */}
                       <div className="flex flex-col gap-2.5">
-                        <h3 className="text-base font-bold font-sans text-white group-hover:text-indigo-300 transition-colors leading-snug">
+                        <h3 className="text-base font-bold font-sans text-zinc-900 group-hover:text-zinc-700 transition-colors leading-snug">
                           {course.title}
                         </h3>
-                        <p className="text-xs text-slate-200 leading-relaxed line-clamp-2 font-normal">
+                        <p className="text-xs text-zinc-700 leading-relaxed line-clamp-2 font-normal">
                           {course.description || 'Comprehensive curriculum modules, chapter analogies, and verifiable capstones.'}
                         </p>
 
                         {/* Curated Assets Highlight Strip */}
-                        <div className="grid grid-cols-3 gap-2 text-[10px] font-mono text-slate-300 bg-[#070914] p-2.5 rounded-xl border border-indigo-950/80 shadow-inner">
-                          <div className="flex items-center gap-1.5 text-indigo-300 font-bold justify-center">
-                            <GithubIcon size={12} className="text-amber-400" />
+                        <div className="grid grid-cols-3 gap-2 text-[10px] font-mono text-zinc-600 bg-white p-2.5 rounded-xl border border-zinc-300 shadow-inner">
+                          <div className="flex items-center gap-1.5 text-zinc-700 font-bold justify-center">
+                            <GithubIcon size={12} className="text-zinc-600" />
                             <span>{githubList.length} Repos</span>
                           </div>
-                          <div className="flex items-center gap-1.5 text-cyan-300 font-bold justify-center border-x border-slate-800">
-                            <Video size={12} className="text-cyan-400" />
+                          <div className="flex items-center gap-1.5 text-zinc-600 font-bold justify-center border-x border-zinc-200">
+                            <Video size={12} className="text-zinc-600" />
                             <span>{videoList.length} Labs</span>
                           </div>
-                          <div className="flex items-center gap-1.5 text-emerald-300 font-bold justify-center">
-                            <Layers size={12} className="text-emerald-400" />
+                          <div className="flex items-center gap-1.5 text-zinc-600 font-bold justify-center">
+                            <Layers size={12} className="text-zinc-600" />
                             <span>{course.chapters.length} Chs</span>
                           </div>
                         </div>
                       </div>
 
                       {/* Progress & Actions */}
-                      <div className="space-y-3 pt-3 border-t border-indigo-500/20">
+                      <div className="space-y-3 pt-3 border-t border-zinc-300">
                         <div className="flex justify-between items-center text-xs font-mono">
-                          <span className="text-slate-300 font-semibold">Course Progress</span>
-                          <span className="text-emerald-400 font-bold">{course.progress}% Completed</span>
+                          <span className="text-zinc-600 font-semibold">Course Progress</span>
+                          <span className="text-zinc-600 font-bold">{course.progress}% Completed</span>
                         </div>
-                        <div className="w-full h-2 bg-slate-950 rounded-full overflow-hidden border border-slate-800 shadow-inner">
-                          <div className="h-full bg-gradient-to-r from-indigo-500 via-emerald-400 to-teal-300 rounded-full transition-all duration-700" style={{ width: `${course.progress}%` }} />
+                        <div className="w-full h-2 bg-zinc-50 rounded-full overflow-hidden border border-zinc-200 shadow-inner">
+                          <div className="h-full bg-zinc-50 to-teal-300 rounded-full transition-all duration-700" style={{ width: `${course.progress}%` }} />
                         </div>
 
                         <div className="grid grid-cols-2 gap-2.5 pt-1">
                           <button
                             onClick={() => handleStartCourse(course.id)}
-                            className="btn-primary py-2.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md shadow-indigo-600/30"
+                            className="btn-primary py-2.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md shadow-zinc-200"
                           >
                             <Play size={11} fill="currentColor" />
                             <span>{isCompleted ? 'Review' : 'Open Course'}</span>
@@ -503,32 +503,32 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                 {filteredCourses.map(course => (
                   <div
                     key={course.id}
-                    className="p-4 bg-gradient-to-r from-[#181b30] via-[#121526] to-[#0c0e1c] border-2 border-indigo-500/30 hover:border-indigo-400/80 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all shadow-lg hover:shadow-indigo-500/10"
+                    className="p-4 bg-zinc-50 to-zinc-50 border-2 border-zinc-300 hover:border-zinc-300 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all shadow-lg hover:shadow-zinc-200"
                   >
                     <div className="flex items-center gap-4 flex-1 min-w-0">
-                      <div className="w-12 h-12 rounded-xl bg-slate-950 border border-indigo-500/40 flex items-center justify-center text-xl shrink-0 shadow-inner">
+                      <div className="w-12 h-12 rounded-xl bg-zinc-50 border border-zinc-300 flex items-center justify-center text-xl shrink-0 shadow-inner">
                         📖
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <h4 className="text-sm font-bold text-white truncate">{course.title}</h4>
-                          <span className="text-[9.5px] font-mono font-bold text-indigo-300 bg-indigo-950/70 px-2 py-0.5 rounded border border-indigo-700/50 uppercase">
+                          <h4 className="text-sm font-bold text-zinc-900 truncate">{course.title}</h4>
+                          <span className="text-[9.5px] font-mono font-bold text-zinc-700 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-300 uppercase">
                             {course.difficulty}
                           </span>
                         </div>
-                        <p className="text-xs text-slate-300 mt-0.5 truncate">{course.instructor || course.provider} • {course.estimatedTime || '8h'}</p>
+                        <p className="text-xs text-zinc-600 mt-0.5 truncate">{course.instructor || course.provider} • {course.estimatedTime || '8h'}</p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-4 self-end sm:self-center shrink-0">
                       <div className="text-right font-mono text-xs hidden md:block">
-                        <span className="text-[10px] text-slate-400 uppercase block font-sans">Progress</span>
-                        <span className="text-emerald-400 font-bold">{course.progress}%</span>
+                        <span className="text-[10px] text-zinc-500 uppercase block font-sans">Progress</span>
+                        <span className="text-zinc-600 font-bold">{course.progress}%</span>
                       </div>
 
                       <button
                         onClick={() => handleStartCourse(course.id)}
-                        className="btn-primary py-2 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-indigo-600/30"
+                        className="btn-primary py-2 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-zinc-200"
                       >
                         <Play size={11} fill="currentColor" />
                         <span>Study Course</span>
@@ -539,7 +539,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
               </div>
             )
           ) : (
-            <div className="py-20 text-center text-slate-400 italic text-xs bg-slate-950/60 rounded-2xl border border-dashed border-brand-border/60">
+            <div className="py-20 text-center text-zinc-500 italic text-xs bg-zinc-100 rounded-2xl border border-dashed border-zinc-200">
               No curriculums found matching this filter. Switch filters or use the <strong>AI Course Discoverer</strong>!
             </div>
           )}
@@ -548,13 +548,13 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
 
       {/* ================= SECTION 2: AI COURSE DISCOVERY ENGINE ================= */}
       {activeTab === 'discovery' && (
-        <div className="glass-panel p-6 bg-[#0a0c16]/95 border border-brand-border rounded-2xl shadow-xl flex flex-col gap-6">
-          <div className="border-b border-brand-border/60 pb-3">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <Sparkles size={16} className="text-indigo-400" />
+        <div className="glass-panel p-6 bg-zinc-100 border border-zinc-200 rounded-2xl shadow-xl flex flex-col gap-6">
+          <div className="border-b border-zinc-200 pb-3">
+            <h3 className="text-sm font-bold text-zinc-900 uppercase tracking-wider flex items-center gap-2">
+              <Sparkles size={16} className="text-zinc-700" />
               <span>Autonomous Multi-Agent Curriculum Discovery</span>
             </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-zinc-500 mt-0.5">
               Enter any technical subject or framework to autonomously crawl universities, GitHub codebases, and video projects.
             </p>
           </div>
@@ -566,24 +566,24 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
               value={searchTopic}
               onChange={(e) => setSearchTopic(e.target.value)}
               placeholder="e.g. Scalable Vector RAG Systems, Multi-Agent MCP, React 19..."
-              className="flex-1 bg-slate-950 border border-brand-border rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 shadow-inner"
+              className="flex-1 bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-2.5 text-xs text-zinc-900 placeholder-slate-500 focus:outline-none focus:border-zinc-300 shadow-inner"
             />
             <button
               onClick={() => handleSearchSubmit(searchTopic || 'Agentic AI')}
-              className="btn-primary py-2.5 px-6 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-indigo-600/30"
+              className="btn-primary py-2.5 px-6 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-zinc-200"
             >
-              <Sparkles size={13} className="text-amber-300" />
+              <Sparkles size={13} className="text-zinc-600" />
               <span>Generate Course & Labs</span>
             </button>
           </div>
 
           {/* Discovery State Logs */}
           {discoveryState === 'searching' && (
-            <div className="p-4 rounded-xl bg-slate-950 border border-brand-border/80 font-mono text-xs space-y-2">
-              <span className="text-[10px] text-slate-500 uppercase font-bold">Live Agent Stream:</span>
+            <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 font-mono text-xs space-y-2">
+              <span className="text-[10px] text-zinc-400 uppercase font-bold">Live Agent Stream:</span>
               {agentSearchLogs.map((log, i) => (
-                <div key={i} className="flex items-center gap-2 text-indigo-300 animate-fade-in">
-                  <CheckCircle2 size={13} className="text-emerald-400 shrink-0" />
+                <div key={i} className="flex items-center gap-2 text-zinc-700 animate-fade-in">
+                  <CheckCircle2 size={13} className="text-zinc-600 shrink-0" />
                   <span>{log}</span>
                 </div>
               ))}
@@ -593,7 +593,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
           {/* Discovery Results Grid */}
           {discoveryState === 'results' && searchResults.length > 0 && (
             <div className="space-y-4">
-              <h4 className="text-xs font-bold font-mono text-indigo-300 uppercase tracking-wider">
+              <h4 className="text-xs font-bold font-mono text-zinc-700 uppercase tracking-wider">
                 {searchResults.length} Autonomous Masterclasses Structured:
               </h4>
 
@@ -601,32 +601,32 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                 {searchResults.map(res => (
                   <div 
                     key={res.id}
-                    className="p-5 bg-gradient-to-b from-[#181b30] via-[#121526] to-[#0c0e1c] border-2 border-indigo-500/40 rounded-2xl flex flex-col justify-between gap-4 shadow-xl"
+                    className="p-5 bg-zinc-50 to-zinc-50 border-2 border-zinc-300 rounded-2xl flex flex-col justify-between gap-4 shadow-xl"
                   >
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-[9.5px] font-mono font-bold text-indigo-300 bg-indigo-950/80 px-2.5 py-0.5 rounded border border-indigo-700/50 uppercase">
+                        <span className="text-[9.5px] font-mono font-bold text-zinc-700 bg-zinc-100 px-2.5 py-0.5 rounded border border-zinc-300 uppercase">
                           {res.provider || 'Stanford & MIT Track'}
                         </span>
                         {renderStars(res.rating || 4.9)}
                       </div>
 
-                      <h3 className="text-base font-bold text-white leading-snug">{res.title}</h3>
-                      <p className="text-xs text-slate-200 mt-2 leading-relaxed font-normal">{res.description}</p>
+                      <h3 className="text-base font-bold text-zinc-900 leading-snug">{res.title}</h3>
+                      <p className="text-xs text-zinc-700 mt-2 leading-relaxed font-normal">{res.description}</p>
 
-                      <div className="flex items-center gap-2 mt-3 text-[10px] font-mono text-slate-300 bg-[#070914] p-2.5 rounded-xl border border-indigo-950/80">
-                        <span className="text-emerald-400 font-bold">✓ {res.chapters.length} Modules</span>
+                      <div className="flex items-center gap-2 mt-3 text-[10px] font-mono text-zinc-600 bg-white p-2.5 rounded-xl border border-zinc-300">
+                        <span className="text-zinc-600 font-bold">✓ {res.chapters.length} Modules</span>
                         <span>•</span>
-                        <span className="text-amber-400 font-bold">⭐ {res.githubRepos?.length || 3} GitHub Repos</span>
+                        <span className="text-zinc-600 font-bold">⭐ {res.githubRepos?.length || 3} GitHub Repos</span>
                         <span>•</span>
-                        <span className="text-cyan-400 font-bold">🎥 {res.videoProjects?.length || 2} Video Labs</span>
+                        <span className="text-zinc-600 font-bold">🎥 {res.videoProjects?.length || 2} Video Labs</span>
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-indigo-500/20 flex justify-end gap-2">
+                    <div className="pt-3 border-t border-zinc-300 flex justify-end gap-2">
                       <button
                         onClick={() => handleEnrollCourse(res)}
-                        className="btn-primary py-2 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-indigo-600/30"
+                        className="btn-primary py-2 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-zinc-200"
                       >
                         <Plus size={13} />
                         <span>Enroll & Add to Cabinet</span>

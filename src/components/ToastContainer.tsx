@@ -46,32 +46,32 @@ export const ToastContainer: React.FC = () => {
   const getToastIcon = (type: ToastMessage['type']) => {
     switch (type) {
       case 'badge':
-        return <Trophy size={16} className="text-amber-400 shrink-0 animate-bounce" />;
+        return <Trophy size={16} className="text-zinc-600 shrink-0 animate-bounce" />;
       case 'warning':
-        return <AlertTriangle size={16} className="text-amber-400 shrink-0" />;
+        return <AlertTriangle size={16} className="text-zinc-600 shrink-0" />;
       case 'error':
         return <Trash2 size={16} className="text-red-400 shrink-0" />;
       case 'info':
-        return <Info size={16} className="text-cyan-400 shrink-0" />;
+        return <Info size={16} className="text-zinc-600 shrink-0" />;
       case 'success':
       default:
-        return <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />;
+        return <CheckCircle2 size={16} className="text-zinc-600 shrink-0" />;
     }
   };
 
   const getToastStyle = (type: ToastMessage['type']) => {
     switch (type) {
       case 'badge':
-        return 'bg-[#151206]/95 border-amber-500/40 text-amber-200 shadow-[0_8px_30px_rgba(251,191,36,0.15)]';
+        return 'bg-zinc-100 border-amber-500/40 text-zinc-600 shadow-[0_8px_30px_rgba(251,191,36,0.15)]';
       case 'error':
-        return 'bg-[#180808]/95 border-red-500/40 text-red-200 shadow-[0_8px_30px_rgba(239,68,68,0.15)]';
+        return 'bg-zinc-100 border-red-500/40 text-red-200 shadow-[0_8px_30px_rgba(239,68,68,0.15)]';
       case 'warning':
-        return 'bg-[#171206]/95 border-amber-500/40 text-amber-200 shadow-[0_8px_30px_rgba(245,158,11,0.15)]';
+        return 'bg-zinc-100 border-amber-500/40 text-zinc-600 shadow-[0_8px_30px_rgba(245,158,11,0.15)]';
       case 'info':
-        return 'bg-[#08121a]/95 border-cyan-500/40 text-cyan-200 shadow-[0_8px_30px_rgba(6,182,212,0.15)]';
+        return 'bg-zinc-100 border-cyan-500/40 text-zinc-600 shadow-[0_8px_30px_rgba(6,182,212,0.15)]';
       case 'success':
       default:
-        return 'bg-[#091512]/95 border-emerald-500/40 text-emerald-100 shadow-[0_8px_30px_rgba(16,185,129,0.15)]';
+        return 'bg-zinc-100 border-emerald-500/40 text-zinc-600 shadow-[0_8px_30px_rgba(16,185,129,0.15)]';
     }
   };
 
@@ -86,13 +86,13 @@ export const ToastContainer: React.FC = () => {
         >
           <div className="flex items-center gap-3 overflow-hidden">
             {getToastIcon(toast.type)}
-            <p className="text-xs font-semibold leading-tight font-sans text-slate-100">
+            <p className="text-xs font-semibold leading-tight font-sans text-zinc-700">
               {toast.message}
             </p>
           </div>
           <button
             onClick={() => removeToast(toast.id)}
-            className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors shrink-0"
+            className="text-zinc-500 hover:text-zinc-900 p-1 rounded-lg hover:bg-zinc-100 transition-colors shrink-0"
           >
             <X size={13} />
           </button>

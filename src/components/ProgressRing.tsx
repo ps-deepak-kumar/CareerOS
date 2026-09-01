@@ -57,9 +57,9 @@ export const ProgressRing: React.FC<ProgressRingProps> = ({
       </svg>
       {/* Absolute center layout */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-1.5 select-none">
-        <span className="text-xs sm:text-sm font-bold font-display text-white leading-tight">{Math.round(progress)}%</span>
+        <span className="text-xs sm:text-sm font-bold font-display text-zinc-900 leading-tight">{Math.round(progress)}%</span>
         {label && (
-          <span className="text-[7.5px] sm:text-[8px] text-slate-400 font-bold uppercase tracking-wider leading-tight mt-0.5 max-w-[72px] break-words">
+          <span className="text-[7.5px] sm:text-[8px] text-zinc-500 font-bold uppercase tracking-wider leading-tight mt-0.5 max-w-[72px] break-words">
             {label}
           </span>
         )}

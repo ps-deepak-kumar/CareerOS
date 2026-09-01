@@ -167,34 +167,34 @@ export const Quiz: React.FC = () => {
       <div className="max-w-3xl mx-auto py-6 flex flex-col gap-6">
         
         {/* Header */}
-        <div className="border-b border-slate-900 pb-5">
-          <div className="flex items-center gap-2 text-indigo-400 font-mono text-[9px] font-bold uppercase tracking-widest">
+        <div className="border-b border-zinc-200 pb-5">
+          <div className="flex items-center gap-2 text-zinc-700 font-mono text-[9px] font-bold uppercase tracking-widest">
             <Brain size={14} />
             <span>Interactive Diagnostic Engine</span>
           </div>
-          <h2 className="text-xl font-bold font-display text-white mt-1">AI Test Assessments & Skill Verification</h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <h2 className="text-xl font-bold font-display text-zinc-900 mt-1">AI Test Assessments & Skill Verification</h2>
+          <p className="text-xs text-zinc-500 mt-1">
             Configure topic, question count, difficulty, and hints. Earn verifiable achievement badges based on score.
           </p>
         </div>
 
         {/* Configuration Card */}
-        <div className="glass-panel p-6 bg-[#0c0d16] border border-brand-border rounded-2xl flex flex-col gap-6">
+        <div className="glass-panel p-6 bg-white border border-zinc-200 rounded-2xl flex flex-col gap-6">
           
           {/* Section 1: Topic Selection Source */}
           <div className="flex flex-col gap-3">
-            <label className="text-xs font-bold font-display text-white uppercase tracking-wider flex items-center gap-1.5">
+            <label className="text-xs font-bold font-display text-zinc-900 uppercase tracking-wider flex items-center gap-1.5">
               <span>1. Choose Assessment Subject</span>
             </label>
 
-            <div className="grid grid-cols-2 gap-3 p-1 bg-slate-950 rounded-xl border border-slate-900">
+            <div className="grid grid-cols-2 gap-3 p-1 bg-zinc-50 rounded-xl border border-zinc-200">
               <button
                 type="button"
                 onClick={() => setTopicSource('custom')}
                 className={`py-2 px-3 rounded-lg text-xs font-bold font-display transition-all ${
                   topicSource === 'custom'
-                    ? 'bg-indigo-600 text-white shadow-md'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-zinc-900 text-zinc-900 shadow-md'
+                    : 'text-zinc-500 hover:text-zinc-900'
                 }`}
               >
                 ✍️ Write Topic / Subject
@@ -204,8 +204,8 @@ export const Quiz: React.FC = () => {
                 onClick={() => setTopicSource('course')}
                 className={`py-2 px-3 rounded-lg text-xs font-bold font-display transition-all ${
                   topicSource === 'course'
-                    ? 'bg-indigo-600 text-white shadow-md'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-zinc-900 text-zinc-900 shadow-md'
+                    : 'text-zinc-500 hover:text-zinc-900'
                 }`}
               >
                 📚 Select from Enrolled Courses
@@ -220,7 +220,7 @@ export const Quiz: React.FC = () => {
                   value={customTopic}
                   onChange={(e) => setCustomTopic(e.target.value)}
                   placeholder="Enter topic name (e.g. Cloud Computing, Python, Transformers, SQL...)"
-                  className="w-full bg-slate-950 border border-slate-850 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-2.5 text-xs text-zinc-900 placeholder-slate-600 focus:outline-none focus:border-zinc-300 transition-colors"
                 />
 
                 {/* Popular Topic Pills */}
@@ -233,8 +233,8 @@ export const Quiz: React.FC = () => {
                       onClick={() => setCustomTopic(t)}
                       className={`px-2.5 py-1 text-[9px] font-mono rounded-lg border transition-all ${
                         customTopic.toLowerCase() === t.toLowerCase()
-                          ? 'bg-indigo-950/60 border-indigo-500 text-indigo-300 font-bold'
-                          : 'bg-slate-950 border-slate-900 text-slate-400 hover:text-white hover:border-slate-800'
+                          ? 'bg-zinc-100 border-zinc-300 text-zinc-700 font-bold'
+                          : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:text-zinc-900 hover:border-zinc-200'
                       }`}
                     >
                       {t}
@@ -248,7 +248,7 @@ export const Quiz: React.FC = () => {
                   <select
                     value={selectedCourseId}
                     onChange={(e) => setSelectedCourseId(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-850 rounded-xl px-4 py-2.5 text-xs text-indigo-300 font-semibold focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-2.5 text-xs text-zinc-700 font-semibold focus:outline-none focus:border-zinc-300"
                   >
                     {courses.map(c => (
                       <option key={c.id} value={c.id}>
@@ -257,7 +257,7 @@ export const Quiz: React.FC = () => {
                     ))}
                   </select>
                 ) : (
-                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-900 text-slate-500 text-xs text-center">
+                  <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 text-zinc-400 text-xs text-center">
                     No active courses found. Please create a goal or write a custom topic above.
                   </div>
                 )}
@@ -266,11 +266,11 @@ export const Quiz: React.FC = () => {
           </div>
 
           {/* Section 2: Number of Questions & Difficulty Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 border-t border-slate-900 pt-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 border-t border-zinc-200 pt-5">
             
             {/* Question count */}
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold font-display text-white uppercase tracking-wider">
+              <label className="text-xs font-bold font-display text-zinc-900 uppercase tracking-wider">
                 2. Number of Questions
               </label>
               <div className="grid grid-cols-4 gap-2">
@@ -281,8 +281,8 @@ export const Quiz: React.FC = () => {
                     onClick={() => setQuestionCount(count)}
                     className={`py-2 text-xs font-mono font-bold rounded-xl border transition-all text-center ${
                       questionCount === count
-                        ? 'bg-indigo-600 border-indigo-500 text-white shadow-md'
-                        : 'bg-slate-950 border-slate-900 text-slate-400 hover:border-slate-800'
+                        ? 'bg-zinc-900 border-zinc-300 text-zinc-900 shadow-md'
+                        : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:border-zinc-200'
                     }`}
                   >
                     {count} Qs
@@ -293,16 +293,16 @@ export const Quiz: React.FC = () => {
 
             {/* Difficulty */}
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold font-display text-white uppercase tracking-wider">
+              <label className="text-xs font-bold font-display text-zinc-900 uppercase tracking-wider">
                 3. Difficulty Level
               </label>
               <div className="grid grid-cols-3 gap-2">
                 {(['Easy', 'Medium', 'Hard'] as const).map(level => {
                   const isSelected = difficulty === level;
                   const activeColor = 
-                    level === 'Easy' ? 'bg-emerald-600 border-emerald-500 text-white' :
-                    level === 'Medium' ? 'bg-indigo-600 border-indigo-500 text-white' :
-                    'bg-red-600 border-red-500 text-white';
+                    level === 'Easy' ? 'bg-emerald-600 border-emerald-500 text-zinc-900' :
+                    level === 'Medium' ? 'bg-zinc-900 border-zinc-300 text-zinc-900' :
+                    'bg-red-600 border-red-500 text-zinc-900';
 
                   return (
                     <button
@@ -312,7 +312,7 @@ export const Quiz: React.FC = () => {
                       className={`py-2 text-xs font-display font-bold rounded-xl border transition-all text-center ${
                         isSelected
                           ? activeColor
-                          : 'bg-slate-950 border-slate-900 text-slate-400 hover:border-slate-800'
+                          : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:border-zinc-200'
                       }`}
                     >
                       {level}
@@ -325,24 +325,24 @@ export const Quiz: React.FC = () => {
           </div>
 
           {/* Section 3: Hints toggle & Rewards Preview */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 border-t border-slate-900 pt-5 items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 border-t border-zinc-200 pt-5 items-center">
             
             {/* Hints Toggle */}
-            <div className="flex items-center justify-between p-3.5 bg-slate-950 rounded-xl border border-slate-900">
+            <div className="flex items-center justify-between p-3.5 bg-zinc-50 rounded-xl border border-zinc-200">
               <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-amber-950/40 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                <div className="w-7 h-7 rounded-lg bg-zinc-100 border border-amber-500/30 flex items-center justify-center text-zinc-600">
                   <Lightbulb size={14} />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-white">Enable AI Hints</p>
-                  <p className="text-[10px] text-slate-500">Provide guidance during questions</p>
+                  <p className="text-xs font-bold text-zinc-900">Enable AI Hints</p>
+                  <p className="text-[10px] text-zinc-400">Provide guidance during questions</p>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setAllowHints(!allowHints)}
                 className={`w-11 h-6 rounded-full transition-colors relative p-0.5 ${
-                  allowHints ? 'bg-indigo-600' : 'bg-slate-800'
+                  allowHints ? 'bg-zinc-900' : 'bg-slate-800'
                 }`}
               >
                 <div className={`w-5 h-5 rounded-full bg-white transition-transform ${
@@ -352,11 +352,11 @@ export const Quiz: React.FC = () => {
             </div>
 
             {/* Reward badges preview pill */}
-            <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-amber-950/15 via-indigo-950/15 to-transparent rounded-xl border border-amber-900/25 text-xs">
-              <Trophy size={16} className="text-amber-400 shrink-0" />
+            <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-amber-950/15 via-zinc-100/15 to-transparent rounded-xl border border-amber-900/25 text-xs">
+              <Trophy size={16} className="text-zinc-600 shrink-0" />
               <div>
-                <p className="text-[10.5px] font-bold text-amber-300">Earn Verifiable Badges</p>
-                <p className="text-[9.5px] text-slate-400">🥇 Gold (90%+) • 🥈 Silver (70%+) • 🥉 Bronze (50%+)</p>
+                <p className="text-[10.5px] font-bold text-zinc-600">Earn Verifiable Badges</p>
+                <p className="text-[9.5px] text-zinc-500">🥇 Gold (90%+) • 🥈 Silver (70%+) • 🥉 Bronze (50%+)</p>
               </div>
             </div>
 
@@ -367,7 +367,7 @@ export const Quiz: React.FC = () => {
             type="button"
             onClick={handleStartQuiz}
             disabled={isLoading || (topicSource === 'custom' && !customTopic.trim())}
-            className="btn-primary py-3 text-sm font-bold font-display uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:shadow-indigo-500/20 transition-all rounded-xl"
+            className="btn-primary py-3 text-sm font-bold font-display uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:shadow-zinc-200 transition-all rounded-xl"
           >
             {isLoading ? (
               <>
@@ -401,46 +401,46 @@ export const Quiz: React.FC = () => {
         <div className="flex items-center justify-between">
           <button
             onClick={handleResetToSetup}
-            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors"
+            className="flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-900 transition-colors"
           >
             <ArrowLeft size={14} />
             <span>Exit Assessment</span>
           </button>
           
           <div className="flex items-center gap-2 font-mono text-xs">
-            <span className="bg-indigo-950/40 text-indigo-300 border border-indigo-900/40 px-2.5 py-0.5 rounded-md font-bold uppercase text-[9.5px]">
+            <span className="bg-zinc-100 text-zinc-700 border border-zinc-300 px-2.5 py-0.5 rounded-md font-bold uppercase text-[9.5px]">
               {currentQ.topic || customTopic}
             </span>
-            <span className="bg-slate-900 text-slate-400 px-2 py-0.5 rounded-md text-[9.5px] uppercase font-bold">
+            <span className="bg-zinc-100 text-zinc-500 px-2 py-0.5 rounded-md text-[9.5px] uppercase font-bold">
               {difficulty}
             </span>
           </div>
         </div>
 
         {/* Main Quiz Box */}
-        <div className="glass-panel p-6 flex flex-col gap-5 bg-[#0e0f17]/70 border border-brand-border rounded-2xl relative overflow-hidden">
+        <div className="glass-panel p-6 flex flex-col gap-5 bg-zinc-100 border border-zinc-200 rounded-2xl relative overflow-hidden">
           
           {/* Header row with progress */}
           <div className="flex justify-between items-center text-xs">
-            <span className="font-semibold text-white uppercase tracking-wider font-display flex items-center gap-1.5">
-              <Brain size={15} className="text-indigo-400" />
+            <span className="font-semibold text-zinc-900 uppercase tracking-wider font-display flex items-center gap-1.5">
+              <Brain size={15} className="text-zinc-700" />
               <span>Assessment Diagnostic Test</span>
             </span>
-            <span className="font-mono font-bold text-slate-400">
+            <span className="font-mono font-bold text-zinc-500">
               Question {currentIdx + 1} of {questions.length}
             </span>
           </div>
 
           {/* Progress Bar */}
-          <div className="w-full h-1.5 bg-slate-950 rounded-full overflow-hidden border border-slate-900">
+          <div className="w-full h-1.5 bg-zinc-50 rounded-full overflow-hidden border border-zinc-200">
             <div 
-              className="h-full bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300 rounded-full" 
+              className="h-full bg-gradient-to-r from-zinc-800 to-zinc-900 transition-all duration-300 rounded-full" 
               style={{ width: `${percentComplete}%` }} 
             />
           </div>
 
           {/* Question text */}
-          <h3 className="text-sm sm:text-base font-bold text-white leading-relaxed mt-1 select-text">
+          <h3 className="text-sm sm:text-base font-bold text-zinc-900 leading-relaxed mt-1 select-text">
             {currentQ.question}
           </h3>
 
@@ -450,14 +450,14 @@ export const Quiz: React.FC = () => {
               {!showHint ? (
                 <button
                   onClick={() => setShowHint(true)}
-                  className="self-start text-[10px] font-mono text-amber-400/90 hover:text-amber-300 flex items-center gap-1 bg-amber-950/20 border border-amber-900/30 px-2.5 py-1 rounded-lg transition-colors"
+                  className="self-start text-[10px] font-mono text-zinc-600/90 hover:text-zinc-600 flex items-center gap-1 bg-zinc-100 border border-amber-900/30 px-2.5 py-1 rounded-lg transition-colors"
                 >
                   <Lightbulb size={11} />
                   <span>Reveal AI Guidance Hint</span>
                 </button>
               ) : (
-                <div className="bg-amber-950/15 border border-amber-900/30 p-3 rounded-xl text-xs text-amber-200/90 flex gap-2 animate-fade-in">
-                  <Lightbulb size={14} className="text-amber-400 shrink-0 mt-0.5" />
+                <div className="bg-zinc-100 border border-amber-900/30 p-3 rounded-xl text-xs text-zinc-600/90 flex gap-2 animate-fade-in">
+                  <Lightbulb size={14} className="text-zinc-600 shrink-0 mt-0.5" />
                   <p className="text-[11px] leading-relaxed">
                     <span className="font-bold">Hint: </span>
                     {currentQ.hint}
@@ -471,19 +471,19 @@ export const Quiz: React.FC = () => {
           <div className="flex flex-col gap-2.5">
             {currentQ.options.map((opt, oIdx) => {
               const isSelected = selectedOpt === oIdx;
-              let optStyle = 'border-slate-850 bg-slate-950/50 text-slate-300 hover:border-slate-700';
+              let optStyle = 'border-zinc-200 bg-zinc-100 text-zinc-600 hover:border-zinc-200';
 
               if (isSelected) {
-                optStyle = 'border-indigo-500 text-white bg-indigo-950/25 shadow-[0_0_12px_rgba(99,102,241,0.2)] font-semibold';
+                optStyle = 'border-zinc-300 text-zinc-900 bg-zinc-100 shadow-[0_0_12px_rgba(99,102,241,0.2)] font-semibold';
               }
 
               if (isAnswered) {
                 if (oIdx === currentQ.correctIndex) {
-                  optStyle = 'border-emerald-500/80 text-emerald-200 bg-emerald-950/30 font-bold';
+                  optStyle = 'border-emerald-500/80 text-zinc-600 bg-zinc-100 font-bold';
                 } else if (isSelected) {
                   optStyle = 'border-red-500/80 text-red-200 bg-red-950/30';
                 } else {
-                  optStyle = 'border-slate-900 bg-slate-950/20 text-slate-600 opacity-50';
+                  optStyle = 'border-zinc-200 bg-zinc-100 text-slate-600 opacity-50';
                 }
               }
 
@@ -495,7 +495,7 @@ export const Quiz: React.FC = () => {
                   className={`w-full text-left p-3.5 rounded-xl border text-xs leading-normal transition-all flex items-start gap-3 ${optStyle}`}
                 >
                   <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-mono font-bold ${
-                    isSelected ? 'border-indigo-400 bg-indigo-600 text-white' : 'border-slate-800 text-slate-500'
+                    isSelected ? 'border-zinc-300 bg-zinc-900 text-zinc-900' : 'border-zinc-200 text-zinc-400'
                   }`}>
                     {String.fromCharCode(65 + oIdx)}
                   </div>
@@ -509,19 +509,19 @@ export const Quiz: React.FC = () => {
           {isAnswered && (
             <div className={`p-4 rounded-xl border text-xs leading-relaxed flex gap-3 animate-fade-in ${
               isCorrect 
-                ? 'bg-emerald-950/20 border-emerald-900/30 text-emerald-200' 
+                ? 'bg-zinc-100 border-emerald-900/30 text-zinc-600' 
                 : 'bg-red-950/20 border-red-900/30 text-red-200'
             }`}>
               {isCorrect ? (
-                <CheckCircle2 size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+                <CheckCircle2 size={18} className="text-zinc-600 shrink-0 mt-0.5" />
               ) : (
                 <XCircle size={18} className="text-red-400 shrink-0 mt-0.5" />
               )}
               <div className="text-left flex-1">
-                <p className="font-bold text-white text-xs mb-1">
+                <p className="font-bold text-zinc-900 text-xs mb-1">
                   {isCorrect ? '✅ Correct Answer!' : '❌ Incorrect Answer'}
                 </p>
-                <p className="text-slate-300 text-[11px] leading-relaxed">
+                <p className="text-zinc-600 text-[11px] leading-relaxed">
                   {currentQ.explanation}
                 </p>
               </div>
@@ -567,72 +567,72 @@ export const Quiz: React.FC = () => {
       <div className="max-w-3xl mx-auto py-6 flex flex-col gap-6">
         
         {/* Results Header Panel */}
-        <div className="glass-panel p-6 flex flex-col gap-6 text-center bg-[#0c0d16] border border-brand-border rounded-2xl">
+        <div className="glass-panel p-6 flex flex-col gap-6 text-center bg-white border border-zinc-200 rounded-2xl">
           
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-900/40 to-slate-900 border border-indigo-500/30 flex items-center justify-center mx-auto text-indigo-400 shadow-lg">
-            {accuracy >= 70 ? <Trophy size={26} className="text-amber-400" /> : <CheckCircle2 size={26} className="text-indigo-400" />}
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-zinc-100/40 to-zinc-100 border border-zinc-300 flex items-center justify-center mx-auto text-zinc-700 shadow-lg">
+            {accuracy >= 70 ? <Trophy size={26} className="text-zinc-600" /> : <CheckCircle2 size={26} className="text-zinc-700" />}
           </div>
           
           <div>
-            <h2 className="text-lg sm:text-xl font-bold font-display text-white uppercase tracking-wider">
+            <h2 className="text-lg sm:text-xl font-bold font-display text-zinc-900 uppercase tracking-wider">
               Assessment Evaluation Complete
             </h2>
-            <p className="text-xs text-slate-400 mt-1 font-mono">
-              Diagnostic subject: <span className="text-indigo-300 font-bold">{customTopic}</span> ({difficulty} Level)
+            <p className="text-xs text-zinc-500 mt-1 font-mono">
+              Diagnostic subject: <span className="text-zinc-700 font-bold">{customTopic}</span> ({difficulty} Level)
             </p>
           </div>
 
           {/* Key Score Metrics Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono max-w-xl mx-auto w-full">
-            <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-900">
-              <p className="text-[9px] text-slate-500 uppercase font-bold">Total Score</p>
-              <p className="text-lg font-bold text-white mt-1">{score} / {totalQ}</p>
+            <div className="bg-zinc-50 p-3.5 rounded-xl border border-zinc-200">
+              <p className="text-[9px] text-zinc-400 uppercase font-bold">Total Score</p>
+              <p className="text-lg font-bold text-zinc-900 mt-1">{score} / {totalQ}</p>
             </div>
             
-            <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-900">
-              <p className="text-[9px] text-slate-500 uppercase font-bold">Accuracy</p>
-              <p className={`text-lg font-bold mt-1 ${accuracy >= 70 ? 'text-emerald-400' : accuracy >= 50 ? 'text-amber-400' : 'text-red-400'}`}>
+            <div className="bg-zinc-50 p-3.5 rounded-xl border border-zinc-200">
+              <p className="text-[9px] text-zinc-400 uppercase font-bold">Accuracy</p>
+              <p className={`text-lg font-bold mt-1 ${accuracy >= 70 ? 'text-zinc-600' : accuracy >= 50 ? 'text-zinc-600' : 'text-red-400'}`}>
                 {accuracy}%
               </p>
             </div>
 
-            <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-900">
-              <p className="text-[9px] text-slate-500 uppercase font-bold">Correct</p>
-              <p className="text-lg font-bold text-emerald-400 mt-1">+{score}</p>
+            <div className="bg-zinc-50 p-3.5 rounded-xl border border-zinc-200">
+              <p className="text-[9px] text-zinc-400 uppercase font-bold">Correct</p>
+              <p className="text-lg font-bold text-zinc-600 mt-1">+{score}</p>
             </div>
 
-            <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-900">
-              <p className="text-[9px] text-slate-500 uppercase font-bold">Incorrect</p>
+            <div className="bg-zinc-50 p-3.5 rounded-xl border border-zinc-200">
+              <p className="text-[9px] text-zinc-400 uppercase font-bold">Incorrect</p>
               <p className="text-lg font-bold text-red-400 mt-1">-{incorrectCount}</p>
             </div>
           </div>
 
           {/* Badge Unlocked Banner */}
           {awardedBadge && (
-            <div className="p-4 rounded-xl bg-gradient-to-r from-amber-950/30 via-indigo-950/20 to-amber-950/30 border border-amber-500/40 max-w-lg mx-auto w-full flex items-center justify-between gap-3 text-left">
+            <div className="p-4 rounded-xl bg-gradient-to-r from-amber-950/30 via-zinc-100/20 to-amber-950/30 border border-amber-500/40 max-w-lg mx-auto w-full flex items-center justify-between gap-3 text-left">
               <div className="flex items-center gap-3">
                 <div className="text-3xl">
                   {awardedBadge === 'master' ? '🥇' : awardedBadge === 'proficient' ? '🥈' : '🥉'}
                 </div>
                 <div>
-                  <span className="text-[8.5px] font-mono font-bold uppercase tracking-widest text-amber-400">Credential Unlocked & Saved</span>
-                  <h4 className="text-xs sm:text-sm font-bold text-white">
+                  <span className="text-[8.5px] font-mono font-bold uppercase tracking-widest text-zinc-600">Credential Unlocked & Saved</span>
+                  <h4 className="text-xs sm:text-sm font-bold text-zinc-900">
                     {awardedBadge === 'master' ? 'Assessment Grandmaster Badge' : awardedBadge === 'proficient' ? 'Assessment Specialist Badge' : 'Assessment Achiever Badge'}
                   </h4>
-                  <p className="text-[10px] text-slate-400">Permanently unlocked in your Competency Milestones / Achievements.</p>
+                  <p className="text-[10px] text-zinc-500">Permanently unlocked in your Competency Milestones / Achievements.</p>
                 </div>
               </div>
             </div>
           )}
 
           {/* Skill Diagnostic Feedback */}
-          <div className="text-left bg-slate-950 p-4 rounded-xl border border-slate-900 max-w-lg mx-auto w-full text-xs">
-            <h4 className="font-bold text-white mb-2 font-display flex items-center gap-1.5 uppercase text-[9.5px] tracking-wider text-indigo-400">
+          <div className="text-left bg-zinc-50 p-4 rounded-xl border border-zinc-200 max-w-lg mx-auto w-full text-xs">
+            <h4 className="font-bold text-zinc-900 mb-2 font-display flex items-center gap-1.5 uppercase text-[9.5px] tracking-wider text-zinc-700">
               <AlertCircle size={13} />
               <span>AI Skill Gap Diagnostic</span>
             </h4>
             
-            <p className="text-[11px] text-slate-300 leading-relaxed">
+            <p className="text-[11px] text-zinc-600 leading-relaxed">
               {accuracy >= 90 ? (
                 <span>🎉 Excellent mastery! You demonstrated high proficiency in core concepts and edge cases. Ready to tackle advanced capstone labs.</span>
               ) : accuracy >= 70 ? (
@@ -661,7 +661,7 @@ export const Quiz: React.FC = () => {
             </button>
             <button 
               onClick={() => window.location.hash = '#/achievements'}
-              className="btn-secondary py-2.5 px-4 flex items-center gap-1.5 font-bold font-display uppercase tracking-wider text-amber-300 border-amber-900/30"
+              className="btn-secondary py-2.5 px-4 flex items-center gap-1.5 font-bold font-display uppercase tracking-wider text-zinc-600 border-amber-900/30"
             >
               <Award size={13} />
               <span>View Badges</span>
@@ -671,15 +671,15 @@ export const Quiz: React.FC = () => {
         </div>
 
         {/* Detailed Question-by-Question Review List */}
-        <div className="glass-panel p-6 bg-[#0c0d16] border border-brand-border rounded-2xl flex flex-col gap-4">
-          <div className="flex justify-between items-center border-b border-slate-900 pb-3">
-            <h3 className="text-xs sm:text-sm font-bold font-display text-white uppercase tracking-wider flex items-center gap-2">
+        <div className="glass-panel p-6 bg-white border border-zinc-200 rounded-2xl flex flex-col gap-4">
+          <div className="flex justify-between items-center border-b border-zinc-200 pb-3">
+            <h3 className="text-xs sm:text-sm font-bold font-display text-zinc-900 uppercase tracking-wider flex items-center gap-2">
               <span>Detailed Assessment Breakdown</span>
-              <span className="text-[10px] font-mono text-slate-500">({userAnswers.length} Questions Reviewed)</span>
+              <span className="text-[10px] font-mono text-zinc-400">({userAnswers.length} Questions Reviewed)</span>
             </h3>
             <button
               onClick={() => setShowReviewList(!showReviewList)}
-              className="text-slate-400 hover:text-white text-xs flex items-center gap-1"
+              className="text-zinc-500 hover:text-zinc-900 text-xs flex items-center gap-1"
             >
               <span>{showReviewList ? 'Collapse' : 'Expand'}</span>
               {showReviewList ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
@@ -693,22 +693,22 @@ export const Quiz: React.FC = () => {
                   key={qIdx}
                   className={`p-4 rounded-xl border flex flex-col gap-3 text-xs ${
                     record.isCorrect 
-                      ? 'bg-emerald-950/10 border-emerald-900/25' 
+                      ? 'bg-zinc-100 border-emerald-900/25' 
                       : 'bg-red-950/10 border-red-900/25'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-start gap-2">
-                      <span className="font-mono text-[10px] font-bold text-slate-500 shrink-0 mt-0.5">
+                      <span className="font-mono text-[10px] font-bold text-zinc-400 shrink-0 mt-0.5">
                         Q{qIdx + 1}.
                       </span>
-                      <p className="font-bold text-white leading-snug">
+                      <p className="font-bold text-zinc-900 leading-snug">
                         {record.question.question}
                       </p>
                     </div>
                     <div className="shrink-0">
                       {record.isCorrect ? (
-                        <span className="flex items-center gap-1 text-[9px] font-mono font-bold text-emerald-400 bg-emerald-950/40 border border-emerald-800/40 px-2 py-0.5 rounded">
+                        <span className="flex items-center gap-1 text-[9px] font-mono font-bold text-zinc-600 bg-zinc-100 border border-emerald-800/40 px-2 py-0.5 rounded">
                           <Check size={11} /> Correct (+1)
                         </span>
                       ) : (
@@ -725,9 +725,9 @@ export const Quiz: React.FC = () => {
                       const isUserSelection = record.selectedIdx === oIdx;
                       const isCorrectAns = record.question.correctIndex === oIdx;
 
-                      let optColor = 'text-slate-400 bg-slate-950/40 border-slate-900';
+                      let optColor = 'text-zinc-500 bg-zinc-100 border-zinc-200';
                       if (isCorrectAns) {
-                        optColor = 'text-emerald-300 bg-emerald-950/30 border-emerald-700/40 font-bold';
+                        optColor = 'text-zinc-600 bg-zinc-100 border-emerald-700/40 font-bold';
                       } else if (isUserSelection && !record.isCorrect) {
                         optColor = 'text-red-300 bg-red-950/30 border-red-700/40 line-through';
                       }
@@ -735,7 +735,7 @@ export const Quiz: React.FC = () => {
                       return (
                         <div key={oIdx} className={`p-2 rounded-lg border flex items-center justify-between gap-2 ${optColor}`}>
                           <span className="truncate">{String.fromCharCode(65 + oIdx)}. {opt}</span>
-                          {isCorrectAns && <Check size={12} className="text-emerald-400 shrink-0" />}
+                          {isCorrectAns && <Check size={12} className="text-zinc-600 shrink-0" />}
                           {isUserSelection && !record.isCorrect && <X size={12} className="text-red-400 shrink-0" />}
                         </div>
                       );
@@ -743,8 +743,8 @@ export const Quiz: React.FC = () => {
                   </div>
 
                   {/* Explanation */}
-                  <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-900 text-[10.5px] text-slate-300 leading-relaxed">
-                    <span className="font-bold text-indigo-400">Explanation: </span>
+                  <div className="bg-zinc-100 p-2.5 rounded-lg border border-zinc-200 text-[10.5px] text-zinc-600 leading-relaxed">
+                    <span className="font-bold text-zinc-700">Explanation: </span>
                     {record.question.explanation}
                   </div>
                 </div>

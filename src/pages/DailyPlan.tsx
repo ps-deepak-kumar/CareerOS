@@ -133,21 +133,21 @@ export const DailyPlan: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-6 w-full pb-12 font-sans text-slate-200">
+    <div className="flex flex-col gap-6 w-full pb-12 font-sans text-zinc-700">
       
       {/* TOP HEADER */}
-      <div className="glass-panel p-6 bg-gradient-to-r from-slate-900/90 via-[#0c0e18]/90 to-slate-900/90 border border-brand-border rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-5 shadow-lg">
+      <div className="glass-panel p-5 border border-zinc-200 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-5 shadow-lg">
         <div>
           <div className="flex items-center gap-2.5 flex-wrap">
-            <h2 className="text-xl sm:text-2xl font-bold font-sans text-white tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-bold font-sans text-zinc-900 tracking-tight">
               Daily Schedule & Strategic Planner
             </h2>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase tracking-wider bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 flex items-center gap-1">
-              <Zap size={11} className="text-amber-400" />
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase tracking-wider bg-zinc-100 text-zinc-700 border border-zinc-300 flex items-center gap-1">
+              <Zap size={11} className="text-zinc-600" />
               AI Balanced
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-zinc-500 mt-1">
             Autonomous multi-agent scheduling that factors your Microsoft Teams obligations and protects deep learning focus blocks.
           </p>
         </div>
@@ -157,9 +157,9 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={handleRunAiOptimizer}
             disabled={isOptimizing}
-            className="btn-primary flex items-center gap-2 py-2 px-4 text-xs font-bold uppercase tracking-wider shadow-md shadow-indigo-600/20"
+            className="btn-primary flex items-center gap-2 py-2 px-4 text-xs font-bold uppercase tracking-wider shadow-md shadow-zinc-200"
           >
-            <Sparkles size={13} className={isOptimizing ? 'animate-spin' : 'text-amber-300'} />
+            <Sparkles size={13} className={isOptimizing ? 'animate-spin' : 'text-zinc-600'} />
             <span>{isOptimizing ? 'Balancing Schedule...' : 'AI Auto-Optimize'}</span>
           </button>
         </div>
@@ -167,52 +167,52 @@ export const DailyPlan: React.FC = () => {
 
       {/* METRICS HUD ROW */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="glass-panel p-4 bg-[#090b14]/70 border border-brand-border rounded-xl">
-          <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
+        <div className="glass-panel p-4 bg-zinc-100 border border-zinc-200 rounded-xl">
+          <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-zinc-500 font-mono">
             <span>Productivity Velocity</span>
-            <span className="text-emerald-400">{overallProductivity}%</span>
+            <span className="text-zinc-600">{overallProductivity}%</span>
           </div>
-          <p className="text-xl font-bold text-white mt-1 font-mono">{completedWorkHours + completedLearnHours}h / {totalPlannedHours}h</p>
-          <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden mt-2">
-            <div className="h-full bg-emerald-500 rounded-full transition-all" style={{ width: `${overallProductivity}%` }} />
+          <p className="text-xl font-bold text-zinc-900 mt-1 font-mono">{completedWorkHours + completedLearnHours}h / {totalPlannedHours}h</p>
+          <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden mt-2">
+            <div className="h-full bg-zinc-800 rounded-full transition-all" style={{ width: `${overallProductivity}%` }} />
           </div>
         </div>
 
-        <div className="glass-panel p-4 bg-[#090b14]/70 border border-brand-border rounded-xl">
-          <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
+        <div className="glass-panel p-4 bg-zinc-100 border border-zinc-200 rounded-xl">
+          <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-zinc-700 font-mono">
             <span>Corporate Work Load</span>
-            <span className="text-slate-300">{workHours}h</span>
+            <span className="text-zinc-600">{workHours}h</span>
           </div>
-          <p className="text-xl font-bold text-white mt-1 font-mono">{completedWorkHours}h Done</p>
-          <p className="text-[10px] text-slate-500 mt-1">M365 Teams & PR Reviews</p>
+          <p className="text-xl font-bold text-zinc-900 mt-1 font-mono">{completedWorkHours}h Done</p>
+          <p className="text-[10px] text-zinc-400 mt-1">M365 Teams & PR Reviews</p>
         </div>
 
-        <div className="glass-panel p-4 bg-[#090b14]/70 border border-brand-border rounded-xl">
-          <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-indigo-400 font-mono">
+        <div className="glass-panel p-4 bg-zinc-100 border border-zinc-200 rounded-xl">
+          <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-zinc-700 font-mono">
             <span>Protected Study</span>
-            <span className="text-slate-300">{learnHours}h</span>
+            <span className="text-zinc-600">{learnHours}h</span>
           </div>
-          <p className="text-xl font-bold text-white mt-1 font-mono">{completedLearnHours}h Done</p>
-          <p className="text-[10px] text-slate-500 mt-1">University Syllabus Slot</p>
+          <p className="text-xl font-bold text-zinc-900 mt-1 font-mono">{completedLearnHours}h Done</p>
+          <p className="text-[10px] text-zinc-400 mt-1">University Syllabus Slot</p>
         </div>
 
-        <div className="glass-panel p-4 bg-[#090b14]/70 border border-brand-border rounded-xl">
-          <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-amber-400 font-mono">
+        <div className="glass-panel p-4 bg-zinc-100 border border-zinc-200 rounded-xl">
+          <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-zinc-600 font-mono">
             <span>Cadence Status</span>
-            <span className="text-emerald-400">Optimal</span>
+            <span className="text-zinc-600">Optimal</span>
           </div>
-          <p className="text-xl font-bold text-white mt-1 font-mono">Zero Overlaps</p>
-          <p className="text-[10px] text-slate-500 mt-1">AI Guardian Active</p>
+          <p className="text-xl font-bold text-zinc-900 mt-1 font-mono">Zero Overlaps</p>
+          <p className="text-[10px] text-zinc-400 mt-1">AI Guardian Active</p>
         </div>
       </div>
 
       {/* TIMEFRAME & VIEW CONTROLS */}
-      <div className="flex justify-between items-center flex-wrap gap-4 border-b border-brand-border/60 pb-3">
-        <div className="flex bg-[#06070d] p-1 rounded-xl border border-brand-border/70">
+      <div className="flex justify-between items-center flex-wrap gap-4 border-b border-zinc-200 pb-3">
+        <div className="flex bg-white p-1 rounded-xl border border-zinc-200">
           <button
             onClick={() => setTimeFilter('today')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-              timeFilter === 'today' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+              timeFilter === 'today' ? 'bg-zinc-900 text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
             }`}
           >
             ⚡ Today's Sprint
@@ -220,7 +220,7 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={() => setTimeFilter('7days')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-              timeFilter === '7days' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+              timeFilter === '7days' ? 'bg-zinc-900 text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
             }`}
           >
             📅 7-Day Horizon
@@ -228,18 +228,18 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={() => setTimeFilter('month')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-              timeFilter === 'month' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+              timeFilter === 'month' ? 'bg-zinc-900 text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
             }`}
           >
             🗓️ Monthly Agenda
           </button>
         </div>
 
-        <div className="flex bg-[#06070d] p-1 rounded-xl border border-brand-border/70 text-xs font-mono">
+        <div className="flex bg-white p-1 rounded-xl border border-zinc-200 text-xs font-mono">
           <button
             onClick={() => setViewMode('timeline')}
             className={`px-3 py-1 rounded-lg transition-all ${
-              viewMode === 'timeline' ? 'bg-slate-800 text-white font-bold' : 'text-slate-400 hover:text-white'
+              viewMode === 'timeline' ? 'bg-slate-800 text-zinc-900 font-bold' : 'text-zinc-500 hover:text-zinc-900'
             }`}
           >
             24h Timeline
@@ -247,7 +247,7 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={() => setViewMode('blocks')}
             className={`px-3 py-1 rounded-lg transition-all ${
-              viewMode === 'blocks' ? 'bg-slate-800 text-white font-bold' : 'text-slate-400 hover:text-white'
+              viewMode === 'blocks' ? 'bg-slate-800 text-zinc-900 font-bold' : 'text-zinc-500 hover:text-zinc-900'
             }`}
           >
             Task Matrix
@@ -257,16 +257,16 @@ export const DailyPlan: React.FC = () => {
 
       {/* ================= VIEW 1: 24-HOUR TIMELINE SCHEDULER ================= */}
       {viewMode === 'timeline' && timeFilter === 'today' && (
-        <div className="glass-panel p-6 bg-[#090a12]/80 border border-brand-border rounded-2xl shadow-md flex flex-col gap-4">
-          <div className="flex justify-between items-center border-b border-brand-border/60 pb-3">
+        <div className="glass-panel p-6 bg-zinc-100 border border-zinc-200 rounded-2xl shadow-md flex flex-col gap-4">
+          <div className="flex justify-between items-center border-b border-zinc-200 pb-3">
             <div>
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <Clock size={15} className="text-indigo-400" />
+              <h3 className="text-xs font-bold text-zinc-900 uppercase tracking-wider flex items-center gap-2">
+                <Clock size={15} className="text-zinc-700" />
                 <span>Today's Time-Blocked Schedule Symphony</span>
               </h3>
-              <p className="text-[10px] text-slate-400 font-mono">Sequential distribution of corporate duties and deep research</p>
+              <p className="text-[10px] text-zinc-500 font-mono">Sequential distribution of corporate duties and deep research</p>
             </div>
-            <span className="text-[10px] font-mono text-indigo-400 bg-indigo-950/40 px-2.5 py-1 rounded border border-indigo-800/40">
+            <span className="text-[10px] font-mono text-zinc-700 bg-zinc-100 px-2.5 py-1 rounded border border-zinc-300">
               8 Blocks Mapped
             </span>
           </div>
@@ -283,35 +283,35 @@ export const DailyPlan: React.FC = () => {
                   key={idx}
                   className={`p-4 rounded-xl border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 transition-all ${
                     isBreak 
-                      ? 'border-dashed border-slate-800 bg-slate-950/30 text-slate-500'
+                      ? 'border-dashed border-zinc-200 bg-zinc-100 text-zinc-400'
                       : isLearning 
-                        ? 'border-indigo-500/30 bg-indigo-950/15 hover:border-indigo-500/60 shadow-[0_0_12px_rgba(99,102,241,0.06)]'
+                        ? 'border-zinc-300 bg-zinc-100 hover:border-zinc-300 shadow-[0_0_12px_rgba(99,102,241,0.06)]'
                         : isMeeting
-                          ? 'border-cyan-500/30 bg-cyan-950/15 hover:border-cyan-500/60'
-                          : 'border-blue-500/30 bg-blue-950/15 hover:border-blue-500/60'
+                          ? 'border-cyan-500/30 bg-zinc-100 hover:border-cyan-500/60'
+                          : 'border-blue-500/30 bg-zinc-100 hover:border-blue-500/60'
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <div className={`p-2 rounded-lg text-xs font-bold font-mono shrink-0 ${
-                      isBreak ? 'bg-slate-900 text-slate-500' :
-                      isLearning ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30' :
-                      isMeeting ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' :
-                      'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                      isBreak ? 'bg-zinc-100 text-zinc-400' :
+                      isLearning ? 'bg-zinc-100 text-zinc-700 border border-zinc-300' :
+                      isMeeting ? 'bg-zinc-100 text-zinc-600 border border-cyan-500/30' :
+                      'bg-zinc-100 text-zinc-700 border border-blue-500/30'
                     }`}>
                       {isLearning ? '🎯 Study' : isMeeting ? '🤝 Sync' : isBreak ? '☕ Rest' : '💼 Work'}
                     </div>
 
                     <div>
-                      <span className="text-xs font-bold text-white leading-snug block">{block.title}</span>
-                      <span className="text-[10px] text-slate-400 font-mono mt-0.5 block">{block.time} ({block.duration})</span>
+                      <span className="text-xs font-bold text-zinc-900 leading-snug block">{block.title}</span>
+                      <span className="text-[10px] text-zinc-500 font-mono mt-0.5 block">{block.time} ({block.duration})</span>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3 self-end sm:self-center">
                     <span className={`text-[9px] font-mono uppercase font-bold px-2 py-0.5 rounded border ${
-                      block.status === 'completed' ? 'bg-emerald-950/40 text-emerald-400 border-emerald-800/40' :
-                      block.status === 'in-progress' ? 'bg-amber-950/40 text-amber-300 border-amber-800/40 animate-pulse' :
-                      'bg-slate-900 text-slate-400 border-slate-800'
+                      block.status === 'completed' ? 'bg-zinc-100 text-zinc-600 border-emerald-800/40' :
+                      block.status === 'in-progress' ? 'bg-zinc-100 text-zinc-600 border-amber-800/40 animate-pulse' :
+                      'bg-zinc-100 text-zinc-500 border-zinc-200'
                     }`}>
                       {block.status}
                     </span>
@@ -319,10 +319,10 @@ export const DailyPlan: React.FC = () => {
                     {block.taskId && (
                       <button
                         onClick={() => handleToggleTask(block.taskId!)}
-                        className="text-slate-400 hover:text-white p-1"
+                        className="text-zinc-500 hover:text-zinc-900 p-1"
                         title="Toggle Task Completion"
                       >
-                        <CheckCircle2 size={16} className={block.status === 'completed' ? 'text-emerald-400' : 'text-slate-600'} />
+                        <CheckCircle2 size={16} className={block.status === 'completed' ? 'text-zinc-600' : 'text-slate-600'} />
                       </button>
                     )}
                   </div>
@@ -352,21 +352,21 @@ export const DailyPlan: React.FC = () => {
             return (
               <div 
                 key={date}
-                className={`glass-panel p-5 bg-[#090a12]/80 border rounded-2xl flex flex-col gap-4 shadow-md ${
-                  isToday ? 'border-indigo-500/60 border-l-4 border-l-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.1)]' : 'border-brand-border/70 border-l-4 border-l-slate-700'
+                className={`glass-panel p-5 bg-zinc-100 border rounded-2xl flex flex-col gap-4 shadow-md ${
+                  isToday ? 'border-zinc-300 border-l-4 border-l-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.1)]' : 'border-zinc-200 border-l-4 border-l-slate-700'
                 }`}
               >
-                <div className="flex justify-between items-center border-b border-brand-border/50 pb-3">
+                <div className="flex justify-between items-center border-b border-zinc-200 pb-3">
                   <div className="flex items-center gap-2.5">
-                    <Calendar size={15} className={isToday ? 'text-indigo-400' : 'text-slate-400'} />
-                    <span className="text-xs font-bold text-white">{formattedDate}</span>
+                    <Calendar size={15} className={isToday ? 'text-zinc-700' : 'text-zinc-500'} />
+                    <span className="text-xs font-bold text-zinc-900">{formattedDate}</span>
                     {isToday && (
-                      <span className="text-[9px] font-bold font-mono text-indigo-300 bg-indigo-950/60 px-2 py-0.2 rounded border border-indigo-800/40 uppercase">
+                      <span className="text-[9px] font-bold font-mono text-zinc-700 bg-zinc-100 px-2 py-0.2 rounded border border-zinc-300 uppercase">
                         Today
                       </span>
                     )}
                   </div>
-                  <span className="text-[10px] font-mono text-slate-400">
+                  <span className="text-[10px] font-mono text-zinc-500">
                     {dayTasks.length} Deliverables Scheduled
                   </span>
                 </div>
@@ -374,21 +374,21 @@ export const DailyPlan: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   {/* Work List */}
                   <div className="space-y-2">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">Office Duties ({dayWork.length})</p>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-700 font-mono">Office Duties ({dayWork.length})</p>
                     {dayWork.map((t, idx) => (
                       <div 
                         key={`${t.id}-${idx}`}
                         className={`p-3 rounded-xl border flex justify-between items-center gap-3 transition-all ${
-                          t.status === 'completed' ? 'bg-slate-900/10 border-slate-900 text-slate-500 line-through' : 'bg-slate-900/40 border-brand-border hover:border-slate-700 text-slate-200'
+                          t.status === 'completed' ? 'bg-zinc-50 border-zinc-200 text-zinc-400 line-through' : 'bg-zinc-50 border-zinc-200 hover:border-zinc-200 text-zinc-700'
                         }`}
                       >
                         <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                          <button onClick={() => handleToggleTask(t.id)} className="text-slate-500 hover:text-white">
-                            {t.status === 'completed' ? <CheckCircle2 size={15} className="text-emerald-500" /> : <Square size={15} />}
+                          <button onClick={() => handleToggleTask(t.id)} className="text-zinc-400 hover:text-zinc-900">
+                            {t.status === 'completed' ? <CheckCircle2 size={15} className="text-zinc-600" /> : <Square size={15} />}
                           </button>
                           <span className="text-xs font-semibold truncate">{t.title}</span>
                         </div>
-                        <span className="text-[9px] font-mono text-slate-400 shrink-0">{t.estimatedTime}h</span>
+                        <span className="text-[9px] font-mono text-zinc-500 shrink-0">{t.estimatedTime}h</span>
                       </div>
                     ))}
                     {dayWork.length === 0 && <p className="text-xs text-slate-600 italic py-2">No work duties.</p>}
@@ -396,21 +396,21 @@ export const DailyPlan: React.FC = () => {
 
                   {/* Learning List */}
                   <div className="space-y-2">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-indigo-400 font-mono">Syllabus Study ({dayLearn.length})</p>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-700 font-mono">Syllabus Study ({dayLearn.length})</p>
                     {dayLearn.map((t, idx) => (
                       <div 
                         key={`${t.id}-${idx}`}
                         className={`p-3 rounded-xl border flex justify-between items-center gap-3 transition-all ${
-                          t.status === 'completed' ? 'bg-slate-900/10 border-slate-900 text-slate-500 line-through' : 'bg-slate-900/40 border-brand-border hover:border-indigo-500/40 text-slate-200'
+                          t.status === 'completed' ? 'bg-zinc-50 border-zinc-200 text-zinc-400 line-through' : 'bg-zinc-50 border-zinc-200 hover:border-zinc-300 text-zinc-700'
                         }`}
                       >
                         <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                          <button onClick={() => handleToggleTask(t.id)} className="text-slate-500 hover:text-white">
-                            {t.status === 'completed' ? <CheckCircle2 size={15} className="text-emerald-500" /> : <Square size={15} />}
+                          <button onClick={() => handleToggleTask(t.id)} className="text-zinc-400 hover:text-zinc-900">
+                            {t.status === 'completed' ? <CheckCircle2 size={15} className="text-zinc-600" /> : <Square size={15} />}
                           </button>
                           <span className="text-xs font-semibold truncate">{t.title}</span>
                         </div>
-                        <span className="text-[9px] font-mono text-indigo-300 shrink-0">{Math.round(t.estimatedTime * 60)}m</span>
+                        <span className="text-[9px] font-mono text-zinc-700 shrink-0">{Math.round(t.estimatedTime * 60)}m</span>
                       </div>
                     ))}
                     {dayLearn.length === 0 && <p className="text-xs text-slate-600 italic py-2">No study sessions.</p>}

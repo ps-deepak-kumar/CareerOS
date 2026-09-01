@@ -74,37 +74,37 @@ export const Achievements: React.FC = () => {
   const getBadgeTierStyle = (badgeId: string) => {
     if (['badge-2', 'badge-8', 'badge-10'].includes(badgeId)) {
       return {
-        border: 'border-[#FFA116]/40 hover:border-[#FFA116] bg-[#FFA116]/5',
+        border: 'border-zinc-200/40 hover:border-zinc-200 bg-zinc-100',
         glow: 'shadow-[0_0_15px_rgba(255,161,22,0.15)]',
-        color: 'text-[#FFA116]',
+        color: 'text-zinc-700',
         tag: 'Legendary Tier',
-        tagBg: 'bg-[#FFA116]/10 text-[#FFA116] border-[#FFA116]/30'
+        tagBg: 'bg-zinc-100 text-zinc-700 border-zinc-200/30'
       };
     }
     if (['badge-4', 'badge-6', 'badge-11'].includes(badgeId)) {
       return {
-        border: 'border-purple-500/40 hover:border-purple-400 bg-purple-500/5',
+        border: 'border-purple-500/40 hover:border-purple-400 bg-zinc-100',
         glow: 'shadow-[0_0_15px_rgba(168,85,247,0.15)]',
-        color: 'text-purple-400',
+        color: 'text-zinc-700',
         tag: 'Epic Tier',
-        tagBg: 'bg-purple-500/10 text-purple-400 border-purple-500/30'
+        tagBg: 'bg-zinc-100 text-zinc-700 border-purple-500/30'
       };
     }
     if (['badge-1', 'badge-3', 'badge-7', 'badge-9', 'badge-12', 'badge-13'].includes(badgeId)) {
       return {
-        border: 'border-blue-500/40 hover:border-blue-400 bg-blue-500/5',
+        border: 'border-blue-500/40 hover:border-blue-400 bg-zinc-100',
         glow: 'shadow-[0_0_15px_rgba(59,130,246,0.15)]',
-        color: 'text-blue-400',
+        color: 'text-zinc-700',
         tag: 'Rare Tier',
-        tagBg: 'bg-blue-500/10 text-blue-400 border-blue-500/30'
+        tagBg: 'bg-zinc-100 text-zinc-700 border-blue-500/30'
       };
     }
     return {
-      border: 'border-emerald-500/40 hover:border-emerald-400 bg-emerald-500/5',
+      border: 'border-emerald-500/40 hover:border-emerald-400 bg-zinc-100',
       glow: 'shadow-[0_0_15px_rgba(16,185,129,0.15)]',
-      color: 'text-emerald-400',
+      color: 'text-zinc-600',
       tag: 'Specialist Tier',
-      tagBg: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+      tagBg: 'bg-zinc-100 text-zinc-600 border-emerald-500/30'
     };
   };
 
@@ -118,37 +118,37 @@ export const Achievements: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full pb-12 font-sans text-slate-200">
+    <div className="flex flex-col gap-6 w-full pb-12 font-sans text-zinc-700">
       
       {/* TOP HEADER & GAMIFICATION BANNER */}
-      <div className="glass-panel p-6 bg-gradient-to-r from-[#0c0e1a] via-[#101222] to-[#0c0e1a] border border-brand-border rounded-2xl shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div className="glass-panel p-5 border border-zinc-200 rounded-2xl shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="flex items-start gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 via-orange-500/15 to-yellow-500/10 border border-amber-500/40 flex items-center justify-center text-3xl shrink-0 shadow-lg shadow-amber-500/10">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 via-orange-500/15 to-yellow-500/10 border border-amber-500/40 flex items-center justify-center text-3xl shrink-0 shadow-lg shadow-zinc-200">
             🏆
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold text-zinc-900 tracking-tight">
                 Competency Hub & Verifications
               </h2>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/30">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase tracking-wider bg-zinc-100 text-zinc-600 border border-amber-500/30">
                 Level {currentLevel} Scholar
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-zinc-500 mt-1">
               Earn immutable AI validation credentials, benchmark your study velocity, and issue verified university certificates.
             </p>
             
             {/* Level & XP Progression bar */}
             <div className="mt-3.5 flex items-center gap-3">
-              <div className="w-48 sm:w-64 h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+              <div className="w-48 sm:w-64 h-2 bg-zinc-100 rounded-full overflow-hidden border border-zinc-200">
                 <div 
                   className="h-full bg-gradient-to-r from-amber-500 to-orange-400 rounded-full transition-all duration-700"
                   style={{ width: `${levelProgress}%` }}
                 />
               </div>
-              <span className="text-[11px] font-mono text-amber-300 font-bold">
-                {xp} XP <span className="text-slate-500 font-normal">({xpIntoCurrentLevel}/100 XP to Lvl {currentLevel + 1})</span>
+              <span className="text-[11px] font-mono text-zinc-600 font-bold">
+                {xp} XP <span className="text-zinc-400 font-normal">({xpIntoCurrentLevel}/100 XP to Lvl {currentLevel + 1})</span>
               </span>
             </div>
           </div>
@@ -156,30 +156,30 @@ export const Achievements: React.FC = () => {
 
         {/* Quick Stats Grid */}
         <div className="grid grid-cols-3 gap-3 w-full md:w-auto text-center font-mono">
-          <div className="bg-slate-950/60 p-3 rounded-xl border border-brand-border/80">
-            <p className="text-[9px] text-slate-500 font-sans uppercase font-bold tracking-wider">Unlocked</p>
-            <p className="text-base sm:text-lg font-bold text-white mt-0.5">{unlockedCount}/{badges.length}</p>
+          <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200">
+            <p className="text-[9px] text-zinc-400 font-sans uppercase font-bold tracking-wider">Unlocked</p>
+            <p className="text-base sm:text-lg font-bold text-zinc-900 mt-0.5">{unlockedCount}/{badges.length}</p>
           </div>
-          <div className="bg-slate-950/60 p-3 rounded-xl border border-brand-border/80">
-            <p className="text-[9px] text-slate-500 font-sans uppercase font-bold tracking-wider">Streak</p>
-            <p className="text-base sm:text-lg font-bold text-orange-400 mt-0.5">{profile?.stats.streakDays || 4}d</p>
+          <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200">
+            <p className="text-[9px] text-zinc-400 font-sans uppercase font-bold tracking-wider">Streak</p>
+            <p className="text-base sm:text-lg font-bold text-zinc-600 mt-0.5">{profile?.stats.streakDays || 4}d</p>
           </div>
-          <div className="bg-slate-950/60 p-3 rounded-xl border border-brand-border/80">
-            <p className="text-[9px] text-slate-500 font-sans uppercase font-bold tracking-wider">Global Rank</p>
-            <p className="text-base sm:text-lg font-bold text-emerald-400 mt-0.5">#3</p>
+          <div className="bg-zinc-100 p-3 rounded-xl border border-zinc-200">
+            <p className="text-[9px] text-zinc-400 font-sans uppercase font-bold tracking-wider">Global Rank</p>
+            <p className="text-base sm:text-lg font-bold text-zinc-600 mt-0.5">#3</p>
           </div>
         </div>
       </div>
 
       {/* NAVIGATION TABS (BADGES, CERTIFICATES, LEADERBOARD) */}
-      <div className="flex justify-between items-center flex-wrap gap-4 border-b border-brand-border/60 pb-3">
-        <div className="flex bg-[#06070d] p-1 rounded-xl border border-brand-border/70">
+      <div className="flex justify-between items-center flex-wrap gap-4 border-b border-zinc-200 pb-3">
+        <div className="flex bg-white p-1 rounded-xl border border-zinc-200">
           <button
             onClick={() => setActiveTab('badges')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeTab === 'badges'
-                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
+                ? 'bg-zinc-900 text-zinc-900 shadow-md shadow-zinc-200'
+                : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
             <Award size={14} />
@@ -189,8 +189,8 @@ export const Achievements: React.FC = () => {
             onClick={() => setActiveTab('certificates')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeTab === 'certificates'
-                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
+                ? 'bg-zinc-900 text-zinc-900 shadow-md shadow-zinc-200'
+                : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
             <FileCheck size={14} />
@@ -200,8 +200,8 @@ export const Achievements: React.FC = () => {
             onClick={() => setActiveTab('leaderboard')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeTab === 'leaderboard'
-                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
+                ? 'bg-zinc-900 text-zinc-900 shadow-md shadow-zinc-200'
+                : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
             <Users size={14} />
@@ -218,8 +218,8 @@ export const Achievements: React.FC = () => {
                 onClick={() => setBadgeCategory(cat)}
                 className={`px-3 py-1 rounded-lg border capitalize transition-all ${
                   badgeCategory === cat
-                    ? 'border-indigo-500 bg-indigo-500/20 text-white font-bold'
-                    : 'border-brand-border/60 text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
+                    ? 'border-zinc-300 bg-zinc-100 text-zinc-900 font-bold'
+                    : 'border-zinc-200 text-zinc-500 hover:text-zinc-700 hover:bg-zinc-50'
                 }`}
               >
                 {cat}
@@ -240,12 +240,12 @@ export const Achievements: React.FC = () => {
                 onClick={() => setSelectedBadge(badge)}
                 className={`glass-panel p-5 text-center flex flex-col justify-between items-center min-h-[220px] transition-all duration-300 relative group overflow-hidden rounded-2xl cursor-pointer ${
                   badge.unlocked 
-                    ? `${tier.border} ${tier.glow} hover:-translate-y-1 bg-gradient-to-b from-[#0f111d]/90 to-[#07080f]` 
-                    : 'opacity-40 select-none bg-slate-950/20 border-brand-border/30 hover:opacity-60'
+                    ? `border border-zinc-300 hover:-translate-y-1 bg-white shadow-card` 
+                    : 'opacity-40 select-none bg-zinc-100 border-zinc-200 hover:opacity-60'
                 }`}
               >
                 <div className="flex justify-between items-center w-full">
-                  <span className={`text-[8px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-full border ${badge.unlocked ? tier.tagBg : 'text-slate-600 border-slate-800'}`}>
+                  <span className={`text-[8px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-full border ${badge.unlocked ? 'bg-zinc-900 text-white border-zinc-900' : 'text-zinc-500 border-zinc-200'}`}>
                     {badge.unlocked ? tier.tag : 'Locked'}
                   </span>
                   {badge.unlocked && (
@@ -256,26 +256,26 @@ export const Achievements: React.FC = () => {
                 {/* Badge Icon wrapper */}
                 <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl my-3 transition-transform duration-300 group-hover:scale-110 ${
                   badge.unlocked 
-                    ? 'bg-slate-900/80 border border-brand-border/60 shadow-inner' 
-                    : 'bg-slate-950 border border-slate-900 text-slate-700'
+                    ? 'bg-zinc-50 border border-zinc-200 shadow-inner' 
+                    : 'bg-zinc-50 border border-zinc-200 text-slate-700'
                 }`}>
                   {badge.unlocked ? badge.icon : <Lock size={20} className="text-slate-600" />}
                 </div>
 
                 {/* Description Info */}
                 <div className="w-full">
-                  <h3 className={`text-xs font-bold truncate leading-snug uppercase tracking-wider ${badge.unlocked ? tier.color : 'text-slate-400'}`}>
+                  <h3 className={`text-xs font-bold truncate leading-snug uppercase tracking-wider ${badge.unlocked ? tier.color : 'text-zinc-500'}`}>
                     {badge.title}
                   </h3>
-                  <p className="text-[11px] text-slate-400 mt-1 max-w-[200px] mx-auto leading-relaxed line-clamp-2">
+                  <p className="text-[11px] text-zinc-500 mt-1 max-w-[200px] mx-auto leading-relaxed line-clamp-2">
                     {badge.description}
                   </p>
                 </div>
 
                 {/* Unlocked date stamp */}
-                <div className="mt-3 pt-2.5 border-t border-brand-border/30 w-full text-[9px] font-mono flex items-center justify-between text-slate-500">
+                <div className="mt-3 pt-2.5 border-t border-zinc-200 w-full text-[9px] font-mono flex items-center justify-between text-zinc-400">
                   <span>Status:</span>
-                  <span className={badge.unlocked ? 'text-emerald-400 font-bold' : 'text-slate-600'}>
+                  <span className={badge.unlocked ? 'text-zinc-600 font-bold' : 'text-slate-600'}>
                     {badge.unlocked ? (badge.unlockedAt ? `Earned ${badge.unlockedAt}` : 'Earned Active') : 'Criteria Pending'}
                   </span>
                 </div>
@@ -288,11 +288,11 @@ export const Achievements: React.FC = () => {
       {/* ================= TAB 2: VERIFIABLE CERTIFICATES ================= */}
       {activeTab === 'certificates' && (
         <div className="flex flex-col gap-6">
-          <div className="p-4 rounded-xl bg-indigo-950/20 border border-indigo-500/20 flex items-center gap-3">
-            <ShieldCheck size={24} className="text-indigo-400 shrink-0" />
+          <div className="p-4 rounded-xl bg-zinc-100 border border-zinc-300 flex items-center gap-3">
+            <ShieldCheck size={24} className="text-zinc-700 shrink-0" />
             <div>
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider">Accredited Academic Credentials</h4>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <h4 className="text-xs font-bold text-zinc-900 uppercase tracking-wider">Accredited Academic Credentials</h4>
+              <p className="text-xs text-zinc-500 mt-0.5">
                 Certificates are issued with cryptographic SHA-256 verification hashes upon completing 100% of chapter assessments and capstone labs.
               </p>
             </div>
@@ -305,33 +305,33 @@ export const Achievements: React.FC = () => {
               return (
                 <div 
                   key={c.id} 
-                  className="glass-panel p-6 bg-[#0c0d16]/80 border border-brand-border rounded-2xl flex flex-col justify-between gap-5 hover:border-indigo-500/30 transition-all shadow-md relative overflow-hidden"
+                  className="glass-panel p-6 bg-zinc-100 border border-zinc-200 rounded-2xl flex flex-col justify-between gap-5 hover:border-zinc-300 transition-all shadow-md relative overflow-hidden"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-16 h-16 rounded-xl overflow-hidden border border-brand-border/60 bg-slate-950 shrink-0">
+                    <div className="w-16 h-16 rounded-xl overflow-hidden border border-zinc-200 bg-zinc-50 shrink-0">
                       <img src={c.thumbnail} alt={c.title} className="w-full h-full object-cover" />
                     </div>
                     <div>
-                      <span className="text-[10px] font-bold font-mono text-indigo-400 bg-indigo-950/40 px-2 py-0.5 rounded border border-indigo-800/40 uppercase tracking-wider">
+                      <span className="text-[10px] font-bold font-mono text-zinc-700 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-300 uppercase tracking-wider">
                         {c.provider || 'Stanford Online'}
                       </span>
-                      <h3 className="text-sm font-bold text-white mt-1 leading-snug">{c.title}</h3>
-                      <p className="text-xs text-slate-400 mt-0.5">{c.instructor || 'Prof. Christopher Manning'}</p>
+                      <h3 className="text-sm font-bold text-zinc-900 mt-1 leading-snug">{c.title}</h3>
+                      <p className="text-xs text-zinc-500 mt-0.5">{c.instructor || 'Prof. Christopher Manning'}</p>
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <div className="flex justify-between text-xs font-mono">
-                      <span className="text-slate-400">Curriculum Completion</span>
-                      <span className="text-emerald-400 font-bold">{c.progress}%</span>
+                      <span className="text-zinc-500">Curriculum Completion</span>
+                      <span className="text-zinc-600 font-bold">{c.progress}%</span>
                     </div>
-                    <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
-                      <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${c.progress}%` }} />
+                    <div className="w-full h-2 bg-zinc-100 rounded-full overflow-hidden border border-zinc-200">
+                      <div className="h-full bg-zinc-800 rounded-full" style={{ width: `${c.progress}%` }} />
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-brand-border/40 text-xs">
-                    <span className="text-[10px] text-slate-400 font-mono">
+                  <div className="flex items-center justify-between pt-3 border-t border-zinc-200 text-xs">
+                    <span className="text-[10px] text-zinc-500 font-mono">
                       {isCompleted ? '✅ Verified & Ready' : isEligible ? '⚡ Capstone Ready' : 'In Progress'}
                     </span>
 
@@ -339,8 +339,8 @@ export const Achievements: React.FC = () => {
                       onClick={() => handleOpenCertificate(c)}
                       className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
                         isEligible 
-                          ? 'btn-primary shadow-md shadow-indigo-600/20' 
-                          : 'bg-slate-800 text-slate-400 hover:text-white'
+                          ? 'btn-primary shadow-md shadow-zinc-200' 
+                          : 'bg-slate-800 text-zinc-500 hover:text-zinc-900'
                       }`}
                     >
                       <FileCheck size={13} />
@@ -356,16 +356,16 @@ export const Achievements: React.FC = () => {
 
       {/* ================= TAB 3: AI LEADERBOARD ================= */}
       {activeTab === 'leaderboard' && (
-        <div className="glass-panel p-6 bg-[#0c0d16]/80 border border-brand-border rounded-2xl shadow-md flex flex-col gap-4">
-          <div className="flex justify-between items-center border-b border-brand-border/60 pb-3">
+        <div className="glass-panel p-6 bg-zinc-100 border border-zinc-200 rounded-2xl shadow-md flex flex-col gap-4">
+          <div className="flex justify-between items-center border-b border-zinc-200 pb-3">
             <div>
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <Trophy size={14} className="text-yellow-400" />
+              <h3 className="text-xs font-bold text-zinc-900 uppercase tracking-wider flex items-center gap-2">
+                <Trophy size={14} className="text-zinc-600" />
                 <span>Global AI Engineering Leaderboard</span>
               </h3>
-              <p className="text-[10px] text-slate-400 font-mono">Weekly active research & syllabus study rankings</p>
+              <p className="text-[10px] text-zinc-500 font-mono">Weekly active research & syllabus study rankings</p>
             </div>
-            <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/30 px-2.5 py-1 rounded-lg border border-emerald-800/40">
+            <span className="text-[10px] font-mono text-zinc-600 bg-zinc-100 px-2.5 py-1 rounded-lg border border-emerald-800/40">
               Live Ranked
             </span>
           </div>
@@ -376,50 +376,50 @@ export const Achievements: React.FC = () => {
                 key={user.rank}
                 className={`p-4 rounded-xl border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all ${
                   user.isCurrentUser 
-                    ? 'border-indigo-500/60 bg-indigo-500/10 shadow-[0_0_15px_rgba(99,102,241,0.15)]' 
-                    : 'border-brand-border/60 bg-slate-950/40 hover:bg-slate-900/40'
+                    ? 'border-zinc-300 bg-zinc-100 shadow-[0_0_15px_rgba(99,102,241,0.15)]' 
+                    : 'border-zinc-200 bg-zinc-100 hover:bg-zinc-50'
                 }`}
               >
                 <div className="flex items-center gap-4">
                   {/* Rank badge */}
                   <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-mono font-bold text-sm shrink-0 ${
-                    user.rank === 1 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' :
-                    user.rank === 2 ? 'bg-slate-300/20 text-slate-200 border border-slate-300/40' :
-                    user.rank === 3 ? 'bg-amber-700/20 text-amber-500 border border-amber-700/40' :
-                    'bg-slate-900 text-slate-400 border border-slate-800'
+                    user.rank === 1 ? 'bg-zinc-100 text-zinc-600 border border-amber-500/40' :
+                    user.rank === 2 ? 'bg-slate-300/20 text-zinc-700 border border-zinc-200' :
+                    user.rank === 3 ? 'bg-zinc-100 text-zinc-600 border border-amber-700/40' :
+                    'bg-zinc-100 text-zinc-500 border border-zinc-200'
                   }`}>
                     #{user.rank}
                   </div>
 
-                  <div className="w-10 h-10 rounded-xl overflow-hidden border border-brand-border shrink-0">
+                  <div className="w-10 h-10 rounded-xl overflow-hidden border border-zinc-200 shrink-0">
                     <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
                   </div>
 
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-white">{user.name}</span>
+                      <span className="text-xs font-bold text-zinc-900">{user.name}</span>
                       {user.isCurrentUser && (
-                        <span className="text-[9px] font-bold font-mono text-indigo-300 bg-indigo-950/60 px-2 py-0.2 rounded border border-indigo-800/40 uppercase">
+                        <span className="text-[9px] font-bold font-mono text-zinc-700 bg-zinc-100 px-2 py-0.2 rounded border border-zinc-300 uppercase">
                           You
                         </span>
                       )}
                     </div>
-                    <p className="text-[10px] text-slate-400">{user.role} • {user.company}</p>
+                    <p className="text-[10px] text-zinc-500">{user.role} • {user.company}</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-6 self-end sm:self-center font-mono text-xs">
                   <div className="text-right">
-                    <span className="text-[9px] text-slate-500 uppercase block font-sans">Streak</span>
-                    <span className="text-orange-400 font-bold">🔥 {user.streak}d</span>
+                    <span className="text-[9px] text-zinc-400 uppercase block font-sans">Streak</span>
+                    <span className="text-zinc-600 font-bold">🔥 {user.streak}d</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-[9px] text-slate-500 uppercase block font-sans">Badges</span>
-                    <span className="text-indigo-400 font-bold">🏆 {user.badgesCount}</span>
+                    <span className="text-[9px] text-zinc-400 uppercase block font-sans">Badges</span>
+                    <span className="text-zinc-700 font-bold">🏆 {user.badgesCount}</span>
                   </div>
                   <div className="text-right min-w-[70px]">
-                    <span className="text-[9px] text-slate-500 uppercase block font-sans">Total XP</span>
-                    <span className="text-emerald-400 font-bold text-sm">{user.xp} XP</span>
+                    <span className="text-[9px] text-zinc-400 uppercase block font-sans">Total XP</span>
+                    <span className="text-zinc-600 font-bold text-sm">{user.xp} XP</span>
                   </div>
                 </div>
               </div>
@@ -431,39 +431,39 @@ export const Achievements: React.FC = () => {
       {/* ================= BADGE INSPECTION DIALOG MODAL ================= */}
       {selectedBadge && (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in">
-          <div className="glass-panel p-6 bg-[#0d0e1a] border border-brand-border w-full max-w-md rounded-2xl shadow-2xl flex flex-col items-center text-center relative">
+          <div className="glass-panel p-6 bg-white border border-zinc-200 w-full max-w-md rounded-2xl shadow-2xl flex flex-col items-center text-center relative">
             <button 
               onClick={() => setSelectedBadge(null)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800/40"
+              className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-900 p-1 rounded-lg hover:bg-zinc-100"
             >
               <X size={16} />
             </button>
 
-            <div className="w-20 h-20 rounded-2xl bg-slate-900 border border-indigo-500/30 flex items-center justify-center text-4xl mb-4 shadow-lg shadow-indigo-500/10">
+            <div className="w-20 h-20 rounded-2xl bg-zinc-100 border border-zinc-300 flex items-center justify-center text-4xl mb-4 shadow-lg shadow-zinc-200">
               {selectedBadge.unlocked ? selectedBadge.icon : <Lock size={28} className="text-slate-600" />}
             </div>
 
             <span className={`text-[9px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full border mb-2 ${
-              selectedBadge.unlocked ? getBadgeTierStyle(selectedBadge.id).tagBg : 'text-slate-500 border-slate-800'
+              selectedBadge.unlocked ? getBadgeTierStyle(selectedBadge.id).tagBg : 'text-zinc-400 border-zinc-200'
             }`}>
               {selectedBadge.unlocked ? getBadgeTierStyle(selectedBadge.id).tag : 'Locked Credential'}
             </span>
 
-            <h3 className="text-base font-bold text-white">{selectedBadge.title}</h3>
-            <p className="text-xs text-slate-400 mt-2 leading-relaxed">{selectedBadge.description}</p>
+            <h3 className="text-base font-bold text-zinc-900">{selectedBadge.title}</h3>
+            <p className="text-xs text-zinc-500 mt-2 leading-relaxed">{selectedBadge.description}</p>
 
-            <div className="w-full mt-5 pt-4 border-t border-brand-border/40 text-xs font-mono space-y-1.5 text-left bg-slate-950/40 p-3 rounded-xl">
+            <div className="w-full mt-5 pt-4 border-t border-zinc-200 text-xs font-mono space-y-1.5 text-left bg-zinc-100 p-3 rounded-xl">
               <div className="flex justify-between">
-                <span className="text-slate-500">Credential ID:</span>
-                <span className="text-slate-300 font-bold">{selectedBadge.id}</span>
+                <span className="text-zinc-400">Credential ID:</span>
+                <span className="text-zinc-600 font-bold">{selectedBadge.id}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">Issuing Authority:</span>
-                <span className="text-indigo-400 font-bold">CareerOS Autonomous Verification</span>
+                <span className="text-zinc-400">Issuing Authority:</span>
+                <span className="text-zinc-700 font-bold">CareerOS Autonomous Verification</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">Status:</span>
-                <span className={selectedBadge.unlocked ? 'text-emerald-400 font-bold' : 'text-slate-500'}>
+                <span className="text-zinc-400">Status:</span>
+                <span className={selectedBadge.unlocked ? 'text-zinc-600 font-bold' : 'text-zinc-400'}>
                   {selectedBadge.unlocked ? `Unlocked (${selectedBadge.unlockedAt || 'Active'})` : 'Incomplete'}
                 </span>
               </div>
@@ -486,63 +486,63 @@ export const Achievements: React.FC = () => {
       {/* ================= CERTIFICATE GENERATOR MODAL ================= */}
       {showCertModal && selectedCertCourse && (
         <div className="fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 backdrop-blur-md overflow-y-auto animate-fade-in">
-          <div className="glass-panel bg-[#07080f] border-2 border-indigo-500/40 w-full max-w-3xl rounded-2xl shadow-2xl p-8 flex flex-col gap-6 relative print:border-0 print:p-0">
+          <div className="glass-panel bg-white border-2 border-zinc-300 w-full max-w-3xl rounded-2xl shadow-2xl p-8 flex flex-col gap-6 relative print:border-0 print:p-0">
             
             {/* Close Button */}
             <button 
               onClick={() => setShowCertModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800/40 print:hidden"
+              className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-900 p-1.5 rounded-lg hover:bg-zinc-100 print:hidden"
             >
               <X size={18} />
             </button>
 
             {/* Printable Certificate Frame */}
-            <div className="border-4 border-double border-indigo-500/30 p-8 rounded-xl bg-gradient-to-b from-[#0e101f] via-[#090a14] to-[#0e101f] text-center relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="border-4 border-double border-zinc-300 p-8 rounded-xl bg-zinc-50 to-zinc-50 text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-zinc-100 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-zinc-100 rounded-full blur-3xl pointer-events-none" />
 
               {/* Watermark Logo */}
               <div className="flex justify-center items-center gap-2 mb-2">
-                <ShieldCheck size={28} className="text-indigo-400" />
-                <span className="text-xs font-mono font-bold tracking-widest text-indigo-300 uppercase">
+                <ShieldCheck size={28} className="text-zinc-700" />
+                <span className="text-xs font-mono font-bold tracking-widest text-zinc-700 uppercase">
                   CareerOS Academic Verification Protocol
                 </span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl font-serif text-white tracking-tight mt-3">
+              <h1 className="text-2xl sm:text-3xl font-serif text-zinc-900 tracking-tight mt-3">
                 Certificate of Competency Mastery
               </h1>
-              <p className="text-xs text-slate-400 mt-1 italic">This is to certify that</p>
+              <p className="text-xs text-zinc-500 mt-1 italic">This is to certify that</p>
 
-              <h2 className="text-xl sm:text-2xl font-bold font-sans text-amber-300 tracking-wide my-3">
+              <h2 className="text-xl sm:text-2xl font-bold font-sans text-zinc-600 tracking-wide my-3">
                 {profile?.name || 'Deepak Chaudhary'}
               </h2>
 
-              <p className="text-xs text-slate-300 max-w-lg mx-auto leading-relaxed">
+              <p className="text-xs text-zinc-600 max-w-lg mx-auto leading-relaxed">
                 has successfully mastered all university-grade curriculum modules, validated laboratory capstones, and passed theoretical assessments in
               </p>
 
-              <h3 className="text-base sm:text-lg font-bold font-sans text-white my-3 px-4 py-1.5 bg-indigo-950/40 border border-indigo-500/30 rounded-lg inline-block">
+              <h3 className="text-base sm:text-lg font-bold font-sans text-zinc-900 my-3 px-4 py-1.5 bg-zinc-100 border border-zinc-300 rounded-lg inline-block">
                 {selectedCertCourse.title}
               </h3>
 
-              <p className="text-[11px] text-slate-400 mt-2">
-                Instructed under curriculum standards by <strong className="text-slate-200">{selectedCertCourse.instructor || 'Prof. Christopher Manning'}</strong> ({selectedCertCourse.provider || 'Stanford Online'})
+              <p className="text-[11px] text-zinc-500 mt-2">
+                Instructed under curriculum standards by <strong className="text-zinc-700">{selectedCertCourse.instructor || 'Prof. Christopher Manning'}</strong> ({selectedCertCourse.provider || 'Stanford Online'})
               </p>
 
               {/* Signatures & Security Hash */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-8 pt-6 border-t border-brand-border/40 text-left font-mono text-[10px]">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-8 pt-6 border-t border-zinc-200 text-left font-mono text-[10px]">
                 <div>
-                  <p className="text-slate-500 uppercase">Issue Date</p>
-                  <p className="text-white font-bold">{getLocalDateString()}</p>
+                  <p className="text-zinc-400 uppercase">Issue Date</p>
+                  <p className="text-zinc-900 font-bold">{getLocalDateString()}</p>
                 </div>
                 <div>
-                  <p className="text-slate-500 uppercase">Verification Hash</p>
-                  <p className="text-indigo-300 font-bold truncate">SHA256: 8f4a1c...e90b</p>
+                  <p className="text-zinc-400 uppercase">Verification Hash</p>
+                  <p className="text-zinc-700 font-bold truncate">SHA256: 8f4a1c...e90b</p>
                 </div>
                 <div className="col-span-2 sm:col-span-1 text-right">
-                  <p className="text-slate-500 uppercase">Accreditation</p>
-                  <p className="text-emerald-400 font-bold">Verified Capstone</p>
+                  <p className="text-zinc-400 uppercase">Accreditation</p>
+                  <p className="text-zinc-600 font-bold">Verified Capstone</p>
                 </div>
               </div>
             </div>

@@ -97,24 +97,24 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
 
   const getStatusIcon = (status: RoadmapNode['status']) => {
     switch (status) {
-      case 'completed': return <CheckCircle2 size={13} className="text-emerald-400 shrink-0" />;
-      case 'current': return <PlayCircle size={13} className="text-indigo-400 shrink-0" />;
-      case 'locked': return <Lock size={11} className="text-slate-500 shrink-0" />;
+      case 'completed': return <CheckCircle2 size={13} className="text-zinc-600 shrink-0" />;
+      case 'current': return <PlayCircle size={13} className="text-zinc-700 shrink-0" />;
+      case 'locked': return <Lock size={11} className="text-zinc-400 shrink-0" />;
     }
   };
 
   const getNodeIcon = (nodeId: string, index: number = 0) => {
     const icons = [
-      <Brain size={13} className="text-pink-400" />,
-      <Layers size={13} className="text-orange-400" />,
-      <Cpu size={13} className="text-yellow-400" />,
-      <Zap size={13} className="text-amber-400" />,
-      <Network size={13} className="text-cyan-400" />,
-      <Terminal size={13} className="text-indigo-400" />,
-      <FolderGit2 size={13} className="text-emerald-400" />,
-      <Award size={13} className="text-purple-400" />
+      <Brain size={13} className="text-zinc-600" />,
+      <Layers size={13} className="text-zinc-600" />,
+      <Cpu size={13} className="text-zinc-600" />,
+      <Zap size={13} className="text-zinc-600" />,
+      <Network size={13} className="text-zinc-600" />,
+      <Terminal size={13} className="text-zinc-700" />,
+      <FolderGit2 size={13} className="text-zinc-600" />,
+      <Award size={13} className="text-zinc-700" />
     ];
-    return icons[index % icons.length] || <Sparkles size={13} className="text-indigo-400" />;
+    return icons[index % icons.length] || <Sparkles size={13} className="text-zinc-700" />;
   };
 
   const selectedCourse = courses.find(c => c.id === selectedCourseId);
@@ -200,7 +200,7 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
   const svgHeight = Math.max(680, 150 + nodes.length * 130);
 
   return (
-    <div className="flex flex-col gap-6 w-full pb-12 font-sans text-slate-200">
+    <div className="flex flex-col gap-6 w-full pb-12 font-sans text-zinc-700">
       <style>{`
         @keyframes pulseGlow {
           0%, 100% { box-shadow: 0 0 8px rgba(99, 102, 241, 0.3); }
@@ -216,22 +216,22 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
       `}</style>
 
       {/* TOP HEADER */}
-      <div className="relative z-40 overflow-visible glass-panel p-6 bg-gradient-to-r from-slate-900/95 via-[#0e1122]/95 to-slate-900/95 border border-brand-border rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-5 shadow-xl">
+      <div className="relative z-40 overflow-visible glass-panel p-5 border border-zinc-200 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-5 shadow-xl">
         <div className="flex items-start gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500/25 via-purple-500/20 to-blue-500/15 border border-indigo-500/40 flex items-center justify-center shrink-0 text-2xl shadow-inner">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-zinc-100/25 via-purple-500/20 to-blue-500/15 border border-zinc-300 flex items-center justify-center shrink-0 text-2xl shadow-inner">
             🗺️
           </div>
           <div>
             <div className="flex items-center gap-2.5 flex-wrap">
-              <h2 className="text-xl sm:text-2xl font-bold font-sans text-white tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold font-sans text-zinc-900 tracking-tight">
                 Skill Roadmaps & Curriculum Trees
               </h2>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase tracking-wider bg-indigo-500/15 text-indigo-300 border border-indigo-500/35 flex items-center gap-1">
-                <Sparkles size={11} className="text-amber-400" />
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase tracking-wider bg-zinc-100 text-zinc-700 border border-zinc-300 flex items-center gap-1">
+                <Sparkles size={11} className="text-zinc-600" />
                 Adaptive Trees
               </span>
             </div>
-            <p className="text-xs text-slate-300 mt-1">
+            <p className="text-xs text-zinc-600 mt-1">
               Dependency-aware learning milestones mapped to verified university syllabi, chapter quizzes, and production codebases.
             </p>
           </div>
@@ -242,31 +242,31 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
           <button
             type="button"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="w-full md:w-80 bg-[#161a32] hover:bg-[#1c2242] border-2 border-indigo-500/60 hover:border-indigo-400 p-2.5 rounded-xl shadow-lg flex items-center justify-between gap-3 text-left transition-all duration-200"
+            className="w-full md:w-80 bg-white hover:bg-white border-2 border-zinc-300 hover:border-zinc-300 p-2.5 rounded-xl shadow-lg flex items-center justify-between gap-3 text-left transition-all duration-200"
           >
             <div className="flex items-center gap-2.5 min-w-0">
               <span className="text-base shrink-0">
                 {selectedCourseId === 'all' ? '🌟' : '📚'}
               </span>
               <div className="min-w-0">
-                <span className="text-[8.5px] font-mono font-bold uppercase text-indigo-400 block tracking-wider leading-none mb-1">
+                <span className="text-[8.5px] font-mono font-bold uppercase text-zinc-700 block tracking-wider leading-none mb-1">
                   Active Roadmap Track:
                 </span>
-                <p className="text-xs font-bold text-white truncate leading-tight">
+                <p className="text-xs font-bold text-zinc-900 truncate leading-tight">
                   {selectedCourseId === 'all' ? 'Global Career Target Roadmap' : selectedCourse?.title}
                 </p>
               </div>
             </div>
             <ChevronDown 
               size={16} 
-              className={`text-indigo-400 shrink-0 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180 text-white' : ''}`} 
+              className={`text-zinc-700 shrink-0 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180 text-zinc-900' : ''}`} 
             />
           </button>
 
           {/* Custom Dropdown Popover (Floating High Z-Index Layer) */}
           {isDropdownOpen && (
-            <div className="absolute right-0 top-full mt-2 w-full md:w-96 bg-[#13162b] border-2 border-indigo-400 rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_30px_rgba(99,102,241,0.4)] p-3 z-[100] backdrop-blur-2xl animate-fade-in flex flex-col gap-2 max-h-[420px] overflow-y-auto">
-              <div className="px-2.5 py-1 text-[9.5px] font-mono uppercase font-bold text-indigo-300 border-b border-indigo-500/30 pb-2">
+            <div className="absolute right-0 top-full mt-2 w-full md:w-96 bg-white border-2 border-zinc-300 rounded-2xl shadow-card p-3 z-[100] backdrop-blur-2xl animate-fade-in flex flex-col gap-2 max-h-[420px] overflow-y-auto">
+              <div className="px-2.5 py-1 text-[9.5px] font-mono uppercase font-bold text-zinc-700 border-b border-zinc-300 pb-2">
                 Available Roadmap Trees
               </div>
 
@@ -278,25 +278,25 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
                 }}
                 className={`w-full text-left p-3 rounded-xl border flex items-center justify-between gap-3 transition-all ${
                   selectedCourseId === 'all'
-                    ? 'bg-indigo-600/30 border-indigo-500 text-white shadow-md'
-                    : 'bg-slate-950/60 border-brand-border/60 text-slate-300 hover:bg-slate-900/80 hover:text-white hover:border-indigo-500/40'
+                    ? 'bg-zinc-100 border-zinc-300 text-zinc-900 shadow-md'
+                    : 'bg-zinc-100 border-zinc-200 text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 hover:border-zinc-300'
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
                   <span className="text-lg shrink-0">🌟</span>
                   <div className="min-w-0">
-                    <p className="text-xs font-bold text-white leading-tight">Global Career Target Roadmap</p>
-                    <p className="text-[10px] text-slate-400 mt-0.5 truncate">Multi-Phase AI, MCP & Systems Mastery</p>
+                    <p className="text-xs font-bold text-zinc-900 leading-tight">Global Career Target Roadmap</p>
+                    <p className="text-[10px] text-zinc-500 mt-0.5 truncate">Multi-Phase AI, MCP & Systems Mastery</p>
                   </div>
                 </div>
                 {selectedCourseId === 'all' && (
-                  <CheckCircle2 size={15} className="text-indigo-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-zinc-700 shrink-0" />
                 )}
               </button>
 
               {courses.length > 0 && (
                 <>
-                  <div className="px-2.5 pt-2 text-[9px] font-mono uppercase font-bold text-slate-400">
+                  <div className="px-2.5 pt-2 text-[9px] font-mono uppercase font-bold text-zinc-500">
                     Your Active Curriculums ({courses.length})
                   </div>
                   {courses.map(c => {
@@ -310,30 +310,30 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
                         }}
                         className={`w-full text-left p-3 rounded-xl border flex items-center justify-between gap-3 transition-all ${
                           isSelected
-                            ? 'bg-indigo-600/30 border-indigo-500 text-white shadow-md'
-                            : 'bg-slate-950/60 border-brand-border/60 text-slate-300 hover:bg-slate-900/80 hover:text-white hover:border-indigo-500/40'
+                            ? 'bg-zinc-100 border-zinc-300 text-zinc-900 shadow-md'
+                            : 'bg-zinc-100 border-zinc-200 text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 hover:border-zinc-300'
                         }`}
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
                           <span className="text-lg shrink-0">📚</span>
                           <div className="min-w-0">
-                            <p className="text-xs font-bold text-white truncate leading-tight">{c.title}</p>
+                            <p className="text-xs font-bold text-zinc-900 truncate leading-tight">{c.title}</p>
                             <div className="flex items-center gap-2 mt-1">
                               <span className={`text-[8.5px] font-mono font-bold uppercase px-1.5 py-0.2 rounded border ${
-                                c.difficulty === 'Beginner' ? 'bg-emerald-950/80 text-emerald-300 border-emerald-700/50' :
-                                c.difficulty === 'Intermediate' ? 'bg-indigo-950/80 text-indigo-300 border-indigo-700/50' :
-                                'bg-purple-950/80 text-purple-300 border-purple-700/50'
+                                c.difficulty === 'Beginner' ? 'bg-zinc-100 text-zinc-600 border-emerald-700/50' :
+                                c.difficulty === 'Intermediate' ? 'bg-zinc-100 text-zinc-700 border-zinc-300' :
+                                'bg-zinc-100 text-zinc-700 border-purple-700/50'
                               }`}>
                                 {c.difficulty}
                               </span>
-                              <span className="text-[9.5px] font-mono text-slate-400">
+                              <span className="text-[9.5px] font-mono text-zinc-500">
                                 {c.chapters.length} Milestones
                               </span>
                             </div>
                           </div>
                         </div>
                         {isSelected && (
-                          <CheckCircle2 size={15} className="text-indigo-400 shrink-0" />
+                          <CheckCircle2 size={15} className="text-zinc-700 shrink-0" />
                         )}
                       </button>
                     );
@@ -347,40 +347,40 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
 
       {/* ACTIVE COURSE & SKILLS BANNER */}
       {selectedCourse ? (
-        <div className="p-5 bg-gradient-to-r from-[#181b30] via-[#121526] to-[#0c0e1c] border-2 border-indigo-500/30 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-xl">
+        <div className="p-5 bg-zinc-50 to-zinc-50 border-2 border-zinc-300 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-xl">
           <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-xl bg-indigo-950/80 border border-indigo-500/50 flex items-center justify-center text-indigo-300 shrink-0 shadow-lg">
+            <div className="w-12 h-12 rounded-xl bg-zinc-100 border border-zinc-300 flex items-center justify-center text-zinc-700 shrink-0 shadow-lg">
               <Compass size={22} />
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[9px] font-mono uppercase tracking-widest text-indigo-300 font-bold bg-indigo-950/70 border border-indigo-800/50 px-2 py-0.5 rounded">
+                <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-700 font-bold bg-zinc-100 border border-zinc-300 px-2 py-0.5 rounded">
                   {selectedCourse.provider || 'University Track'}
                 </span>
-                <span className="text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-800/40 px-2 py-0.5 rounded">
+                <span className="text-[9px] font-mono uppercase tracking-wider text-zinc-600 font-bold bg-zinc-100 border border-emerald-800/40 px-2 py-0.5 rounded">
                   {selectedCourse.difficulty} Track
                 </span>
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-white leading-snug mt-1">{selectedCourse.title}</h3>
+              <h3 className="text-base sm:text-lg font-bold text-zinc-900 leading-snug mt-1">{selectedCourse.title}</h3>
             </div>
           </div>
 
           {/* Associated Skill Gauge & Actions */}
           <div className="flex flex-wrap items-center gap-3 text-xs font-mono w-full md:w-auto justify-between md:justify-end">
-            <div className="bg-[#070914] border border-indigo-950/80 px-4 py-2.5 rounded-xl flex items-center gap-3 shadow-inner">
+            <div className="bg-white border border-zinc-300 px-4 py-2.5 rounded-xl flex items-center gap-3 shadow-inner">
               <div>
-                <span className="text-[8.5px] uppercase text-slate-400 font-bold block">Target Skill Matrix</span>
-                <span className="text-xs font-bold text-emerald-400">{currentSkillInfo.name}</span>
+                <span className="text-[8.5px] uppercase text-zinc-500 font-bold block">Target Skill Matrix</span>
+                <span className="text-xs font-bold text-zinc-600">{currentSkillInfo.name}</span>
               </div>
-              <div className="w-20 h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
-                <div className="h-full bg-gradient-to-r from-emerald-500 to-cyan-400 rounded-full" style={{ width: `${currentSkillLevel}%` }} />
+              <div className="w-20 h-2 bg-zinc-100 rounded-full overflow-hidden border border-zinc-200">
+                <div className="h-full bg-zinc-50 rounded-full" style={{ width: `${currentSkillLevel}%` }} />
               </div>
-              <span className="text-xs font-bold text-white">{currentSkillLevel}%</span>
+              <span className="text-xs font-bold text-zinc-900">{currentSkillLevel}%</span>
             </div>
 
             <button 
               onClick={handleOpenCourseDetails} 
-              className="btn-primary text-xs py-2.5 px-4 font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-indigo-600/30"
+              className="btn-primary text-xs py-2.5 px-4 font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-zinc-200"
             >
               <span>Open Textbook</span>
               <ArrowRight size={13} />
@@ -388,9 +388,9 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
           </div>
         </div>
       ) : (
-        <div className="p-4 bg-[#0c0e1c] border border-brand-border rounded-xl flex justify-between items-center text-xs text-slate-300 shadow-md">
+        <div className="p-4 bg-white border border-zinc-200 rounded-xl flex justify-between items-center text-xs text-zinc-600 shadow-md">
           <span className="flex items-center gap-2">
-            <Sparkles size={15} className="text-indigo-400" />
+            <Sparkles size={15} className="text-zinc-700" />
             <span>Showing global milestone tree. Select an enrolled course from the dropdown above to focus on its curriculum roadmap.</span>
           </span>
         </div>
@@ -400,31 +400,31 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         
         {/* SVG ROADMAP GRAPH CONTAINER */}
-        <div className="lg:col-span-3 p-5 bg-gradient-to-b from-[#15182a] via-[#0e101e] to-[#090b14] border-2 border-indigo-500/30 rounded-2xl flex flex-col gap-4 overflow-hidden min-h-[600px] relative shadow-xl">
-          <div className="flex items-center justify-between border-b border-indigo-500/20 pb-3 z-10">
-            <span className="text-xs font-bold font-sans text-white uppercase tracking-wider flex items-center gap-2">
-              <Map size={14} className="text-indigo-400" />
+        <div className="lg:col-span-3 p-5 bg-zinc-50 to-zinc-50 border-2 border-zinc-300 rounded-2xl flex flex-col gap-4 overflow-hidden min-h-[600px] relative shadow-xl">
+          <div className="flex items-center justify-between border-b border-zinc-300 pb-3 z-10">
+            <span className="text-xs font-bold font-sans text-zinc-900 uppercase tracking-wider flex items-center gap-2">
+              <Map size={14} className="text-zinc-700" />
               <span>{selectedCourseId === 'all' ? 'Global Career Target: Senior AI & Systems Engineer' : `${selectedCourse?.title} Milestones`}</span>
             </span>
-            <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-2.5 py-0.5 rounded border border-emerald-800/40 uppercase">
+            <span className="text-[10px] font-mono text-zinc-600 font-bold bg-zinc-100 px-2.5 py-0.5 rounded border border-emerald-800/40 uppercase">
               {nodes.length} Milestones
             </span>
           </div>
 
-          <div className="overflow-auto max-h-[750px] roadmap-grid border border-indigo-500/20 rounded-xl relative py-4 bg-[#05060c]/90 shadow-inner">
+          <div className="overflow-auto max-h-[750px] roadmap-grid border border-zinc-300 rounded-xl relative py-4 bg-zinc-100 shadow-inner">
             <svg width="100%" height={svgHeight} viewBox={`0 0 600 ${svgHeight}`} className="mx-auto">
               <defs>
                 <linearGradient id="activeNodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#252b4d" />
-                  <stop offset="100%" stopColor="#14172c" />
+                  <stop offset="0%" stopColor="#09090B" />
+                  <stop offset="100%" stopColor="#18181B" />
                 </linearGradient>
                 <linearGradient id="completedNodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#0d2b22" />
-                  <stop offset="100%" stopColor="#071712" />
+                  <stop offset="0%" stopColor="#27272A" />
+                  <stop offset="100%" stopColor="#18181B" />
                 </linearGradient>
                 <linearGradient id="queuedNodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#171926" />
-                  <stop offset="100%" stopColor="#0d0e17" />
+                  <stop offset="0%" stopColor="#FFFFFF" />
+                  <stop offset="100%" stopColor="#F4F4F5" />
                 </linearGradient>
               </defs>
 
@@ -442,21 +442,20 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
                   
                   const isCompleted = node.status === 'completed' && nodes[parentIndex]?.status === 'completed';
                   const isActive = (node.status === 'current' && nodes[parentIndex]?.status === 'completed') || (node.status === 'completed' && nodes[parentIndex]?.status === 'current');
-                  const strokeClass = isCompleted ? 'stroke-emerald-400' : isActive ? 'stroke-indigo-400' : 'stroke-slate-800';
                   
                   return (
                     <g key={`${prereqId}-${node.id}`}>
-                      <path d={pathD} fill="none" className={`transition-all duration-300 ${strokeClass}`} strokeWidth={2.5} />
+                      <path d={pathD} fill="none" stroke={isCompleted ? '#09090B' : isActive ? '#52525B' : '#D4D4D8'} strokeWidth={isCompleted || isActive ? 2 : 1.5} />
                       {(isCompleted || isActive) && (
                         <path 
                           d={pathD} 
                           fill="none" 
-                          className={isCompleted ? "stroke-emerald-300 animate-flow-line" : "stroke-indigo-300 animate-flow-line"} 
-                          strokeWidth={2} 
-                          strokeDasharray="4 6" 
+                          stroke={isCompleted ? '#09090B' : '#71717A'}
+                          strokeWidth={1.5} 
+                          strokeDasharray="4 6"
+                          className="animate-flow-line"
                         />
                       )}
-                      <path d={pathD} fill="none" className="stroke-slate-900" strokeWidth={1} />
                     </g>
                   );
                 });
@@ -470,16 +469,16 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
                 const isCompleted = node.status === 'completed';
 
                 let nodeBg = 'url(#queuedNodeGrad)';
-                let strokeColor = '#2b3049';
+                let strokeColor = '#E4E4E7';
 
                 if (isSelected) {
-                  strokeColor = '#818cf8';
+                  strokeColor = '#09090B';
                   nodeBg = 'url(#activeNodeGrad)';
                 } else if (isCurrent) {
-                  strokeColor = '#6366f1';
+                  strokeColor = '#09090B';
                   nodeBg = 'url(#activeNodeGrad)';
                 } else if (isCompleted) {
-                  strokeColor = '#10b981';
+                  strokeColor = '#52525B';
                   nodeBg = 'url(#completedNodeGrad)';
                 }
 
@@ -491,15 +490,15 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
                   >
                     {isSelected && (
                       <rect
-                        x={pos.x - nodeWidth / 2 - 4}
-                        y={pos.y - nodeHeight / 2 - 4}
-                        width={nodeWidth + 8}
-                        height={nodeHeight + 8}
-                        rx={16}
+                        x={pos.x - nodeWidth / 2 - 3}
+                        y={pos.y - nodeHeight / 2 - 3}
+                        width={nodeWidth + 6}
+                        height={nodeHeight + 6}
+                        rx={14}
                         fill="none"
-                        stroke="#818cf8"
-                        strokeWidth={2.5}
-                        opacity={0.85}
+                        stroke="#09090B"
+                        strokeWidth={2}
+                        opacity={0.4}
                         className="animate-pulse"
                       />
                     )}
@@ -509,11 +508,11 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
                       y={pos.y - nodeHeight / 2}
                       width={nodeWidth}
                       height={nodeHeight}
-                      rx={12}
+                      rx={10}
                       fill={nodeBg}
                       className="transition-all duration-200"
                       stroke={strokeColor}
-                      strokeWidth={isSelected ? 2.5 : 1.5}
+                      strokeWidth={isSelected ? 2 : 1}
                     />
 
                     <foreignObject
@@ -523,7 +522,7 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
                       height={20}
                     >
                       <div className="flex items-center justify-between text-[8.5px] font-mono font-bold uppercase tracking-wider select-none">
-                        <span className="flex items-center gap-1.5 text-indigo-300">
+                        <span className={`flex items-center gap-1.5 ${(isSelected || isCurrent || isCompleted) ? 'text-zinc-300' : 'text-zinc-500'}`}>
                           {getNodeIcon(node.id, index)}
                           <span className="truncate">{node.phase}</span>
                         </span>
@@ -537,7 +536,7 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
                       width={nodeWidth - 24}
                       height={34}
                     >
-                      <p className="text-[11px] font-bold text-white leading-tight line-clamp-2 select-none font-sans">
+                      <p className={`text-[11px] font-bold leading-tight line-clamp-2 select-none font-sans ${(isSelected || isCurrent || isCompleted) ? 'text-white' : 'text-zinc-900'}`}>
                         {node.title}
                       </p>
                     </foreignObject>
@@ -549,10 +548,10 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
                       height={16}
                     >
                       <div className="flex items-center justify-between text-[8px] font-mono select-none">
-                        <span className={`uppercase font-bold ${isCompleted ? 'text-emerald-400' : isCurrent ? 'text-indigo-300' : 'text-slate-400'}`}>
+                        <span className={`uppercase font-bold ${(isSelected || isCurrent || isCompleted) ? 'text-zinc-400' : 'text-zinc-500'}`}>
                           {node.status}
                         </span>
-                        <span className="text-slate-300 font-bold">{node.completionPercent}%</span>
+                        <span className={`font-bold ${(isSelected || isCurrent || isCompleted) ? 'text-zinc-300' : 'text-zinc-600'}`}>{node.completionPercent}%</span>
                       </div>
                     </foreignObject>
                   </g>
@@ -565,19 +564,19 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
         {/* =========================================================================
             ELEVATED HIGH-CONTRAST DEEP DIVE INSPECTION CARD
            ========================================================================= */}
-        <div className="lg:col-span-1 p-5 bg-gradient-to-b from-[#181b30] via-[#121526] to-[#0c0e1c] border-2 border-indigo-500/35 rounded-2xl flex flex-col justify-between gap-5 shadow-[0_12px_36px_rgba(0,0,0,0.65),0_2px_6px_rgba(99,102,241,0.2)] h-fit relative overflow-hidden">
-          {/* Top Accent Gradient Bar */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" />
+        <div className="lg:col-span-1 p-5 bg-white border border-zinc-200 rounded-xl flex flex-col justify-between gap-5 shadow-card h-fit relative overflow-hidden">
+          {/* Top border accent */}
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-zinc-900 rounded-t-xl" />
 
           {selectedNode ? (
             <div className="flex flex-col gap-4">
               
               {/* Header Badge */}
-              <div className="flex items-center justify-between border-b border-indigo-500/20 pb-3 pt-1">
-                <span className="text-[9.5px] font-mono font-bold uppercase text-indigo-300 bg-indigo-950/80 border border-indigo-700/50 px-2.5 py-0.5 rounded-md">
+              <div className="flex items-center justify-between border-b border-zinc-300 pb-3 pt-1">
+                <span className="text-[9.5px] font-mono font-bold uppercase text-zinc-700 bg-zinc-100 border border-zinc-300 px-2.5 py-0.5 rounded-md">
                   {selectedNode.phase}
                 </span>
-                <span className="flex items-center gap-1.5 text-[9.5px] font-mono uppercase font-bold text-slate-300">
+                <span className="flex items-center gap-1.5 text-[9.5px] font-mono uppercase font-bold text-zinc-600">
                   {getStatusIcon(selectedNode.status)}
                   <span>{selectedNode.status}</span>
                 </span>
@@ -585,28 +584,28 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
 
               {/* Title & Description */}
               <div>
-                <span className="text-[9px] font-mono uppercase text-indigo-400 font-bold block mb-1">Deep Dive Inspector</span>
-                <h3 className="text-base font-bold font-sans text-white leading-snug">
+                <span className="text-[9px] font-mono uppercase text-zinc-700 font-bold block mb-1">Deep Dive Inspector</span>
+                <h3 className="text-base font-bold font-sans text-zinc-900 leading-snug">
                   {selectedNode.title}
                 </h3>
-                <p className="text-xs text-slate-200 mt-2 leading-relaxed font-normal">
+                <p className="text-xs text-zinc-700 mt-2 leading-relaxed font-normal">
                   {getNodeDescription(selectedNode.id)}
                 </p>
-                <div className="flex items-center gap-3 text-[10px] font-mono text-slate-300 mt-3 bg-[#070914] p-2 rounded-xl border border-indigo-950/80">
-                  <span className="flex items-center gap-1"><Clock size={12} className="text-indigo-400" /> {selectedNode.estimatedTime}</span>
+                <div className="flex items-center gap-3 text-[10px] font-mono text-zinc-600 mt-3 bg-white p-2 rounded-xl border border-zinc-300">
+                  <span className="flex items-center gap-1"><Clock size={12} className="text-zinc-700" /> {selectedNode.estimatedTime}</span>
                   <span>•</span>
-                  <span className="text-emerald-400 font-bold">{selectedNode.difficulty} Level</span>
+                  <span className="text-zinc-600 font-bold">{selectedNode.difficulty} Level</span>
                 </div>
               </div>
 
               {/* Intuitive Mental Model / Analogy Box */}
               {activeChapterData?.analogy && (
                 <div className="bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-transparent border border-amber-500/30 p-3 rounded-xl flex flex-col gap-1">
-                  <div className="flex items-center gap-1.5 text-[9.5px] font-bold font-mono uppercase tracking-wider text-amber-300">
-                    <Lightbulb size={13} className="text-amber-400" />
+                  <div className="flex items-center gap-1.5 text-[9.5px] font-bold font-mono uppercase tracking-wider text-zinc-600">
+                    <Lightbulb size={13} className="text-zinc-600" />
                     <span>Real-world Analogy</span>
                   </div>
-                  <p className="text-xs text-amber-100 leading-relaxed italic">
+                  <p className="text-xs text-zinc-600 leading-relaxed italic">
                     "{activeChapterData.analogy}"
                   </p>
                 </div>
@@ -615,10 +614,10 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
               {/* Key Terminology Competencies */}
               {activeChapterData?.keyTerminology && activeChapterData.keyTerminology.length > 0 && (
                 <div className="flex flex-col gap-1.5">
-                  <span className="text-[9px] font-bold font-mono uppercase tracking-wider text-slate-400">Key Competencies</span>
+                  <span className="text-[9px] font-bold font-mono uppercase tracking-wider text-zinc-500">Key Competencies</span>
                   <div className="flex flex-wrap gap-1.5">
                     {activeChapterData.keyTerminology.map((term, i) => (
-                      <span key={i} className="text-[9px] font-mono px-2.5 py-0.5 rounded-md bg-slate-950 border border-slate-800 text-slate-200 font-semibold">
+                      <span key={i} className="text-[9px] font-mono px-2.5 py-0.5 rounded-md bg-zinc-50 border border-zinc-200 text-zinc-700 font-semibold">
                         {term}
                       </span>
                     ))}
@@ -627,14 +626,14 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
               )}
 
               {/* Mastery Progress Bar */}
-              <div className="bg-[#070914] border border-indigo-950/80 p-3 rounded-xl flex flex-col gap-2">
-                <div className="flex justify-between text-[10px] font-mono font-bold uppercase text-slate-300">
+              <div className="bg-white border border-zinc-300 p-3 rounded-xl flex flex-col gap-2">
+                <div className="flex justify-between text-[10px] font-mono font-bold uppercase text-zinc-600">
                   <span>Milestone Mastery</span>
-                  <span className="text-emerald-400 font-bold">{selectedNode.completionPercent}%</span>
+                  <span className="text-zinc-600 font-bold">{selectedNode.completionPercent}%</span>
                 </div>
-                <div className="w-full h-2 bg-slate-950 rounded-full overflow-hidden border border-slate-800">
+                <div className="w-full h-2 bg-zinc-50 rounded-full overflow-hidden border border-zinc-200">
                   <div 
-                    className="h-full bg-gradient-to-r from-indigo-500 via-emerald-400 to-teal-300 rounded-full transition-all duration-300"
+                    className="h-full bg-zinc-50 to-teal-300 rounded-full transition-all duration-300"
                     style={{ width: `${selectedNode.completionPercent}%` }}
                   />
                 </div>
@@ -643,13 +642,13 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
               {/* Prerequisites */}
               {selectedNode.prerequisites.length > 0 && (
                 <div className="flex flex-col gap-1.5 text-xs">
-                  <span className="text-[9px] font-bold font-mono uppercase tracking-wider text-slate-400">Prerequisites</span>
+                  <span className="text-[9px] font-bold font-mono uppercase tracking-wider text-zinc-500">Prerequisites</span>
                   <div className="space-y-1.5">
                     {selectedNode.prerequisites.map(prereqId => {
                       const parent = nodes.find(n => n.id === prereqId);
                       return (
-                        <div key={prereqId} className="flex items-center gap-2 text-[10.5px] text-slate-200 bg-[#070914] p-2 rounded-lg border border-slate-800">
-                          <CheckCircle2 size={12} className={parent?.status === 'completed' ? 'text-emerald-400' : 'text-slate-500'} />
+                        <div key={prereqId} className="flex items-center gap-2 text-[10.5px] text-zinc-700 bg-white p-2 rounded-lg border border-zinc-200">
+                          <CheckCircle2 size={12} className={parent?.status === 'completed' ? 'text-zinc-600' : 'text-zinc-400'} />
                           <span className="truncate">{parent?.title || prereqId}</span>
                         </div>
                       );
@@ -659,10 +658,10 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
               )}
 
               {/* Quick Action Buttons */}
-              <div className="flex flex-col gap-2 pt-2 border-t border-indigo-500/20">
+              <div className="flex flex-col gap-2 pt-2 border-t border-zinc-300">
                 <button
                   onClick={handleOpenCourseDetails}
-                  className="btn-primary text-xs py-2.5 w-full flex items-center justify-center gap-1.5 font-bold font-sans uppercase tracking-wider shadow-md shadow-indigo-600/30"
+                  className="btn-primary text-xs py-2.5 w-full flex items-center justify-center gap-1.5 font-bold font-sans uppercase tracking-wider shadow-md shadow-zinc-200"
                 >
                   <BookOpen size={13} />
                   <span>Open in Course Textbook</span>
@@ -670,16 +669,16 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
 
                 <button
                   onClick={handleStartQuiz}
-                  className="btn-secondary text-xs py-2.5 w-full flex items-center justify-center gap-1.5 font-bold font-sans uppercase tracking-wider text-indigo-300 border border-indigo-700/50 hover:text-white"
+                  className="btn-secondary text-xs py-2.5 w-full flex items-center justify-center gap-1.5 font-bold font-sans uppercase tracking-wider text-zinc-700 border border-zinc-300 hover:text-zinc-900"
                 >
-                  <Sparkles size={13} className="text-amber-400" />
+                  <Sparkles size={13} className="text-zinc-600" />
                   <span>Take Chapter Quiz</span>
                 </button>
               </div>
 
             </div>
           ) : (
-            <div className="py-12 text-center text-slate-400 italic text-xs">
+            <div className="py-12 text-center text-zinc-500 italic text-xs">
               Select a milestone node on the map to view curriculum requirements.
             </div>
           )}

@@ -64,23 +64,23 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
   const getGoalIcon = (title: string, size: number = 14) => {
     const t = title.toLowerCase();
     if (t.includes('ai') || t.includes('neural') || t.includes('agent') || t.includes('engineer')) {
-      return <Cpu size={size} className="text-purple-400" />;
+      return <Cpu size={size} className="text-zinc-700" />;
     }
     if (t.includes('rag') || t.includes('production') || t.includes('specialist') || t.includes('search')) {
-      return <Sparkles size={size} className="text-cyan-400" />;
+      return <Sparkles size={size} className="text-zinc-600" />;
     }
     if (t.includes('kubernetes') || t.includes('devops') || t.includes('orchestration')) {
-      return <Terminal size={size} className="text-blue-400" />;
+      return <Terminal size={size} className="text-zinc-700" />;
     }
-    return <Target size={size} className="text-indigo-400" />;
+    return <Target size={size} className="text-zinc-700" />;
   };
 
   const getGoalWatermark = (title: string, isCompleted: boolean) => {
     const t = title.toLowerCase();
     const size = 120;
     const colorClass = isCompleted 
-      ? 'text-emerald-500/10' 
-      : 'text-slate-800/20 group-hover:text-indigo-500/5 group-hover:scale-110';
+      ? 'text-zinc-600/10' 
+      : 'text-slate-800/20 group-hover:text-zinc-700/5 group-hover:scale-110';
     const cn = `transition-all duration-500 transform translate-x-3 translate-y-3 ${colorClass}`;
     
     if (isCompleted) {
@@ -102,10 +102,10 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
     <div className="flex flex-col gap-6 w-full">
       
       {/* TOP HEADER */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-900 pb-5">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-zinc-200 pb-5">
         <div>
-          <h2 className="text-xl font-bold font-display text-white">Syllabus Cabinets</h2>
-          <p className="text-xs text-slate-555 mt-0.5 font-display">Configure and track long-term competency milestones mapped to active job gaps.</p>
+          <h2 className="text-xl font-bold font-display text-zinc-900">Syllabus Cabinets</h2>
+          <p className="text-xs text-zinc-500 mt-0.5 font-display">Configure and track long-term competency milestones mapped to active job gaps.</p>
         </div>
         
         <button 
@@ -118,15 +118,15 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
       </div>
 
       {/* CATEGORY TABS SELECTOR */}
-      <div className="flex border-b border-brand-border text-xs gap-1 select-none overflow-x-auto pb-1">
+      <div className="flex border-b border-zinc-200 text-xs gap-1 select-none overflow-x-auto pb-1">
         {(['all', 'active', 'completed', 'paused', 'overdue'] as const).map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-2 font-bold font-display tracking-wider uppercase border-b-2 transition-all ${
               activeTab === tab 
-                ? 'border-indigo-500 text-white' 
-                : 'border-transparent text-slate-500 hover:text-slate-350'
+                ? 'border-zinc-300 text-zinc-900' 
+                : 'border-transparent text-zinc-400 hover:text-zinc-700'
             }`}
           >
             {tab}
@@ -143,10 +143,10 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
             return (
               <div 
                 key={goal.id} 
-                className={`group p-5 flex flex-col justify-between min-h-[265px] relative transition-all duration-300 rounded-2xl border bg-[#0f111a] hover:bg-[#141624] overflow-hidden select-none hover:-translate-y-1 ${
+                className={`group p-5 flex flex-col justify-between min-h-[265px] relative transition-all duration-300 rounded-2xl border bg-white hover:bg-white overflow-hidden select-none hover:-translate-y-1 ${
                   isCompleted 
                     ? 'border-emerald-500/30 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] shadow-md' 
-                    : 'border-[#1e2238] hover:border-indigo-500/50 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] shadow-md'
+                    : 'border-zinc-200 hover:border-zinc-300 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] shadow-md'
                 }`}
               >
                 {/* Background Watermark Icon */}
@@ -160,8 +160,8 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
                   <div className="flex justify-between items-center gap-2">
                     <span className={`text-[8.5px] font-bold px-2 py-0.5 rounded-md border uppercase font-mono flex items-center gap-1.5 select-none ${
                       goal.difficulty === 'Advanced' ? 'bg-red-500/10 text-red-405 border-red-500/20' : 
-                      goal.difficulty === 'Intermediate' ? 'bg-yellow-500/10 text-yellow-405 border-yellow-500/20' : 
-                      'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                      goal.difficulty === 'Intermediate' ? 'bg-zinc-100 text-zinc-600 border-yellow-500/20' : 
+                      'bg-zinc-100 text-zinc-700 border-blue-500/20'
                     }`}>
                       <span className={`w-1 h-1 rounded-full ${
                         goal.difficulty === 'Advanced' ? 'bg-red-400 animate-pulse' : 
@@ -172,10 +172,10 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
                     </span>
 
                     <span className={`text-[8.5px] font-bold px-2 py-0.5 rounded-md border font-mono uppercase flex items-center gap-1 select-none ${
-                      isCompleted ? 'bg-emerald-950/40 text-emerald-450 border-emerald-900/30' :
+                      isCompleted ? 'bg-zinc-100 text-zinc-600 border-emerald-900/30' :
                       goal.status === 'Behind' ? 'bg-red-950/40 text-red-400 border-red-900/30' :
-                      goal.status === 'Paused' ? 'bg-slate-900 border-slate-800 text-slate-500' :
-                      'bg-indigo-950/40 text-indigo-400 border-indigo-900/30'
+                      goal.status === 'Paused' ? 'bg-zinc-100 border-zinc-200 text-zinc-400' :
+                      'bg-zinc-100 text-zinc-700 border-zinc-300'
                     }`}>
                       {isCompleted ? '✓ Completed' : goal.status}
                     </span>
@@ -184,14 +184,14 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
                   {/* Icon + Title */}
                   <div>
                     <div className="flex items-center gap-2.5 mt-2">
-                      <div className="p-1.5 rounded-md bg-slate-950/80 border border-[#222741] shrink-0 shadow-[inset_0_0_8px_rgba(99,102,241,0.1)]">
+                      <div className="p-1.5 rounded-md bg-zinc-100 border border-zinc-200 shrink-0 shadow-[inset_0_0_8px_rgba(99,102,241,0.1)]">
                         {getGoalIcon(goal.title, 14)}
                       </div>
-                      <h3 className="text-xs sm:text-sm font-bold font-display text-white truncate flex-1 leading-snug group-hover:text-indigo-400 transition-colors">
+                      <h3 className="text-xs sm:text-sm font-bold font-display text-zinc-900 truncate flex-1 leading-snug group-hover:text-zinc-700 transition-colors">
                         {goal.title}
                       </h3>
                     </div>
-                    <p className="text-[11px] text-slate-400 mt-2 line-clamp-2 leading-relaxed font-medium">
+                    <p className="text-[11px] text-zinc-500 mt-2 line-clamp-2 leading-relaxed font-medium">
                       {goal.description}
                     </p>
                   </div>
@@ -201,17 +201,15 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
                 {/* Progress bar info */}
                 <div className="my-4 relative z-10">
                   <div className="flex justify-between items-center text-[9px] mb-1 font-mono font-bold select-none">
-                    <span className="text-slate-500 uppercase tracking-wider">Milestone Progress</span>
-                    <span className={`font-bold ${isCompleted ? 'text-emerald-400' : 'text-indigo-400'}`}>
+                    <span className="text-zinc-400 uppercase tracking-wider">Milestone Progress</span>
+                    <span className={`font-bold ${isCompleted ? 'text-zinc-600' : 'text-zinc-700'}`}>
                       {goal.progress}%
                     </span>
                   </div>
-                  <div className="w-full h-1.5 bg-slate-950 rounded-full overflow-hidden border border-slate-900/40">
+                  <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden border border-zinc-200">
                     <div 
                       className={`h-full rounded-full transition-all duration-1000 ease-out ${
-                        isCompleted 
-                          ? 'bg-gradient-to-r from-emerald-500 to-teal-400' 
-                          : 'bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500'
+                        isCompleted ? 'bg-zinc-900' : 'bg-zinc-700'
                       }`}
                       style={{ width: `${goal.progress}%` }}
                     />
@@ -219,15 +217,15 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
                 </div>
 
                 {/* Statistics Footer */}
-                <div className="border-t border-[#1e2238] pt-3.5 flex justify-between items-center text-[9.5px] font-bold text-slate-500 relative z-10">
+                <div className="border-t border-zinc-200 pt-3.5 flex justify-between items-center text-[9.5px] font-bold text-zinc-400 relative z-10">
                   <div className="flex gap-3 select-none">
-                    <span className="flex items-center gap-1 font-mono text-[9px] text-slate-450 hover:text-slate-350 transition-colors">
-                      <Clock size={11} className="text-slate-555" />
+                    <span className="flex items-center gap-1 font-mono text-[9px] text-slate-450 hover:text-zinc-700 transition-colors">
+                      <Clock size={11} className="text-zinc-500" />
                       <span>{goal.deadlineDays}d left</span>
                     </span>
                     {!isCompleted && goal.streak > 0 && (
-                      <span className="flex items-center gap-1 text-orange-400 font-mono text-[9px] font-bold hover:text-orange-300 transition-colors">
-                        <Flame size={11} className="text-orange-500 animate-pulse" />
+                      <span className="flex items-center gap-1 text-zinc-600 font-mono text-[9px] font-bold hover:text-zinc-600 transition-colors">
+                        <Flame size={11} className="text-zinc-600 animate-pulse" />
                         <span>{goal.streak}d streak</span>
                       </span>
                     )}
@@ -236,7 +234,7 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
                   <div className="flex items-center gap-2.5">
                     <button
                       onClick={() => handleOpenRoadmapForGoal(goal)}
-                      className="flex items-center gap-1 font-mono text-[9px] font-bold text-indigo-400 hover:text-indigo-300 uppercase transition-colors"
+                      className="flex items-center gap-1 font-mono text-[9px] font-bold text-zinc-700 hover:text-zinc-700 uppercase transition-colors"
                     >
                       <Sparkles size={10} />
                       <span>Roadmap</span>
@@ -245,7 +243,7 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
                     <button
                       onClick={() => handleViewGoal(goal.id)}
                       className={`flex items-center gap-0.5 font-bold tracking-wider font-display uppercase hover:underline transition-colors ${
-                        isCompleted ? 'text-emerald-400 hover:text-emerald-300' : 'text-slate-300 hover:text-white'
+                        isCompleted ? 'text-zinc-600 hover:text-zinc-600' : 'text-zinc-600 hover:text-zinc-900'
                       }`}
                     >
                       <span>Inspect</span>

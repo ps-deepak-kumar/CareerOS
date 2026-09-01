@@ -5,131 +5,223 @@
 @tailwind utilities;
 
 /* =========================================================
-   CAREEROS PREMIER EXECUTIVE OBSIDIAN DESIGN SYSTEM
+   CAREEROS — MINIMAL BLACK & WHITE DESIGN SYSTEM
    ========================================================= */
 
 @layer base {
   body {
-    @apply font-sans antialiased overflow-x-hidden text-slate-200 selection:bg-indigo-500/30 selection:text-indigo-200;
-    background: radial-gradient(circle at 50% 0%, #151828 0%, #0c0d18 45%, #080910 100%);
+    @apply font-sans antialiased overflow-x-hidden bg-white text-zinc-900;
     min-height: 100vh;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold tracking-tight text-white;
+    @apply font-display font-bold tracking-tight text-zinc-900;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
 /* =========================================================
-   LUXURY GLASS PANELS, GLOWS & BUTTONS
+   COMPONENT LIBRARY
    ========================================================= */
 @layer components {
-  /* High-Definition Glass Card */
+
+  /* Clean White Card */
   .glass-panel {
-    background: rgba(16, 18, 32, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 1rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    color: #e2e8f0;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .glass-panel-hover {
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .glass-panel-hover:hover {
-    background: rgba(22, 26, 46, 0.85);
-    border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: 0 12px 40px 0 rgba(99, 102, 241, 0.15);
-    transform: translateY(-2px);
+    background: #ffffff;
+    border: 1px solid #E4E4E7;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    color: #3F3F46;
+    transition: all 0.2s ease;
   }
 
-  /* Vibrant Indigo-to-Violet Primary Button */
+  .glass-panel-hover {
+    transition: all 0.2s ease;
+  }
+
+  .glass-panel-hover:hover {
+    background: #FAFAFA;
+    border-color: #D4D4D8;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+    transform: translateY(-1px);
+  }
+
+  /* Solid Black Primary Button */
   .btn-primary {
-    @apply px-4 py-2.5 rounded-xl font-bold text-xs text-white shadow-lg transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 font-display tracking-wider uppercase;
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+    @apply px-4 py-2.5 rounded-lg font-semibold text-xs text-white transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 font-display tracking-wide uppercase;
+    background: #09090B;
+    border: 1px solid #09090B;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   }
   .btn-primary:hover {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-    box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5);
+    background: #18181B;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     transform: translateY(-1px);
   }
 
-  /* Sleek Obsidian Secondary Button */
+  /* Clean White Secondary Button */
   .btn-secondary {
-    @apply px-4 py-2.5 rounded-xl font-bold text-xs text-slate-200 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 font-display tracking-wider uppercase;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    @apply px-4 py-2.5 rounded-lg font-semibold text-xs text-zinc-700 transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 font-display tracking-wide uppercase;
+    background: #FFFFFF;
+    border: 1px solid #D4D4D8;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
   }
   .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
+    background: #F4F4F5;
+    border-color: #A1A1AA;
+    color: #09090B;
     transform: translateY(-1px);
   }
 
-  /* Neon Emerald Success Button */
+  /* Success Outline Button */
   .btn-success {
-    @apply px-4 py-2.5 rounded-xl font-bold text-xs text-white shadow-lg transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 font-display tracking-wider uppercase;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.35);
+    @apply px-4 py-2.5 rounded-lg font-semibold text-xs text-zinc-900 transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 font-display tracking-wide uppercase;
+    background: #FFFFFF;
+    border: 1.5px solid #09090B;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .btn-success:hover {
+    background: #09090B;
+    color: #FFFFFF;
   }
 
-  /* Gradients */
+  /* Text Styles */
   .text-gradient-royal {
-    @apply bg-gradient-to-r from-indigo-400 via-violet-300 to-purple-400 bg-clip-text text-transparent;
+    @apply text-zinc-900;
   }
-
   .text-gradient-cyan {
-    @apply bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent;
+    @apply text-zinc-700;
+  }
+  .text-gradient-gold {
+    @apply text-zinc-600;
   }
 
-  .text-gradient-gold {
-    @apply bg-gradient-to-r from-amber-400 via-orange-300 to-yellow-400 bg-clip-text text-transparent;
+  /* Icon Badge (replaces emoji icon containers) */
+  .icon-badge {
+    @apply w-10 h-10 rounded-lg bg-zinc-100 border border-zinc-200 flex items-center justify-center text-zinc-700 shrink-0;
+  }
+  .icon-badge-sm {
+    @apply w-7 h-7 rounded-md bg-zinc-100 border border-zinc-200 flex items-center justify-center text-zinc-700 shrink-0;
+  }
+  .icon-badge-black {
+    @apply w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-900 flex items-center justify-center text-white shrink-0;
+  }
+
+  /* Status Pill */
+  .pill {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider font-mono;
+    background: #F4F4F5;
+    border: 1px solid #E4E4E7;
+    color: #52525B;
+  }
+  .pill-dark {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider font-mono;
+    background: #09090B;
+    color: #FFFFFF;
+    border: 1px solid #09090B;
+  }
+
+  /* Section Divider Label */
+  .section-label {
+    @apply text-[10px] font-bold uppercase tracking-[0.15em] font-mono text-zinc-400;
+  }
+
+  /* Page Container */
+  .page-wrapper {
+    @apply flex flex-col gap-6 w-full pb-12 font-sans text-zinc-700;
+  }
+
+  /* Page Header Panel */
+  .page-header {
+    @apply p-5 bg-white border border-zinc-200 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-card;
+  }
+
+  /* Roadmap dot grid */
+  .roadmap-grid {
+    background-image: radial-gradient(rgba(0,0,0,0.07) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Stat Card */
+  .stat-card {
+    @apply p-4 bg-white border border-zinc-200 rounded-xl flex flex-col gap-1 shadow-card;
   }
 }
 
 /* =========================================================
-   INPUTS & CONTROLS
+   FORM CONTROLS
    ========================================================= */
 input, select, textarea {
-  background-color: rgba(10, 12, 22, 0.7) !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-  color: #ffffff !important;
+  background-color: #FAFAFA !important;
+  border-color: #E4E4E7 !important;
+  color: #09090B !important;
+  border-radius: 0.5rem;
 }
 
 input:focus, select:focus, textarea:focus {
-  border-color: rgba(99, 102, 241, 0.6) !important;
-  box-shadow: 0 0 15px rgba(99, 102, 241, 0.25) !important;
+  border-color: #09090B !important;
+  box-shadow: 0 0 0 2px rgba(9,9,11,0.08) !important;
+  outline: none !important;
 }
 
 input::placeholder, textarea::placeholder {
-  color: #64748b !important;
+  color: #A1A1AA !important;
 }
 
 /* =========================================================
    CUSTOM SCROLLBARS
    ========================================================= */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(10, 11, 20, 0.6);
+  background: #F4F4F5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #6366f1, #8b5cf6);
+  background: #D4D4D8;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #818cf8, #a78bfa);
+  background: #A1A1AA;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.15s ease-out forwards;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: scaleY(0.95); }
+  to { opacity: 1; transform: scaleY(1); }
+}
+.animate-slide-down {
+  animation: slideDown 0.15s ease-out forwards;
+  transform-origin: top;
+}
+
+@keyframes flow {
+  to { stroke-dashoffset: -20; }
+}
+.animate-flow-line {
+  animation: flow 1.5s linear infinite;
+}
+
+/* Selection */
+::selection {
+  background: rgba(9,9,11,0.1);
+  color: #09090B;
 }

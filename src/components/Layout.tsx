@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { 
-  Home, Calendar, Target, BookOpen, Map, FileText, Link2, Trophy, User, Briefcase, Settings, 
-  Search, Bell, Flame, Menu, X, Brain, Zap, Sparkles
+import {
+  Home, Calendar, Target, BookOpen, Map, FileText, Link2, Trophy,
+  User, Briefcase, Settings, Search, Bell, Flame, Menu, X, Brain,
+  ChevronRight, GraduationCap
 } from 'lucide-react';
 import { stateManager } from '../services/stateManager';
 
-export type PageId = 
+export type PageId =
   | 'landing'
   | 'dashboard'
   | 'daily-plan'
@@ -28,27 +29,27 @@ interface LayoutProps {
   onPageChange: (page: PageId) => void;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ 
-  children, 
-  activePage, 
-  onPageChange 
+export const Layout: React.FC<LayoutProps> = ({
+  children,
+  activePage,
+  onPageChange
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  
+
   const profile = stateManager.getProfile();
-  
+
   const navigationItems = [
-    { id: 'dashboard',    label: 'Home Dashboard',          icon: Home,      color: 'from-sky-500 to-blue-600',        iconColor: 'text-sky-400',      glow: 'shadow-sky-500/30' },
-    { id: 'daily-plan',  label: 'My Daily Task Plan',       icon: Calendar,  color: 'from-violet-500 to-purple-600',   iconColor: 'text-violet-400',   glow: 'shadow-violet-500/30' },
-    { id: 'goals',       label: 'My Goals & Targets',       icon: Target,    color: 'from-rose-500 to-pink-600',       iconColor: 'text-rose-400',     glow: 'shadow-rose-500/30' },
-    { id: 'learning',    label: 'Courses & Lessons',        icon: BookOpen,  color: 'from-amber-500 to-orange-600',    iconColor: 'text-amber-400',    glow: 'shadow-amber-500/30' },
-    { id: 'roadmap',     label: 'Skill Learning Roadmap',   icon: Map,       color: 'from-teal-500 to-emerald-600',    iconColor: 'text-teal-400',     glow: 'shadow-teal-500/30' },
-    { id: 'quiz',        label: 'Tests & Assessments',      icon: FileText,  color: 'from-cyan-500 to-blue-600',       iconColor: 'text-cyan-400',     glow: 'shadow-cyan-500/30' },
-    { id: 'resources',   label: 'Study Resource Library',   icon: Link2,     color: 'from-lime-500 to-green-600',      iconColor: 'text-lime-400',     glow: 'shadow-lime-500/30' },
-    { id: 'achievements',label: 'Badges & Achievements',    icon: Trophy,    color: 'from-yellow-400 to-amber-500',    iconColor: 'text-yellow-400',   glow: 'shadow-yellow-400/30' },
-    { id: 'profile',     label: 'My Career Profile',        icon: User,      color: 'from-fuchsia-500 to-pink-600',    iconColor: 'text-fuchsia-400',  glow: 'shadow-fuchsia-500/30' },
-    { id: 'work-intel',  label: 'Work & Job Insights',      icon: Briefcase, color: 'from-indigo-500 to-blue-600',     iconColor: 'text-indigo-400',   glow: 'shadow-indigo-500/30' },
+    { id: 'dashboard',    label: 'Home Dashboard',        icon: Home      },
+    { id: 'daily-plan',  label: 'My Daily Task Plan',     icon: Calendar  },
+    { id: 'goals',       label: 'My Goals & Targets',     icon: Target    },
+    { id: 'learning',    label: 'Courses & Lessons',      icon: BookOpen  },
+    { id: 'roadmap',     label: 'Skill Learning Roadmap', icon: Map       },
+    { id: 'quiz',        label: 'Tests & Assessments',    icon: FileText  },
+    { id: 'resources',   label: 'Study Resource Library', icon: Link2     },
+    { id: 'achievements',label: 'Badges & Achievements',  icon: Trophy    },
+    { id: 'profile',     label: 'My Career Profile',      icon: User      },
+    { id: 'work-intel',  label: 'Work & Job Insights',    icon: Briefcase },
   ] as const;
 
   const handleNavClick = (id: PageId) => {
@@ -63,178 +64,141 @@ export const Layout: React.FC<LayoutProps> = ({
   ];
 
   return (
-    <div className="min-h-screen flex text-slate-200" style={{background: 'radial-gradient(circle at 50% 0%, #131626 0%, #0c0d18 45%, #080910 100%)'}}>
-      
-      {/* DESKTOP SIDEBAR NAV */}
-      <aside 
-        className="hidden lg:flex flex-col w-68 shrink-0 fixed h-screen z-30 shadow-2xl" 
-        style={{
-          width: '268px', 
-          background: 'linear-gradient(180deg, #0e101f 0%, #0c0d1a 50%, #080912 100%)', 
-          borderRight: '1px solid rgba(255,255,255,0.07)'
-        }}
-      >
-        {/* Luminous top accent bar */}
-        <div className="h-1 w-full" style={{background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899, #f59e0b, #10b981, #06b6d4)'}} />
+    <div className="min-h-screen flex bg-zinc-50 text-zinc-900">
 
-        {/* Brand Logo Header */}
-        <div 
-          className="h-16 flex items-center gap-3 px-5 cursor-pointer group select-none" 
-          style={{borderBottom: '1px solid rgba(255,255,255,0.06)'}} 
+      {/* ── DESKTOP SIDEBAR ─────────────────────────────────── */}
+      <aside
+        className="hidden lg:flex flex-col w-64 shrink-0 fixed h-screen z-30 bg-white border-r border-zinc-200"
+        style={{ width: '256px' }}
+      >
+        {/* Brand Logo */}
+        <div
+          className="h-14 flex items-center gap-3 px-5 cursor-pointer border-b border-zinc-200 select-none group"
           onClick={() => handleNavClick('landing')}
         >
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/30 group-hover:scale-110 transition-transform duration-300" style={{background: 'linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4)'}}>
-            <Brain size={18} />
+          <div className="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center text-zinc-900 group-hover:bg-zinc-700 transition-colors shrink-0">
+            <GraduationCap size={16} />
           </div>
-          <div>
-            <h1 className="text-base font-bold font-display tracking-tight leading-none text-white">
+          <div className="min-w-0">
+            <h1 className="text-sm font-bold font-display tracking-tight text-zinc-900 leading-tight">
               CareerOS
             </h1>
-            <span className="text-[9px] uppercase tracking-widest font-bold font-mono text-emerald-400">
-              ● LIVE Enterprise v1.2
+            <span className="text-[9px] uppercase tracking-widest font-mono text-zinc-400 font-semibold">
+              AI Learning Platform
             </span>
           </div>
-          <Zap size={13} className="ml-auto text-amber-400 opacity-80" />
         </div>
 
         {/* Section Label */}
-        <div className="px-5 pt-4 pb-1.5">
-          <span className="text-[9px] font-bold uppercase tracking-[0.2em] font-mono text-slate-500">
-            Navigation Console
-          </span>
+        <div className="px-4 pt-5 pb-2">
+          <span className="section-label">Navigation</span>
         </div>
 
-        {/* Links Navigation */}
-        <nav className="flex-1 px-3 pb-4 flex flex-col gap-1 overflow-y-auto">
+        {/* Navigation Links */}
+        <nav className="flex-1 px-3 pb-4 flex flex-col gap-0.5 overflow-y-auto">
           {navigationItems.map(item => {
-            const isActive = activePage === item.id || 
-              (item.id === 'goals' && activePage === 'goal-details') ||
-              (item.id === 'goals' && activePage === 'set-goal') ||
+            const isActive = activePage === item.id ||
+              (item.id === 'goals' && (activePage === 'goal-details' || activePage === 'set-goal')) ||
               (item.id === 'learning' && activePage === 'course-details');
             const Icon = item.icon;
-            
+
             return (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold font-display tracking-wide transition-all duration-200 relative group ${
-                  isActive 
-                    ? 'text-white shadow-lg shadow-indigo-500/20' 
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium font-sans transition-all duration-150 ${
+                  isActive
+                    ? 'bg-zinc-900 text-zinc-900'
+                    : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
                 }`}
-                style={isActive ? {
-                  background: 'linear-gradient(135deg, rgba(99,102,241,0.25), rgba(139,92,246,0.2))',
-                  border: '1px solid rgba(255,255,255,0.15)',
-                } : {
-                  border: '1px solid transparent'
-                }}
               >
-                {/* Colored Icon Badge */}
-                <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110 ${
-                  isActive ? `bg-gradient-to-br ${item.color} shadow-md` : 'bg-white/5'
-                }`}>
-                  <Icon size={14} className={isActive ? 'text-white' : item.iconColor} />
-                </div>
-                
-                <span className="truncate text-left font-medium">{item.label}</span>
-
-                {/* Active indicator bar */}
-                {isActive && (
-                  <div className={`ml-auto w-1.5 h-4 rounded-full bg-gradient-to-b ${item.color} opacity-90`} />
-                )}
+                <Icon size={14} className="shrink-0" />
+                <span className="truncate text-left">{item.label}</span>
+                {isActive && <ChevronRight size={12} className="ml-auto shrink-0 opacity-60" />}
               </button>
             );
           })}
         </nav>
 
-        {/* Sidebar Footer (Settings) */}
-        <div className="p-3" style={{borderTop: '1px solid rgba(255,255,255,0.06)'}}>
-          <button 
+        {/* Sidebar Footer */}
+        <div className="px-3 pb-3 pt-2 border-t border-zinc-200">
+          <button
             onClick={() => handleNavClick('settings')}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold tracking-wide font-display transition-all ${
+            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
               activePage === 'settings'
-                ? 'bg-indigo-600/30 text-white border border-indigo-500/30'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
+                ? 'bg-zinc-900 text-zinc-900'
+                : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
-            <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
-              <Settings size={14} className="text-slate-400" />
-            </div>
+            <Settings size={14} className="shrink-0" />
             <span>Settings & Preferences</span>
           </button>
         </div>
       </aside>
 
-      {/* Main Content Pane Wrapper */}
-      <div className="flex-1 flex flex-col min-h-screen" style={{paddingLeft: '268px'}}>
-        
+      {/* ── MAIN CONTENT PANE ─────────────────────────────────── */}
+      <div className="flex-1 flex flex-col min-h-screen" style={{ paddingLeft: '256px' }}>
+
         {/* TOP NAVBAR */}
-        <header 
-          className="h-16 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-20 backdrop-blur-xl transition-colors duration-200" 
-          style={{
-            borderBottom: '1px solid rgba(255,255,255,0.07)', 
-            background: 'rgba(12, 14, 26, 0.85)'
-          }}
-        >
-          {/* Subtle bottom gradient line */}
-          <div className="absolute bottom-0 left-0 right-0 h-px" style={{background: 'linear-gradient(90deg, transparent, rgba(99,102,241,0.5), rgba(139,92,246,0.5), transparent)'}} />
-          
+        <header className="h-14 flex items-center justify-between px-5 sticky top-0 z-20 bg-white border-b border-zinc-200">
+
           {/* Mobile menu trigger */}
           <div className="flex items-center gap-3 lg:hidden">
-            <button 
+            <button
               onClick={() => setMobileMenuOpen(true)}
-              className="p-2 rounded text-slate-400 hover:text-white hover:bg-slate-900"
+              className="p-2 rounded-lg text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 transition-colors"
             >
               <Menu size={18} />
             </button>
-            <span className="font-display font-bold text-white text-sm tracking-wide">CareerOS</span>
+            <span className="font-display font-bold text-zinc-900 text-sm">CareerOS</span>
           </div>
 
-          {/* Desktop search wrapper */}
-          <div className="hidden md:flex items-center gap-2 bg-slate-950/70 border border-brand-border rounded-xl px-3 py-1.5 w-72 focus-within:border-indigo-500/60 transition-all shadow-sm">
-            <Search size={13} className="text-slate-400" />
-            <input 
-              type="text" 
+          {/* Desktop Search */}
+          <div className="hidden md:flex items-center gap-2 bg-zinc-50 border border-zinc-200 rounded-lg px-3 py-2 w-72 focus-within:border-zinc-400 focus-within:bg-white transition-all">
+            <Search size={13} className="text-zinc-400 shrink-0" />
+            <input
+              type="text"
               placeholder="Search curriculum, resources..."
-              className="bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none w-full"
+              className="bg-transparent text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none w-full"
+              style={{ background: 'transparent !important', border: 'none !important', boxShadow: 'none !important' }}
             />
           </div>
 
-          {/* Header Action Tools */}
-          <div className="flex items-center gap-4 sm:gap-6 ml-auto">
-            {/* Streak indicator */}
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full select-none" style={{background: 'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(239,68,68,0.15))', border: '1px solid rgba(245,158,11,0.3)'}}>
-              <Flame size={13} className="text-orange-400" />
-              <span className="text-[10px] font-bold font-display" style={{background: 'linear-gradient(90deg, #fb923c, #f59e0b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>🔥 14-Day Streak</span>
+          {/* Header Actions */}
+          <div className="flex items-center gap-3 ml-auto">
+            {/* Streak */}
+            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-100 border border-zinc-200">
+              <Flame size={12} className="text-zinc-600" />
+              <span className="text-[10px] font-bold font-mono text-zinc-700 tracking-wide">14-Day Streak</span>
             </div>
 
-            {/* Current System time & date */}
-            <div className="hidden sm:block text-right">
-              <p className="text-[9px] text-slate-500 font-mono tracking-wider">PLATFORM ONLINE</p>
-              <p className="text-[11px] font-semibold text-slate-300">Wednesday, Aug 12</p>
+            {/* Date */}
+            <div className="hidden lg:block text-right">
+              <p className="text-[9px] text-zinc-400 font-mono tracking-wider uppercase">Platform Online</p>
+              <p className="text-[11px] font-semibold text-zinc-700">Wednesday, Aug 12</p>
             </div>
 
-            {/* Notifications Trigger */}
+            {/* Notifications */}
             <div className="relative">
-              <button 
+              <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="p-2 rounded-lg bg-slate-900/60 border border-brand-border hover:border-slate-700 text-slate-400 hover:text-white transition-colors relative"
+                className="p-2 rounded-lg bg-white border border-zinc-200 hover:border-zinc-300 text-zinc-500 hover:text-zinc-900 transition-colors relative"
               >
                 <Bell size={14} />
-                <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-zinc-900 rounded-full" />
               </button>
-              
+
               {showNotifications && (
-                <div className="absolute right-0 mt-2 w-72 glass-panel p-2 shadow-2xl z-50 text-[11px] border border-brand-border rounded-xl">
-                  <div className="px-3 py-1.5 border-b border-brand-border/60 flex items-center justify-between">
-                    <span className="font-semibold text-white">Agent Notification Feed</span>
-                    <button className="text-[10px] text-indigo-400 hover:underline">Clear all</button>
+                <div className="absolute right-0 mt-2 w-72 bg-white border border-zinc-200 rounded-xl shadow-dropdown p-2 z-50 text-[11px] animate-fade-in">
+                  <div className="px-3 py-1.5 border-b border-zinc-100 flex items-center justify-between mb-1">
+                    <span className="font-semibold text-zinc-900 text-xs">Notifications</span>
+                    <button className="text-[10px] text-zinc-400 hover:text-zinc-900">Clear all</button>
                   </div>
-                  <div className="divide-y divide-slate-800/60">
+                  <div className="divide-y divide-zinc-100">
                     {notifications.map((n, idx) => (
-                      <div key={idx} className="p-2.5 hover:bg-slate-900/40 transition-colors">
-                        <p className="text-slate-300 leading-tight">{n.text}</p>
-                        <span className="text-[9px] text-slate-500 mt-1 block">{n.time}</span>
+                      <div key={idx} className="px-3 py-2.5 hover:bg-zinc-50 rounded-lg transition-colors">
+                        <p className="text-zinc-700 leading-snug">{n.text}</p>
+                        <span className="text-[9px] text-zinc-400 mt-1 block font-mono">{n.time}</span>
                       </div>
                     ))}
                   </div>
@@ -242,60 +206,54 @@ export const Layout: React.FC<LayoutProps> = ({
               )}
             </div>
 
-            {/* Profile Avatar Widget */}
-            <div 
+            {/* Profile */}
+            <div
               onClick={() => handleNavClick('profile')}
-              className="flex items-center gap-2 cursor-pointer border border-brand-border hover:border-slate-700 rounded-xl p-1.5 transition-all bg-slate-900/40"
+              className="flex items-center gap-2 cursor-pointer border border-zinc-200 hover:border-zinc-300 rounded-xl px-2 py-1.5 transition-all bg-white"
             >
-              <img 
-                src={profile.avatar} 
+              <img
+                src={profile.avatar}
                 alt={profile.name}
-                className="w-6 h-6 rounded-lg object-cover shadow"
+                className="w-6 h-6 rounded-md object-cover border border-zinc-200"
               />
               <div className="hidden md:block text-left pr-1">
-                <p className="text-[10px] font-semibold text-white leading-none">{profile.name}</p>
-                <p className="text-[8px] text-slate-400">{profile.title}</p>
+                <p className="text-[10px] font-semibold text-zinc-900 leading-none">{profile.name}</p>
+                <p className="text-[8px] text-zinc-400 mt-0.5">{profile.title}</p>
               </div>
             </div>
           </div>
         </header>
 
-        {/* MAIN ROUTER RENDER AREA */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-6 w-full">
+        {/* MAIN RENDER AREA */}
+        <main className="flex-1 p-5 sm:p-6 w-full bg-zinc-50">
           {children}
         </main>
       </div>
 
-      {/* MOBILE SLIDEOUT DRAWER MENU */}
+      {/* ── MOBILE SLIDEOUT ─────────────────────────────────── */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-black/70 z-50 lg:hidden flex backdrop-blur-sm">
-          <div 
-            className="w-72 flex flex-col shadow-2xl" 
-            style={{
-              background: 'linear-gradient(180deg, #0e101f 0%, #080912 100%)', 
-              borderRight: '1px solid rgba(255,255,255,0.07)'
-            }}
-          >
-            <div className="h-1 w-full" style={{background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899, #f59e0b, #10b981)'}} />
-            <div 
-              className="flex items-center justify-between px-5 py-4" 
-              style={{borderBottom: '1px solid rgba(255,255,255,0.06)'}}
-            >
+        <div className="fixed inset-0 bg-black/40 z-50 lg:hidden flex backdrop-blur-sm">
+          <div className="w-64 flex flex-col bg-white border-r border-zinc-200 shadow-modal">
+            <div className="h-14 flex items-center justify-between px-5 border-b border-zinc-200">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl flex items-center justify-center shadow-md" style={{background: 'linear-gradient(135deg, #6366f1, #8b5cf6)'}}>
-                  <Brain size={16} className="text-white" />
+                <div className="w-7 h-7 rounded-lg bg-zinc-900 flex items-center justify-center">
+                  <GraduationCap size={14} className="text-zinc-900" />
                 </div>
-                <span className="font-display font-bold text-base text-white">CareerOS</span>
+                <span className="font-display font-bold text-zinc-900">CareerOS</span>
               </div>
-              <button 
+              <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white transition-colors"
+                className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-colors"
               >
                 <X size={16} />
               </button>
             </div>
-            
-            <nav className="flex-1 flex flex-col gap-1 overflow-y-auto p-3 pt-4">
+
+            <div className="px-4 pt-5 pb-2">
+              <span className="section-label">Navigation</span>
+            </div>
+
+            <nav className="flex-1 flex flex-col gap-0.5 overflow-y-auto px-3">
               {navigationItems.map(item => {
                 const Icon = item.icon;
                 const isActive = activePage === item.id;
@@ -303,29 +261,23 @@ export const Layout: React.FC<LayoutProps> = ({
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold font-display tracking-wide transition-all ${
-                      isActive ? 'bg-indigo-600/30 text-white border border-indigo-500/40' : 'text-slate-400 hover:text-white'
+                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                      isActive ? 'bg-zinc-900 text-zinc-900' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
                     }`}
                   >
-                    <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
-                      isActive ? `bg-gradient-to-br ${item.color}` : 'bg-white/5'
-                    }`}>
-                      <Icon size={14} className={isActive ? 'text-white' : item.iconColor} />
-                    </div>
+                    <Icon size={14} />
                     <span>{item.label}</span>
                   </button>
                 );
               })}
             </nav>
-            
-            <div className="p-3" style={{borderTop: '1px solid rgba(255,255,255,0.06)'}}>
-              <button 
+
+            <div className="p-3 border-t border-zinc-200">
+              <button
                 onClick={() => handleNavClick('settings')}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold font-display tracking-wide text-slate-400 hover:text-white transition-all w-full"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 transition-all w-full"
               >
-                <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
-                  <Settings size={14} className="text-slate-400" />
-                </div>
+                <Settings size={14} />
                 <span>Settings & Preferences</span>
               </button>
             </div>
@@ -334,56 +286,30 @@ export const Layout: React.FC<LayoutProps> = ({
         </div>
       )}
 
-      {/* MOBILE BOTTOM NAVIGATION */}
-      <div 
-        className="lg:hidden fixed bottom-0 left-0 right-0 h-16 border-t z-40 flex justify-around items-center px-2 shadow-2xl backdrop-blur-xl"
-        style={{
-          background: 'rgba(10, 11, 20, 0.95)',
-          borderColor: 'rgba(255,255,255,0.07)'
-        }}
-      >
-        <button 
-          onClick={() => handleNavClick('dashboard')}
-          className={`flex flex-col items-center justify-center ${activePage === 'dashboard' ? 'text-indigo-400 font-bold' : 'text-slate-500'}`}
-        >
-          <Home size={16} />
-          <span className="text-[8px] mt-0.5 font-display font-semibold uppercase">Dash</span>
-        </button>
-        <button 
-          onClick={() => handleNavClick('daily-plan')}
-          className={`flex flex-col items-center justify-center ${activePage === 'daily-plan' ? 'text-indigo-400 font-bold' : 'text-slate-500'}`}
-        >
-          <Calendar size={16} />
-          <span className="text-[8px] mt-0.5 font-display font-semibold uppercase">Plan</span>
-        </button>
-        <button 
-          onClick={() => handleNavClick('goals')}
-          className={`flex flex-col items-center justify-center ${
-            activePage === 'goals' || activePage === 'goal-details' || activePage === 'set-goal' 
-              ? 'text-indigo-400 font-bold' 
-              : 'text-slate-500'
-          }`}
-        >
-          <Target size={16} />
-          <span className="text-[8px] mt-0.5 font-display font-semibold uppercase">Goals</span>
-        </button>
-        <button 
-          onClick={() => handleNavClick('learning')}
-          className={`flex flex-col items-center justify-center ${activePage === 'learning' || activePage === 'course-details' ? 'text-indigo-400 font-bold' : 'text-slate-500'}`}
-        >
-          <BookOpen size={16} />
-          <span className="text-[8px] mt-0.5 font-display font-semibold uppercase">Learn</span>
-        </button>
-        <button 
-          onClick={() => handleNavClick('profile')}
-          className={`flex flex-col items-center justify-center ${activePage === 'profile' ? 'text-indigo-400 font-bold' : 'text-slate-500'}`}
-        >
-          <User size={16} />
-          <span className="text-[8px] mt-0.5 font-display font-semibold uppercase">Me</span>
-        </button>
+      {/* ── MOBILE BOTTOM NAV ─────────────────────────────────── */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 h-14 border-t border-zinc-200 z-40 flex justify-around items-center px-2 bg-white">
+        {[
+          { id: 'dashboard', icon: Home, label: 'Home' },
+          { id: 'daily-plan', icon: Calendar, label: 'Plan' },
+          { id: 'goals', icon: Target, label: 'Goals' },
+          { id: 'learning', icon: BookOpen, label: 'Learn' },
+          { id: 'profile', icon: User, label: 'Me' },
+        ].map(({ id, icon: Icon, label }) => (
+          <button
+            key={id}
+            onClick={() => handleNavClick(id as PageId)}
+            className={`flex flex-col items-center justify-center gap-0.5 transition-colors ${
+              activePage === id ? 'text-zinc-900' : 'text-zinc-400'
+            }`}
+          >
+            <Icon size={16} />
+            <span className="text-[8px] font-semibold uppercase font-mono">{label}</span>
+          </button>
+        ))}
       </div>
 
     </div>
   );
 };
+
 export default Layout;
