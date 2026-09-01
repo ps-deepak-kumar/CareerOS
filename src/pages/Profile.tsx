@@ -669,7 +669,7 @@ export const ProfilePage: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleAddSkill}
-                  className="py-1.5 px-3 bg-zinc-900 hover:bg-zinc-900 text-zinc-900 font-bold rounded flex items-center justify-center gap-1 transition-colors uppercase tracking-wider text-[10px]"
+                  className="py-1.5 px-3 bg-zinc-900 hover:bg-zinc-900 text-white font-bold rounded flex items-center justify-center gap-1 transition-colors uppercase tracking-wider text-[10px]"
                 >
                   <Plus size={14} />
                   <span>Add</span>
@@ -716,7 +716,7 @@ export const ProfilePage: React.FC = () => {
               <button 
                 type="button"
                 onClick={handleSave}
-                className="px-4 py-2 bg-zinc-900 hover:bg-zinc-900 text-zinc-900 rounded-lg font-bold font-sans tracking-wide uppercase flex items-center gap-1.5 transition-colors shadow-lg shadow-zinc-200 hover:shadow-zinc-200"
+                className="px-4 py-2 bg-zinc-900 hover:bg-zinc-900 text-white rounded-lg font-bold font-sans tracking-wide uppercase flex items-center gap-1.5 transition-colors shadow-lg shadow-zinc-200 hover:shadow-zinc-200"
               >
                 <Save size={13} />
                 <span>Save Changes</span>

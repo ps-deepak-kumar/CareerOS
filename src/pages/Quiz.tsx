@@ -193,7 +193,7 @@ export const Quiz: React.FC = () => {
                 onClick={() => setTopicSource('custom')}
                 className={`py-2 px-3 rounded-lg text-xs font-bold font-display transition-all ${
                   topicSource === 'custom'
-                    ? 'bg-zinc-900 text-zinc-900 shadow-md'
+                    ? 'bg-zinc-900 text-white shadow-md'
                     : 'text-zinc-500 hover:text-zinc-900'
                 }`}
               >
@@ -204,7 +204,7 @@ export const Quiz: React.FC = () => {
                 onClick={() => setTopicSource('course')}
                 className={`py-2 px-3 rounded-lg text-xs font-bold font-display transition-all ${
                   topicSource === 'course'
-                    ? 'bg-zinc-900 text-zinc-900 shadow-md'
+                    ? 'bg-zinc-900 text-white shadow-md'
                     : 'text-zinc-500 hover:text-zinc-900'
                 }`}
               >
@@ -281,8 +281,8 @@ export const Quiz: React.FC = () => {
                     onClick={() => setQuestionCount(count)}
                     className={`py-2 text-xs font-mono font-bold rounded-xl border transition-all text-center ${
                       questionCount === count
-                        ? 'bg-zinc-900 border-zinc-300 text-zinc-900 shadow-md'
-                        : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:border-zinc-200'
+                        ? 'bg-zinc-900 border-zinc-900 text-white shadow-sm'
+                        : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:border-zinc-400 hover:text-zinc-900'
                     }`}
                   >
                     {count} Qs
@@ -300,9 +300,9 @@ export const Quiz: React.FC = () => {
                 {(['Easy', 'Medium', 'Hard'] as const).map(level => {
                   const isSelected = difficulty === level;
                   const activeColor = 
-                    level === 'Easy' ? 'bg-emerald-600 border-emerald-500 text-zinc-900' :
-                    level === 'Medium' ? 'bg-zinc-900 border-zinc-300 text-zinc-900' :
-                    'bg-red-600 border-red-500 text-zinc-900';
+                    level === 'Easy' ? 'bg-zinc-900 border-zinc-900 text-white' :
+                    level === 'Medium' ? 'bg-zinc-900 border-zinc-900 text-white' :
+                    'bg-zinc-900 border-zinc-900 text-white';
 
                   return (
                     <button
@@ -495,7 +495,7 @@ export const Quiz: React.FC = () => {
                   className={`w-full text-left p-3.5 rounded-xl border text-xs leading-normal transition-all flex items-start gap-3 ${optStyle}`}
                 >
                   <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-mono font-bold ${
-                    isSelected ? 'border-zinc-300 bg-zinc-900 text-zinc-900' : 'border-zinc-200 text-zinc-400'
+                    isSelected ? 'border-zinc-300 bg-zinc-900 text-white' : 'border-zinc-200 text-zinc-400'
                   }`}>
                     {String.fromCharCode(65 + oIdx)}
                   </div>

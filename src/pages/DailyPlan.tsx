@@ -157,7 +157,7 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={handleRunAiOptimizer}
             disabled={isOptimizing}
-            className="btn-primary flex items-center gap-2 py-2 px-4 text-xs font-bold uppercase tracking-wider shadow-md shadow-zinc-200"
+            className="btn-primary flex items-center gap-2 py-2 px-4 text-xs font-bold uppercase tracking-wider shadow-card"
           >
             <Sparkles size={13} className={isOptimizing ? 'animate-spin' : 'text-zinc-600'} />
             <span>{isOptimizing ? 'Balancing Schedule...' : 'AI Auto-Optimize'}</span>
@@ -212,7 +212,7 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={() => setTimeFilter('today')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-              timeFilter === 'today' ? 'bg-zinc-900 text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+              timeFilter === 'today' ? 'bg-zinc-900 text-white shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
             }`}
           >
             ⚡ Today's Sprint
@@ -220,7 +220,7 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={() => setTimeFilter('7days')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-              timeFilter === '7days' ? 'bg-zinc-900 text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+              timeFilter === '7days' ? 'bg-zinc-900 text-white shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
             }`}
           >
             📅 7-Day Horizon
@@ -228,7 +228,7 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={() => setTimeFilter('month')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-              timeFilter === 'month' ? 'bg-zinc-900 text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+              timeFilter === 'month' ? 'bg-zinc-900 text-white shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
             }`}
           >
             🗓️ Monthly Agenda

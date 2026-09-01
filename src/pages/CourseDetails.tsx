@@ -514,7 +514,7 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
                           setLectureSourceType('indian');
                         }}
                         className={`px-3 py-1 rounded-lg font-bold transition-all ${
-                          lectureSourceType === 'indian' ? 'bg-zinc-900 text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+                          lectureSourceType === 'indian' ? 'bg-zinc-900 text-white shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
                         }`}
                       >
                         🇮🇳 Indian Masterclass
@@ -524,7 +524,7 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
                           setLectureSourceType('foreign');
                         }}
                         className={`px-3 py-1 rounded-lg font-bold transition-all ${
-                          lectureSourceType === 'foreign' ? 'bg-zinc-900 text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+                          lectureSourceType === 'foreign' ? 'bg-zinc-900 text-white shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
                         }`}
                       >
                         🌍 Global / Stanford
@@ -566,10 +566,10 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
                     >
                       {/* Top Pill Watermark */}
                       <div className="absolute top-4 left-4 flex items-center gap-2">
-                        <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold uppercase bg-black/75 text-zinc-600 border border-amber-500/30 backdrop-blur-md">
+                        <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold uppercase bg-black/75 text-white border border-white/20 backdrop-blur-md">
                           {lectureSourceType === 'indian' ? '🇮🇳 Verified Indian Track' : '🌍 University Track'}
                         </span>
-                        <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold uppercase bg-black/75 text-zinc-600 border border-zinc-200 backdrop-blur-md">
+                        <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold uppercase bg-black/75 text-white border border-white/20 backdrop-blur-md">
                           HD 1080p Stream
                         </span>
                       </div>
@@ -587,7 +587,7 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
                             {activeLecture.channelName} • {activeLecture.creatorName}
                           </p>
                         </div>
-                        <div className="px-3 py-1.5 rounded-lg bg-zinc-900 text-zinc-900 text-[10px] font-bold uppercase tracking-wider font-display shrink-0 flex items-center gap-1.5 shadow-md">
+                        <div className="px-3 py-1.5 rounded-lg bg-zinc-900 text-white text-[10px] font-bold uppercase tracking-wider font-display shrink-0 flex items-center gap-1.5 shadow-md">
                           <Play size={11} fill="currentColor" />
                           <span>Play Now</span>
                         </div>
@@ -655,7 +655,7 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
 
                 <button
                   onClick={handleMarkChapterComplete}
-                  className="btn-primary py-2 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-md shadow-zinc-200"
+                  className="btn-primary py-2 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-card"
                 >
                   <CheckCircle2 size={14} />
                   <span>Mark Chapter Complete</span>
@@ -888,7 +888,7 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
                     ) : (
                       <button
                         onClick={() => setPlayingProjectId(projKey)}
-                        className="btn-primary py-2 px-4 text-xs font-bold font-sans uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-zinc-200"
+                        className="btn-primary py-2 px-4 text-xs font-bold font-sans uppercase tracking-wider flex items-center gap-1.5 shadow-card"
                       >
                         <Play size={11} fill="currentColor" />
                         <span>Watch Lab Inside</span>
@@ -919,7 +919,7 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
             <button
               onClick={handleRunCodeSandbox}
               disabled={isRunningCode}
-              className="btn-primary py-2 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-md shadow-zinc-200"
+              className="btn-primary py-2 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-card"
             >
               <Play size={13} fill="currentColor" />
               <span>{isRunningCode ? 'Executing Sandbox...' : 'Execute Code Lab'}</span>
@@ -1045,7 +1045,7 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
                 <button 
                   onClick={handleQuizSubmit} 
                   disabled={selectedQuizOpt === null}
-                  className="btn-primary py-2 px-6 text-xs font-bold uppercase shadow-md shadow-zinc-200"
+                  className="btn-primary py-2 px-6 text-xs font-bold uppercase shadow-card"
                 >
                   Submit Diagnostic Answer
                 </button>
@@ -1092,7 +1092,7 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
               <div key={idx} className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
                 <div className={`p-3.5 rounded-2xl max-w-[85%] leading-relaxed ${
                   msg.sender === 'user' 
-                    ? 'bg-zinc-900 text-zinc-900 rounded-br-none shadow-md' 
+                    ? 'bg-zinc-900 text-white rounded-br-none shadow-md' 
                     : 'bg-zinc-50 text-zinc-700 border border-zinc-200 rounded-bl-none'
                 }`}>
                   <div className="whitespace-pre-wrap">{msg.text}</div>
@@ -1121,7 +1121,7 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
             />
             <button
               onClick={() => handleAskAI()}
-              className="btn-primary py-2.5 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-zinc-200"
+              className="btn-primary py-2.5 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-card"
             >
               <Send size={13} />
               <span>Ask</span>

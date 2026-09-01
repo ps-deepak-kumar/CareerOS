@@ -380,7 +380,7 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
 
             <button 
               onClick={handleOpenCourseDetails} 
-              className="btn-primary text-xs py-2.5 px-4 font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-zinc-200"
+              className="btn-primary text-xs py-2.5 px-4 font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-card"
             >
               <span>Open Textbook</span>
               <ArrowRight size={13} />
@@ -661,7 +661,7 @@ export const RoadmapPage: React.FC<RoadmapPageProps> = ({
               <div className="flex flex-col gap-2 pt-2 border-t border-zinc-300">
                 <button
                   onClick={handleOpenCourseDetails}
-                  className="btn-primary text-xs py-2.5 w-full flex items-center justify-center gap-1.5 font-bold font-sans uppercase tracking-wider shadow-md shadow-zinc-200"
+                  className="btn-primary text-xs py-2.5 w-full flex items-center justify-center gap-1.5 font-bold font-sans uppercase tracking-wider shadow-card"
                 >
                   <BookOpen size={13} />
                   <span>Open in Course Textbook</span>

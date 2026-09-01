@@ -313,18 +313,18 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Top Horizon Filters & Quick Actions */}
         <div className="flex flex-wrap items-center gap-2.5 text-xs w-full md:w-auto">
           {/* Horizon Switcher */}
-          <div className="flex bg-white p-1 rounded-lg border border-zinc-200">
+          <div className="flex bg-white p-1 rounded-xl border border-zinc-200 shadow-card">
             {(['all', 'daily', 'weekly', 'monthly'] as HorizonTab[]).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveHorizon(tab)}
-                className={`px-3 py-1.5 rounded-md text-[11px] font-bold uppercase tracking-wider transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-200 ${
                   activeHorizon === tab
-                    ? 'bg-zinc-900 text-zinc-900 shadow-md shadow-zinc-200'
+                    ? 'bg-zinc-900 text-white shadow-sm'
                     : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
                 }`}
               >
-                {tab === 'all' ? '✨ All Horizons' : tab === 'daily' ? '⚡ Daily' : tab === 'weekly' ? '📅 Weekly' : '🗓️ Monthly'}
+                {tab === 'all' ? '✨ All' : tab === 'daily' ? '⚡ Daily' : tab === 'weekly' ? '📅 Weekly' : '🗓️ Monthly'}
               </button>
             ))}
           </div>
@@ -799,7 +799,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setLearnTimeframe('today')}
                   className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${
                     learnTimeframe === 'today' 
-                      ? 'bg-zinc-900 text-zinc-900 shadow-sm' 
+                      ? 'bg-zinc-900 text-white shadow-sm' 
                       : 'text-zinc-500 hover:text-zinc-900'
                   }`}
                 >
@@ -809,7 +809,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setLearnTimeframe('weekly')}
                   className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${
                     learnTimeframe === 'weekly' 
-                      ? 'bg-zinc-900 text-zinc-900 shadow-sm' 
+                      ? 'bg-zinc-900 text-white shadow-sm' 
                       : 'text-zinc-500 hover:text-zinc-900'
                   }`}
                 >
@@ -819,7 +819,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setLearnTimeframe('monthly')}
                   className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${
                     learnTimeframe === 'monthly' 
-                      ? 'bg-zinc-900 text-zinc-900 shadow-sm' 
+                      ? 'bg-zinc-900 text-white shadow-sm' 
                       : 'text-zinc-500 hover:text-zinc-900'
                   }`}
                 >
@@ -829,7 +829,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setLearnTimeframe('all')}
                   className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${
                     learnTimeframe === 'all' 
-                      ? 'bg-zinc-900 text-zinc-900 shadow-sm' 
+                      ? 'bg-zinc-900 text-white shadow-sm' 
                       : 'text-zinc-500 hover:text-zinc-900'
                   }`}
                 >

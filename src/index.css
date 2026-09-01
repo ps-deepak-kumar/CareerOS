@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,16 +6,27 @@
 
 /* =========================================================
    CAREEROS — MINIMAL BLACK & WHITE DESIGN SYSTEM
+   Font: Space Grotesk (primary), JetBrains Mono (code)
    ========================================================= */
 
 @layer base {
   body {
-    @apply font-sans antialiased overflow-x-hidden bg-white text-zinc-900;
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply antialiased overflow-x-hidden bg-white text-zinc-900;
     min-height: 100vh;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold tracking-tight text-zinc-900;
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply font-bold tracking-tight text-zinc-900;
+  }
+
+  p, span, div, button, input, select, textarea, label, a, li {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', 'ui-monospace', monospace;
   }
 
   * {
@@ -52,37 +63,39 @@
 
   /* Solid Black Primary Button */
   .btn-primary {
-    @apply px-4 py-2.5 rounded-lg font-semibold text-xs text-white transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 font-display tracking-wide uppercase;
+    font-family: 'Space Grotesk', sans-serif;
+    @apply px-4 py-2.5 rounded-lg font-semibold text-xs text-white transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 tracking-wide uppercase;
     background: #09090B;
     border: 1px solid #09090B;
     box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   }
   .btn-primary:hover {
-    background: #18181B;
+    background: #27272A;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     transform: translateY(-1px);
   }
 
   /* Clean White Secondary Button */
   .btn-secondary {
-    @apply px-4 py-2.5 rounded-lg font-semibold text-xs text-zinc-700 transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 font-display tracking-wide uppercase;
+    font-family: 'Space Grotesk', sans-serif;
+    @apply px-4 py-2.5 rounded-lg font-semibold text-xs text-zinc-700 transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 tracking-wide uppercase;
     background: #FFFFFF;
     border: 1px solid #D4D4D8;
     box-shadow: 0 1px 2px rgba(0,0,0,0.04);
   }
   .btn-secondary:hover {
     background: #F4F4F5;
-    border-color: #A1A1AA;
+    border-color: #09090B;
     color: #09090B;
     transform: translateY(-1px);
   }
 
   /* Success Outline Button */
   .btn-success {
-    @apply px-4 py-2.5 rounded-lg font-semibold text-xs text-zinc-900 transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 font-display tracking-wide uppercase;
+    font-family: 'Space Grotesk', sans-serif;
+    @apply px-4 py-2.5 rounded-lg font-semibold text-xs text-zinc-900 transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 tracking-wide uppercase;
     background: #FFFFFF;
     border: 1.5px solid #09090B;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
   }
   .btn-success:hover {
     background: #09090B;
@@ -90,17 +103,11 @@
   }
 
   /* Text Styles */
-  .text-gradient-royal {
-    @apply text-zinc-900;
-  }
-  .text-gradient-cyan {
-    @apply text-zinc-700;
-  }
-  .text-gradient-gold {
-    @apply text-zinc-600;
-  }
+  .text-gradient-royal { @apply text-zinc-900; }
+  .text-gradient-cyan  { @apply text-zinc-700; }
+  .text-gradient-gold  { @apply text-zinc-600; }
 
-  /* Icon Badge (replaces emoji icon containers) */
+  /* Icon Badge containers */
   .icon-badge {
     @apply w-10 h-10 rounded-lg bg-zinc-100 border border-zinc-200 flex items-center justify-center text-zinc-700 shrink-0;
   }
@@ -113,13 +120,15 @@
 
   /* Status Pill */
   .pill {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider font-mono;
+    font-family: 'JetBrains Mono', monospace;
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider;
     background: #F4F4F5;
     border: 1px solid #E4E4E7;
     color: #52525B;
   }
   .pill-dark {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider font-mono;
+    font-family: 'JetBrains Mono', monospace;
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider;
     background: #09090B;
     color: #FFFFFF;
     border: 1px solid #09090B;
@@ -127,12 +136,14 @@
 
   /* Section Divider Label */
   .section-label {
-    @apply text-[10px] font-bold uppercase tracking-[0.15em] font-mono text-zinc-400;
+    font-family: 'JetBrains Mono', monospace;
+    @apply text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400;
   }
 
   /* Page Container */
   .page-wrapper {
-    @apply flex flex-col gap-6 w-full pb-12 font-sans text-zinc-700;
+    @apply flex flex-col gap-6 w-full pb-12 text-zinc-700;
+    font-family: 'Space Grotesk', sans-serif;
   }
 
   /* Page Header Panel */
@@ -150,12 +161,22 @@
   .stat-card {
     @apply p-4 bg-white border border-zinc-200 rounded-xl flex flex-col gap-1 shadow-card;
   }
+
+  /* Floating Navbar */
+  .floating-nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(228, 228, 231, 0.8);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  }
 }
 
 /* =========================================================
    FORM CONTROLS
    ========================================================= */
 input, select, textarea {
+  font-family: 'Space Grotesk', sans-serif !important;
   background-color: #FAFAFA !important;
   border-color: #E4E4E7 !important;
   color: #09090B !important;
@@ -175,53 +196,34 @@ input::placeholder, textarea::placeholder {
 /* =========================================================
    CUSTOM SCROLLBARS
    ========================================================= */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: #F4F4F5;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #D4D4D8;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #A1A1AA;
-}
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #F4F4F5; }
+::-webkit-scrollbar-thumb { background: #D4D4D8; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #A1A1AA; }
 
 /* =========================================================
    ANIMATIONS
    ========================================================= */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.animate-fade-in {
-  animation: fadeIn 0.15s ease-out forwards;
-}
+.animate-fade-in { animation: fadeIn 0.15s ease-out forwards; }
 
 @keyframes slideDown {
   from { opacity: 0; transform: scaleY(0.95); }
-  to { opacity: 1; transform: scaleY(1); }
+  to   { opacity: 1; transform: scaleY(1); }
 }
-.animate-slide-down {
-  animation: slideDown 0.15s ease-out forwards;
-  transform-origin: top;
-}
+.animate-slide-down { animation: slideDown 0.15s ease-out forwards; transform-origin: top; }
 
-@keyframes flow {
-  to { stroke-dashoffset: -20; }
+@keyframes flow { to { stroke-dashoffset: -20; } }
+.animate-flow-line { animation: flow 1.5s linear infinite; }
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
 }
-.animate-flow-line {
-  animation: flow 1.5s linear infinite;
-}
+.animate-pulse-subtle { animation: pulse-subtle 2s ease-in-out infinite; }
 
 /* Selection */
-::selection {
-  background: rgba(9,9,11,0.1);
-  color: #09090B;
-}
+::selection { background: rgba(9,9,11,0.1); color: #09090B; }

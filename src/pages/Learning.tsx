@@ -259,7 +259,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
               }}
               className={`px-4 py-2 rounded-lg font-bold font-sans uppercase tracking-wider transition-all flex items-center gap-1.5 shrink-0 ${
                 activeTab === tab.id
-                  ? 'bg-gradient-to-r from-zinc-800 to-zinc-900 text-zinc-900 shadow-md shadow-zinc-200'
+                  ? 'bg-gradient-to-r from-zinc-800 to-zinc-900 text-zinc-900 shadow-card'
                   : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
               }`}
             >
@@ -290,7 +290,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded-lg transition-all ${
-                viewMode === 'grid' ? 'bg-zinc-900 text-zinc-900 font-bold shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+                viewMode === 'grid' ? 'bg-zinc-900 text-white font-bold shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
               }`}
               title="Grid View"
             >
@@ -299,7 +299,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
             <button
               onClick={() => setViewMode('list')}
               className={`p-2 rounded-lg transition-all ${
-                viewMode === 'list' ? 'bg-zinc-900 text-zinc-900 font-bold shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+                viewMode === 'list' ? 'bg-zinc-900 text-white font-bold shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
               }`}
               title="List View"
             >
@@ -321,7 +321,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                 onClick={() => setDifficultyFilter(diff)}
                 className={`px-3 py-1 rounded-lg text-xs font-bold font-sans uppercase tracking-wider transition-all ${
                   difficultyFilter === diff
-                    ? 'bg-zinc-900 text-zinc-900 shadow-sm'
+                    ? 'bg-zinc-900 text-white shadow-sm'
                     : 'bg-zinc-50 border border-zinc-200 text-zinc-500 hover:text-zinc-900'
                 }`}
               >
@@ -477,7 +477,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                         <div className="grid grid-cols-2 gap-2.5 pt-1">
                           <button
                             onClick={() => handleStartCourse(course.id)}
-                            className="btn-primary py-2.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md shadow-zinc-200"
+                            className="btn-primary py-2.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-card"
                           >
                             <Play size={11} fill="currentColor" />
                             <span>{isCompleted ? 'Review' : 'Open Course'}</span>
@@ -528,7 +528,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
 
                       <button
                         onClick={() => handleStartCourse(course.id)}
-                        className="btn-primary py-2 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-zinc-200"
+                        className="btn-primary py-2 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-card"
                       >
                         <Play size={11} fill="currentColor" />
                         <span>Study Course</span>
@@ -570,7 +570,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
             />
             <button
               onClick={() => handleSearchSubmit(searchTopic || 'Agentic AI')}
-              className="btn-primary py-2.5 px-6 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-zinc-200"
+              className="btn-primary py-2.5 px-6 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-card"
             >
               <Sparkles size={13} className="text-zinc-600" />
               <span>Generate Course & Labs</span>
@@ -626,7 +626,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                     <div className="pt-3 border-t border-zinc-300 flex justify-end gap-2">
                       <button
                         onClick={() => handleEnrollCourse(res)}
-                        className="btn-primary py-2 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-zinc-200"
+                        className="btn-primary py-2 px-5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-card"
                       >
                         <Plus size={13} />
                         <span>Enroll & Add to Cabinet</span>

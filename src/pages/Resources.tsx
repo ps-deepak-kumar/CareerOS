@@ -228,7 +228,7 @@ export const Resources: React.FC = () => {
               key={filter}
               onClick={() => setActiveFilter(filter)}
               className={`px-3 py-1.5 rounded-lg font-bold font-sans uppercase tracking-wider transition-all ${
-                activeFilter === filter ? 'bg-zinc-900 text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+                activeFilter === filter ? 'bg-zinc-900 text-white shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
               }`}
             >
               {filter === 'all' ? 'All Types' : `${filter}s`}

@@ -192,7 +192,7 @@ export const AgentTerminal: React.FC = () => {
             />
             <button 
               type="submit" 
-              className="bg-zinc-900 hover:bg-zinc-900 text-zinc-900 rounded px-4 text-xs font-semibold font-display tracking-wider transition-colors"
+              className="bg-zinc-900 hover:bg-zinc-900 text-white rounded px-4 text-xs font-semibold font-display tracking-wider transition-colors"
             >
               SEND
             </button>

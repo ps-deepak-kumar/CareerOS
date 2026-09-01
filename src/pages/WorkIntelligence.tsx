@@ -488,7 +488,7 @@ export const WorkIntelligence: React.FC = () => {
               <button 
                 type="submit"
                 disabled={isSyncingOld}
-                className="px-4 py-2 bg-zinc-900 hover:bg-zinc-900 disabled:opacity-50 text-zinc-900 rounded font-semibold text-xs select-none font-display uppercase tracking-wider transition-all"
+                className="px-4 py-2 bg-zinc-900 hover:bg-zinc-700 disabled:opacity-50 text-white rounded-lg font-semibold text-xs select-none uppercase tracking-wider transition-all"
               >
                 {isSyncingOld ? 'Syncing...' : 'Sync Calendar'}
               </button>
@@ -579,7 +579,7 @@ export const WorkIntelligence: React.FC = () => {
                         href={meeting.meetingUrl} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-[8px] px-2 py-0.5 bg-blue-600 hover:bg-zinc-700 text-zinc-900 rounded font-bold font-mono tracking-wider uppercase transition-all select-none"
+                        className="text-[8px] px-2 py-0.5 bg-blue-600 hover:bg-zinc-700 text-white rounded font-bold font-mono tracking-wider uppercase transition-all select-none"
                       >
                         Join Teams
                       </a>

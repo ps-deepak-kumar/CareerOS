@@ -178,7 +178,7 @@ export const Achievements: React.FC = () => {
             onClick={() => setActiveTab('badges')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeTab === 'badges'
-                ? 'bg-zinc-900 text-zinc-900 shadow-md shadow-zinc-200'
+                ? 'bg-zinc-900 text-white shadow-card'
                 : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
@@ -189,7 +189,7 @@ export const Achievements: React.FC = () => {
             onClick={() => setActiveTab('certificates')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeTab === 'certificates'
-                ? 'bg-zinc-900 text-zinc-900 shadow-md shadow-zinc-200'
+                ? 'bg-zinc-900 text-white shadow-card'
                 : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
@@ -200,7 +200,7 @@ export const Achievements: React.FC = () => {
             onClick={() => setActiveTab('leaderboard')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeTab === 'leaderboard'
-                ? 'bg-zinc-900 text-zinc-900 shadow-md shadow-zinc-200'
+                ? 'bg-zinc-900 text-white shadow-card'
                 : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
@@ -339,7 +339,7 @@ export const Achievements: React.FC = () => {
                       onClick={() => handleOpenCertificate(c)}
                       className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
                         isEligible 
-                          ? 'btn-primary shadow-md shadow-zinc-200' 
+                          ? 'btn-primary shadow-card' 
                           : 'bg-slate-800 text-zinc-500 hover:text-zinc-900'
                       }`}
                     >
