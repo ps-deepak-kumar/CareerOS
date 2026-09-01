@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Target, Award, Flame, Clock, Plus, ChevronRight, Cpu, Sparkles, Terminal, Trophy, Trash2 } from 'lucide-react';
+import { Flame, Clock, Plus, ChevronRight, Map, Eye, Trash2 } from 'lucide-react';
 import { PageId } from '../components/Layout';
 import { stateManager } from '../services/stateManager';
 import { Goal } from '../data/mockData';
@@ -36,19 +36,15 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
 
   const handleOpenRoadmapForGoal = (goal: Goal) => {
     const courses = stateManager.getCourses();
-    const matched = courses.find(c => 
+    const matched = courses.find(c =>
       c.title.toLowerCase().includes(goal.title.toLowerCase()) ||
       goal.title.toLowerCase().includes(c.title.toLowerCase()) ||
       (goal.category && c.title.toLowerCase().includes(goal.category.toLowerCase()))
     ) || courses[0];
 
     if (matched) {
-      try {
-        localStorage.setItem('career_os_active_course_id', matched.id);
-      } catch {}
-      if (setSelectedCourseIdForDetails) {
-        setSelectedCourseIdForDetails(matched.id);
-      }
+      try { localStorage.setItem('career_os_active_course_id', matched.id); } catch {}
+      if (setSelectedCourseIdForDetails) setSelectedCourseIdForDetails(matched.id);
     }
     onNavigate('roadmap');
   };
@@ -61,54 +57,16 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
     return false;
   });
 
-  const getGoalIcon = (title: string, size: number = 14) => {
-    const t = title.toLowerCase();
-    if (t.includes('ai') || t.includes('neural') || t.includes('agent') || t.includes('engineer')) {
-      return <Cpu size={size} className="text-zinc-700" />;
-    }
-    if (t.includes('rag') || t.includes('production') || t.includes('specialist') || t.includes('search')) {
-      return <Sparkles size={size} className="text-zinc-600" />;
-    }
-    if (t.includes('kubernetes') || t.includes('devops') || t.includes('orchestration')) {
-      return <Terminal size={size} className="text-zinc-700" />;
-    }
-    return <Target size={size} className="text-zinc-700" />;
-  };
-
-  const getGoalWatermark = (title: string, isCompleted: boolean) => {
-    const t = title.toLowerCase();
-    const size = 120;
-    const colorClass = isCompleted 
-      ? 'text-zinc-600/10' 
-      : 'text-slate-800/20 group-hover:text-zinc-700/5 group-hover:scale-110';
-    const cn = `transition-all duration-500 transform translate-x-3 translate-y-3 ${colorClass}`;
-    
-    if (isCompleted) {
-      return <Trophy size={size} className={cn} />;
-    }
-    if (t.includes('ai') || t.includes('neural') || t.includes('agent') || t.includes('engineer')) {
-      return <Cpu size={size} className={cn} />;
-    }
-    if (t.includes('rag') || t.includes('production') || t.includes('specialist') || t.includes('search')) {
-      return <Sparkles size={size} className={cn} />;
-    }
-    if (t.includes('kubernetes') || t.includes('devops') || t.includes('orchestration')) {
-      return <Terminal size={size} className={cn} />;
-    }
-    return <Target size={size} className={cn} />;
-  };
-
   return (
-    <div className="flex flex-col gap-6 w-full">
-      
+    <div className="flex flex-col gap-6 w-full" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+
       {/* TOP HEADER */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-zinc-200 pb-5">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-zinc-200 pb-5 reveal-up">
         <div>
-          <h2 className="text-xl font-bold font-display text-zinc-900">Syllabus Cabinets</h2>
-          <p className="text-xs text-zinc-500 mt-0.5 font-display">Configure and track long-term competency milestones mapped to active job gaps.</p>
+          <h2 className="text-xl font-bold text-zinc-900">🎯 Syllabus Cabinets</h2>
+          <p className="text-xs text-zinc-400 mt-0.5">Configure and track long-term competency milestones mapped to active job gaps.</p>
         </div>
-        
-        <button 
+        <button
           onClick={() => onNavigate('set-goal')}
           className="btn-primary text-xs"
         >
@@ -117,15 +75,15 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
         </button>
       </div>
 
-      {/* CATEGORY TABS SELECTOR */}
+      {/* CATEGORY TABS */}
       <div className="flex border-b border-zinc-200 text-xs gap-1 select-none overflow-x-auto pb-1">
         {(['all', 'active', 'completed', 'paused', 'overdue'] as const).map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 font-bold font-display tracking-wider uppercase border-b-2 transition-all ${
-              activeTab === tab 
-                ? 'border-zinc-300 text-zinc-900' 
+            className={`px-4 py-2 font-bold tracking-wider uppercase border-b-2 transition-all ${
+              activeTab === tab
+                ? 'border-zinc-900 text-zinc-900'
                 : 'border-transparent text-zinc-400 hover:text-zinc-700'
             }`}
           >
@@ -135,140 +93,130 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
       </div>
 
       {/* GOALS GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filteredGoals.length > 0 ? (
-          filteredGoals.map(goal => {
+          filteredGoals.map((goal, idx) => {
             const isCompleted = goal.status === 'Completed';
-            
-            return (
-              <div 
-                key={goal.id} 
-                className={`group p-5 flex flex-col justify-between min-h-[265px] relative transition-all duration-300 rounded-2xl border bg-white hover:bg-white overflow-hidden select-none hover:-translate-y-1 ${
-                  isCompleted 
-                    ? 'border-emerald-500/30 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] shadow-md' 
-                    : 'border-zinc-200 hover:border-zinc-300 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] shadow-md'
-                }`}
-              >
-                {/* Background Watermark Icon */}
-                <div className="absolute right-[-10px] bottom-[-10px] select-none pointer-events-none z-0">
-                  {getGoalWatermark(goal.title, isCompleted)}
-                </div>
 
-                <div className="relative z-10 flex flex-col gap-3">
-                  
-                  {/* Category, Difficulty & Status Badges */}
+            return (
+              <div
+                key={goal.id}
+                className="group p-5 flex flex-col justify-between min-h-[240px] relative transition-all duration-200 rounded-2xl border bg-white hover:shadow-cardHover hover:-translate-y-0.5 border-zinc-200 hover:border-zinc-300 overflow-hidden reveal-up"
+                style={{ animationDelay: `${idx * 0.06}s` }}
+              >
+                <div className="flex flex-col gap-3">
+
+                  {/* Status + Difficulty badges */}
                   <div className="flex justify-between items-center gap-2">
-                    <span className={`text-[8.5px] font-bold px-2 py-0.5 rounded-md border uppercase font-mono flex items-center gap-1.5 select-none ${
-                      goal.difficulty === 'Advanced' ? 'bg-red-500/10 text-red-405 border-red-500/20' : 
-                      goal.difficulty === 'Intermediate' ? 'bg-zinc-100 text-zinc-600 border-yellow-500/20' : 
-                      'bg-zinc-100 text-zinc-700 border-blue-500/20'
-                    }`}>
-                      <span className={`w-1 h-1 rounded-full ${
-                        goal.difficulty === 'Advanced' ? 'bg-red-400 animate-pulse' : 
-                        goal.difficulty === 'Intermediate' ? 'bg-yellow-400 animate-pulse' : 
-                        'bg-blue-400'
-                      }`}></span>
+                    {/* Difficulty */}
+                    <span className="text-[9px] font-bold px-2.5 py-0.5 rounded-full border uppercase font-mono bg-zinc-100 text-zinc-600 border-zinc-200 flex items-center gap-1.5">
+                      <span className={`w-1.5 h-1.5 rounded-full ${
+                        goal.difficulty === 'Advanced' ? 'bg-zinc-900' :
+                        goal.difficulty === 'Intermediate' ? 'bg-zinc-600' :
+                        'bg-zinc-400'
+                      }`} />
                       {goal.difficulty}
                     </span>
 
-                    <span className={`text-[8.5px] font-bold px-2 py-0.5 rounded-md border font-mono uppercase flex items-center gap-1 select-none ${
-                      isCompleted ? 'bg-zinc-100 text-zinc-600 border-emerald-900/30' :
-                      goal.status === 'Behind' ? 'bg-red-950/40 text-red-400 border-red-900/30' :
-                      goal.status === 'Paused' ? 'bg-zinc-100 border-zinc-200 text-zinc-400' :
-                      'bg-zinc-100 text-zinc-700 border-zinc-300'
+                    {/* Status */}
+                    <span className={`text-[9px] font-bold px-2.5 py-0.5 rounded-full border font-mono uppercase ${
+                      isCompleted
+                        ? 'bg-zinc-900 text-white border-zinc-900'
+                        : goal.status === 'Behind'
+                        ? 'bg-zinc-800 text-white border-zinc-800'
+                        : goal.status === 'Paused'
+                        ? 'bg-zinc-100 text-zinc-500 border-zinc-200'
+                        : 'bg-zinc-100 text-zinc-700 border-zinc-200'
                     }`}>
-                      {isCompleted ? '✓ Completed' : goal.status}
+                      {isCompleted ? '✓ Done' : goal.status}
                     </span>
                   </div>
 
-                  {/* Icon + Title */}
+                  {/* Title only — no icon */}
                   <div>
-                    <div className="flex items-center gap-2.5 mt-2">
-                      <div className="p-1.5 rounded-md bg-zinc-100 border border-zinc-200 shrink-0 shadow-[inset_0_0_8px_rgba(99,102,241,0.1)]">
-                        {getGoalIcon(goal.title, 14)}
-                      </div>
-                      <h3 className="text-xs sm:text-sm font-bold font-display text-zinc-900 truncate flex-1 leading-snug group-hover:text-zinc-700 transition-colors">
-                        {goal.title}
-                      </h3>
-                    </div>
-                    <p className="text-[11px] text-zinc-500 mt-2 line-clamp-2 leading-relaxed font-medium">
+                    <h3 className="text-sm font-bold text-zinc-900 leading-snug">
+                      {goal.title}
+                    </h3>
+                    <p className="text-[11px] text-zinc-400 mt-1.5 line-clamp-2 leading-relaxed">
                       {goal.description}
                     </p>
                   </div>
-
                 </div>
 
-                {/* Progress bar info */}
-                <div className="my-4 relative z-10">
-                  <div className="flex justify-between items-center text-[9px] mb-1 font-mono font-bold select-none">
-                    <span className="text-zinc-400 uppercase tracking-wider">Milestone Progress</span>
-                    <span className={`font-bold ${isCompleted ? 'text-zinc-600' : 'text-zinc-700'}`}>
-                      {goal.progress}%
-                    </span>
+                {/* Progress bar */}
+                <div className="my-3">
+                  <div className="flex justify-between items-center text-[9px] mb-1.5 font-mono font-bold">
+                    <span className="text-zinc-400 uppercase tracking-wider">Progress</span>
+                    <span className="text-zinc-700">{goal.progress}%</span>
                   </div>
-                  <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden border border-zinc-200">
-                    <div 
-                      className={`h-full rounded-full transition-all duration-1000 ease-out ${
-                        isCompleted ? 'bg-zinc-900' : 'bg-zinc-700'
-                      }`}
+                  <div className="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-zinc-900 rounded-full transition-all duration-700 ease-out"
                       style={{ width: `${goal.progress}%` }}
                     />
                   </div>
                 </div>
 
-                {/* Statistics Footer */}
-                <div className="border-t border-zinc-200 pt-3.5 flex justify-between items-center text-[9.5px] font-bold text-zinc-400 relative z-10">
-                  <div className="flex gap-3 select-none">
-                    <span className="flex items-center gap-1 font-mono text-[9px] text-slate-450 hover:text-zinc-700 transition-colors">
-                      <Clock size={11} className="text-zinc-500" />
-                      <span>{goal.deadlineDays}d left</span>
+                {/* Footer */}
+                <div className="border-t border-zinc-100 pt-3 flex justify-between items-center gap-2">
+
+                  {/* Left: deadline + streak pills */}
+                  <div className="flex items-center gap-1.5">
+                    {/* Days left — black pill */}
+                    <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-zinc-900 text-white text-[9px] font-bold font-mono">
+                      <Clock size={9} />
+                      {goal.deadlineDays}d left
                     </span>
+
+                    {/* Streak — black pill */}
                     {!isCompleted && goal.streak > 0 && (
-                      <span className="flex items-center gap-1 text-zinc-600 font-mono text-[9px] font-bold hover:text-zinc-600 transition-colors">
-                        <Flame size={11} className="text-zinc-600 animate-pulse" />
-                        <span>{goal.streak}d streak</span>
+                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-zinc-900 text-white text-[9px] font-bold font-mono">
+                        🔥 {goal.streak}d
                       </span>
                     )}
                   </div>
-                  
-                  <div className="flex items-center gap-2.5">
+
+                  {/* Right: action buttons — all black */}
+                  <div className="flex items-center gap-1.5">
+                    {/* Roadmap */}
                     <button
                       onClick={() => handleOpenRoadmapForGoal(goal)}
-                      className="flex items-center gap-1 font-mono text-[9px] font-bold text-zinc-700 hover:text-zinc-700 uppercase transition-colors"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-900 text-white text-[9px] font-bold uppercase tracking-wider hover:bg-zinc-700 transition-colors"
                     >
-                      <Sparkles size={10} />
+                      <Map size={9} />
                       <span>Roadmap</span>
                     </button>
 
+                    {/* Inspect */}
                     <button
                       onClick={() => handleViewGoal(goal.id)}
-                      className={`flex items-center gap-0.5 font-bold tracking-wider font-display uppercase hover:underline transition-colors ${
-                        isCompleted ? 'text-zinc-600 hover:text-zinc-600' : 'text-zinc-600 hover:text-zinc-900'
-                      }`}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-900 text-white text-[9px] font-bold uppercase tracking-wider hover:bg-zinc-700 transition-colors"
                     >
+                      <Eye size={9} />
                       <span>Inspect</span>
-                      <ChevronRight size={11} className="transform group-hover:translate-x-0.5 transition-transform" />
                     </button>
 
+                    {/* Delete */}
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         stateManager.removeGoal(goal.id);
                       }}
-                      className="p-1 rounded text-slate-600 hover:text-red-400 hover:bg-red-950/30 transition-colors"
-                      title="Remove Goal & Unlink Everywhere"
+                      className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-zinc-900 text-white hover:bg-red-600 transition-colors"
+                      title="Remove Goal"
                     >
-                      <Trash2 size={11} />
+                      <Trash2 size={9} />
                     </button>
                   </div>
                 </div>
-
               </div>
             );
           })
         ) : (
-          <div className="col-span-full py-16 text-center text-slate-550 italic text-xs">
-            No goals matching criteria.
+          <div className="col-span-full py-16 text-center text-zinc-400 text-sm">
+            <p className="text-3xl mb-3">🎯</p>
+            <p className="font-semibold text-zinc-900">No goals yet</p>
+            <p className="text-xs mt-1">Configure your first syllabus to get started.</p>
           </div>
         )}
       </div>
