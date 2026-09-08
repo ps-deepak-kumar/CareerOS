@@ -2,345 +2,348 @@
 
 # 🚀 CareerOS — AI-Powered Career Learning Platform
 
-**A multi-agent AI system that unifies your career goals, personalized learning, and daily work schedule into one intelligent operating system.**
+**A multi-agent AI operating system that unifies your career goals, personalized learning roadmaps, real-time interview prep, and daily work schedule into one intelligent workspace.**
 
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
 [![Vite](https://img.shields.io/badge/Vite-8.x-646CFF?style=flat-square&logo=vite)](https://vitejs.dev)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-3.x-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
+[![Vitest](https://img.shields.io/badge/Vitest-4.x-729B1B?style=flat-square&logo=vitest)](https://vitest.dev)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+
+[Quick Start (Non-Technical)](#-quick-start-non-technical--just-run-it) • [Technical Architecture](#-technical-architecture--deep-dive) • [AI Multi-Agent System](#-ai-agent-architecture) • [Deployment](#-deployment-guide)
 
 </div>
 
 ---
 
-## 📖 What Is CareerOS? *(For Everyone)*
+## 📖 What Is CareerOS? *(For Non-Technical Users)*
 
-Imagine you are a software engineer working a full-time job. Every day you want to:
-- Learn **Transformers and AI** to get promoted or switch roles
-- Track your **career goals** with a clear roadmap
-- Balance your **Microsoft Teams workload** with dedicated study time
-- Follow a **structured university-grade curriculum** — not just random YouTube videos
+### The Problem It Solves
+Imagine you are an engineer or professional working a demanding job. You want to level up your career (for instance, mastering **Generative AI & LLMs** to transition into an AI Engineer role). 
 
-Today, all of these happen in separate, disconnected tools. **CareerOS solves this.**
+Currently, your workflow is fractured across disconnected tools:
+- 📌 Learning materials are scattered across YouTube, Coursera, research papers, and documentation.
+- 🎯 Career goals stay as unorganized notes or mental wishlists without clear milestones.
+- ⏰ Work calendars (like Microsoft Teams / Outlook) collide with study hours.
+- 🧪 There is no continuous verification of your actual competency.
+- 🎙️ Mock interview practice is expensive, stressful, or hard to schedule.
 
-CareerOS is your **AI Career Operating System** — a single intelligent dashboard where:
-- 🧠 **AI agents** automatically plan your learning roadmap
-- 📚 **University courses** (MIT, Stanford, NPTEL) are discovered and curated for your level
-- 🗓️ **Daily plans** balance work tasks and study sessions intelligently
-- 📊 **Progress** is tracked through interactive chapter quizzes and an AI tutor
-- 🏆 **Achievements, streaks, and badges** keep you motivated
-
-No configuration needed. No data science degree required. Just open it and start.
-
----
-
-## 🎯 Problem Statement
-
-Modern professionals — especially in fast-moving fields like AI/ML and software engineering — face a critical gap:
-
-| Pain Point | Today's Reality |
-|---|---|
-| 📚 Learning is fragmented | Scattered across YouTube, Coursera, PDFs — no structure |
-| 🎯 Goals are vague | Tracked in sticky notes or Excel with no AI guidance |
-| ⏰ Time is wasted | No tool balances work deadlines with study commitments |
-| 🧪 Progress is passive | Progress bars — no real competency verification |
-| 🤖 No personalization | Generic courses, not adapted to your skill level or goal |
-
-**CareerOS fixes all five** using a coordinated network of AI agents running behind the scenes.
+### The Solution: CareerOS
+**CareerOS acts as your personal AI Career Co-Pilot, Tutor, and Executive Assistant in a single dashboard:**
+1. **Plans Your Roadmap**: Tell CareerOS your dream job or skill target. AI agents generate an end-to-end curriculum with estimated hours and prerequisites.
+2. **Curates University-Grade Content**: Finds and organizes courses from top institutions (MIT, Stanford, NPTEL) with interactive chapter textbooks.
+3. **Schedules Your Day**: Analyzes your work commitments (M365 tasks/meetings) and intelligently schedules study blocks into your daily plan.
+4. **Tests & Retains Knowledge**: Interactive chapter quizzes, AI chapter tutors, and long-term vector memory to revisit weak spots.
+5. **Prepares You for Interviews**: Live interactive technical and behavioral mock interview sessions with immediate AI feedback and scorecards.
 
 ---
 
-## ✨ Key Features
+## ✨ Features At A Glance
 
-### For Non-Technical Users
+### 🌟 For Learners & Professionals (Non-Technical View)
 
-| Feature | What it does |
+| Feature | Description |
 |---|---|
-| 🏠 **Smart Dashboard** | See your goals, active courses, daily plan, skill levels, and activity heatmap in one view |
-| 🎯 **AI Goal Planner** | Tell the AI your career target — it generates a full roadmap with milestones, timeline, and courses |
-| 📚 **Course Textbook Reader** | Open any course chapter and read structured lessons with explanations, analogies, video links, and practice exercises |
-| 🧠 **Interactive Quizzes** | Answer chapter assessment questions to unlock the next module |
-| 🤖 **AI Syllabus Tutor** | Chat with an AI inside each chapter — ask it to explain any concept |
-| 🔍 **AI Course Discoverer** | Search any topic — the AI scans MIT, Stanford, NPTEL and YouTube and ranks the best courses for your level |
-| 📅 **Daily Plan** | AI schedules your work tasks and study sessions automatically |
-| 💼 **Work Intelligence** | Connects with your Microsoft 365 tasks and meetings to factor them into your schedule |
-| 🏆 **Achievements** | Unlock badges for streaks, completed courses, and milestones |
-| 📊 **Profile and Heatmap** | GitHub-style activity heatmap showing your learning consistency |
+| 🏠 **Unified Dashboard** | Central command center showing current goals, active courses, daily timeline, skill radar, and activity heatmap. |
+| 🎯 **AI Goal Planner** | State your target role; AI breaks it down into progressive milestones, timelines, and courses. |
+| 📚 **Interactive Course Reader** | Read university-grade chapter textbooks complete with deep explanations, intuitive analogies, video links, and hands-on exercises. |
+| 🤖 **In-Chapter AI Tutor** | Ask questions directly inside any chapter to get instant, contextual explanations. |
+| 🎙️ **AI Mock Interview Coach** | Practice live technical and behavioral interview questions with real-time scoring, tips, and rubric evaluations. |
+| 🧠 **Intelligent Memory** | CareerOS remembers your historical strengths, quiz mistakes, and learning style across sessions. |
+| 📅 **Smart Daily Planner** | Merges your daily work tasks and meetings with optimized study windows so you never burn out. |
+| 💼 **Workplace Intelligence** | Integrates with Microsoft 365 (Tasks & Calendar) to adapt your learning load to heavy work days. |
+| 🏆 **Streaks & Gamification** | Unlock achievements, earn XP, and track your consistency with a GitHub-style activity heatmap. |
+| 🛡️ **Offline & Resilient** | Fully functional in your browser offline with local data storage and zero required configuration. |
 
 ---
 
 ## 🚀 Quick Start *(Non-Technical — Just Run It)*
 
-### Prerequisites
-- Install **Node.js** (version 18 or higher): [nodejs.org](https://nodejs.org)
-- Install **Git**: [git-scm.com](https://git-scm.com)
+You can get CareerOS running on your computer in **3 simple steps**.
 
-### Step 1 — Clone the project
-Open your Terminal (Mac/Linux) or Command Prompt (Windows) and run:
+### Prerequisites
+- Install **Node.js** (v18 or higher): [Download from nodejs.org](https://nodejs.org)
+- Install **Git**: [Download from git-scm.com](https://git-scm.com)
+
+---
+
+### Step 1: Open Terminal / Command Prompt and Clone
 ```bash
 git clone https://github.com/ps-deepak-kumar/CareerOS.git
 cd CareerOS
 ```
 
-### Step 2 — Install dependencies
+### Step 2: Install Dependencies
 ```bash
 npm install
 ```
-This downloads all the libraries the app needs. It may take 1-2 minutes.
 
-### Step 3 — Set up environment file
-```bash
-# On Windows (Command Prompt)
-copy .env.example .env
-
-# On Mac/Linux
-cp .env.example .env
-```
-The app works without any API keys. The Microsoft 365 integration is simulated by default.
-
-### Step 4 — Start the app
+### Step 3: Run the App
 ```bash
 npm run dev
 ```
 
-### Step 5 — Open in browser
-Visit: **http://localhost:5173**
+Open your web browser and go to:
+👉 **[http://localhost:5173](http://localhost:5173)**
 
-That is it! CareerOS is running locally on your machine.
+> [!TIP]
+> **No API keys required to start!** CareerOS includes built-in offline simulation mode and mock intelligence out-of-the-box. You can plug in free AI keys whenever you are ready.
 
 ---
 
-## ⚙️ Technical Setup *(For Developers)*
+## ⚙️ Technical Architecture & Deep Dive *(For Developers)*
 
-### Tech Stack
-
-| Layer | Technology | Purpose |
-|---|---|---|
-| **Framework** | React 19 + TypeScript | Component UI and type safety |
-| **Build Tool** | Vite 8 | Fast HMR dev server and production bundler |
-| **Styling** | TailwindCSS 3 | Utility-first CSS with custom design tokens |
-| **Animation** | Framer Motion 13 | Page transitions and micro-animations |
-| **Charts** | Recharts 3 | Skill radar charts, progress visualizations |
-| **Icons** | Lucide React | Consistent icon system |
-| **Auth** | Azure MSAL Browser | Microsoft 365 identity integration |
-| **State** | LocalStorage + custom StateManager | Persistent client-side state |
-| **AI Agents** | Custom MCP simulation layer | Multi-agent coordination protocol |
-| **Linting** | OxLint | Fast Rust-based linter |
-
-### Folder Structure
+CareerOS is built with a decoupled, event-driven client architecture leveraging **Model Context Protocol (MCP)** standards and multi-provider AI model routing.
 
 ```
-src/
-├── App.tsx                    # Root router (hash-based SPA routing)
-├── main.tsx                   # React entry point
-├── index.css                  # Global design tokens and base styles
-│
-├── components/                # Shared UI components
-│   ├── Layout.tsx             # Sidebar nav, page shell
-│   ├── AgentTerminal.tsx      # Real-time AI agent activity monitor
-│   ├── Heatmap.tsx            # GitHub-style activity heatmap
-│   └── ProgressRing.tsx       # Circular progress indicator
-│
-├── pages/                     # Full page views (one per route)
-│   ├── Landing.tsx
-│   ├── Dashboard.tsx
-│   ├── DailyPlan.tsx
-│   ├── Goals.tsx / SetGoal.tsx / GoalDetails.tsx
-│   ├── Learning.tsx           # Course library + AI Course Discoverer
-│   ├── CourseDetails.tsx      # Chapter textbook reader + quiz + AI tutor
-│   ├── RoadmapPage.tsx
-│   ├── Quiz.tsx
-│   ├── Resources.tsx
-│   ├── Achievements.tsx
-│   ├── Profile.tsx
-│   ├── WorkIntelligence.tsx
-│   └── Settings.tsx
-│
-├── data/                      # Static data and mock datasets
-│   ├── mockData.ts            # Type definitions + initial seed data
-│   └── coursesData.ts         # University course catalog + AI course generator
-│
-└── services/                  # Business logic and AI agent layer
-    ├── stateManager.ts        # LocalStorage state manager with data migration
-    ├── ai/
-    │   └── modelRouter.ts     # Routes requests to appropriate model provider
-    └── mcp/                   # Model Context Protocol tool servers
-        ├── careerMcp.ts       # Career goal tools
-        ├── learningMcp.ts     # Course search + roadmap generation
-        ├── resourceMcp.ts     # Resource discovery tools
-        ├── productivityMcp.ts # Schedule optimization tools
-        ├── assessmentMcp.ts   # Quiz and assessment tools
-        └── m365Mcp.ts         # Microsoft 365 integration tools
-```
-
-### Environment Variables
-
-Create a `.env` file in the project root (or copy `.env.example`):
-
-```env
-# Microsoft Azure App Registration (for M365 integration)
-# Leave as placeholder for demo mode — all M365 data is simulated
-VITE_MICROSOFT_CLIENT_ID=your-client-app-id-here
-VITE_MICROSOFT_TENANT_ID=common
-```
-
-To enable real Microsoft 365 integration:
-1. Go to [Azure Portal](https://portal.azure.com) → App Registrations → New Registration
-2. Set Redirect URI to `http://localhost:5173`
-3. Copy your **Application (client) ID** into `VITE_MICROSOFT_CLIENT_ID`
-4. Grant API permissions: `User.Read`, `Tasks.Read`, `Calendars.Read`
-
-### Available Scripts
-
-```bash
-npm run dev      # Start development server at http://localhost:5173
-npm run build    # Build production bundle to /dist
-npm run preview  # Preview production build locally
-npm run lint     # Run OxLint static analysis
+┌─────────────────────────────────────────────────────────────────────────┐
+│                           CareerOS Web UI (React 19)                    │
+│   Dashboard │ Goals │ Learning │ Interview Prep │ Daily Plan │ Settings │
+└────────────────────────────────────┬────────────────────────────────────┘
+                                     │ User Actions & Prompts
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         Orchestrator & Agent Layer                      │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌────────────────┐  │
+│  │  Goal Agent  │ │ Roadmap Agent│ │Interview Agent│ │ Planner Agent │  │
+│  └──────────────┘ └──────────────┘ └──────────────┘ └────────────────┘  │
+│  ┌─────────────────────────────┐ ┌───────────────────────────────────┐  │
+│  │  Reflection / Critic Agent   │ │  2-Tier Verification Agent        │  │
+│  └─────────────────────────────┘ └───────────────────────────────────┘  │
+└────────────────────────────────────┬────────────────────────────────────┘
+                                     │ Typed Tool Invocations
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                       Model Context Protocol (MCP) Tools                │
+│  • careerMcp     • learningMcp      • resourceMcp     • productivityMcp │
+│  • memoryMcp     • assessmentMcp    • m365Mcp                           │
+└───────────────────┬─────────────────────────────────┬───────────────────┘
+                    │                                 │
+     Semantic Embeddings & Storage         AI Inference & LLM Routing
+                    ▼                                 ▼
+┌──────────────────────────────────────┐ ┌────────────────────────────────┐
+│      Client-Side Vector Engine       │ │       AI Model Router          │
+│ • Transformers.js (MiniLM-L6-v2)     │ │ 1. OpenRouter (Claude 3.5)     │
+│ • Cosine Similarity Search           │ │ 2. Groq (Llama 3.1 70B)        │
+│ • LocalStorage Vector Store          │ │ 3. Google Gemini 1.5 Flash     │
+│ • StateManager with JSON migration   │ │ 4. Ollama (Local)              │
+│                                      │ │ 5. Offline Simulation Fallback │
+│                                      │ │ ------------------------------ │
+│                                      │ │ • Rate Limiting & Token Cache  │
+└──────────────────────────────────────┘ └────────────────────────────────┘
 ```
 
 ---
 
 ## 🤖 AI Agent Architecture
 
-CareerOS uses a **multi-agent system** coordinated through the **Model Context Protocol (MCP)**.
+CareerOS implements a coordinated hierarchy of specialized autonomous agents:
+
+| Agent | Module | Role & Core Functionality |
+|---|---|---|
+| **Orchestrator Agent** | `src/services/ai/` | Receives intent, assesses task complexity, and routes sub-tasks to specialized agents. |
+| **Goal Planning Agent** | `careerMcp.ts` | Deconstructs high-level career objectives into milestone trees, timelines, and competency requirements. |
+| **Skill Gap Analyzer** | `careerMcp.ts` | Evaluates current learner profile against target industry roles to identify delta proficiencies. |
+| **Curriculum & Roadmap Agent** | `learningMcp.ts` | Builds structured learning roadmaps, chapter textbooks, and practice exercises. |
+| **Resource Discovery Agent** | `resourceMcp.ts` | Queries academic catalogs, YouTube, and course repositories; computes multi-metric quality scores. |
+| **Interview Prep Agent** | `interviewAgent.ts` | Conducts dynamic mock interviews, simulates interviewers, and produces granular rubric-based scorecards. |
+| **Reflection & Critic Agent** | `reflectionAgent.ts` | Audits generated roadmaps and study plans for pedagogical flow, cognitive overload, and pacing issues. |
+| **Verification Agent** | `verificationAgent.ts` | Two-tier verification pipeline validating accuracy, safety, schema conformance, and relevance before rendering. |
+| **Daily Planner Agent** | `productivityMcp.ts` | Resolves calendar conflicts by combining M365 work tasks with spaced learning intervals. |
+| **Memory & Context Agent** | `memoryMcp.ts` | Encodes user history, quiz weaknesses, and preferences into vector representations for long-term recall. |
+
+---
+
+## ⚡ Multi-Model AI Routing & Resilience
+
+The `ModelRouter` (`src/services/ai/modelRouter.ts`) intelligently chooses the optimal provider based on task complexity, speed requirements, and token economics:
+
+1. **High-Complexity Tasks** (Curriculum design, deep reflection, detailed interview evaluation)  
+   👉 Routed to **OpenRouter / Claude 3.5 Sonnet**.
+2. **High-Speed Tasks** (Quick quiz generation, daily scheduling, real-time chat)  
+   👉 Routed to **Groq / Llama 3.1 70B** (ultra-low latency).
+3. **Large Context Analysis** (Full syllabus synthesis, comprehensive work intel)  
+   👉 Routed to **Google Gemini 1.5 Flash**.
+4. **Local / Private Workflows** (Offline privacy-first usage)  
+   👉 Routed to **Local Ollama** (`http://localhost:11434`).
+5. **Automatic Fallback Chain & Offline Mode**:  
+   If an API key is missing, network is unreachable, or rate limits are encountered, requests automatically cascade down the chain to local heuristics and built-in mock simulation.
+
+### Built-in Optimization Utilities
+- **Response Caching** (`responseCache.ts`): SHA-256-based in-memory and storage cache to prevent duplicate LLM calls and reduce API costs.
+- **Token Bucket Rate Limiter** (`rateLimiter.ts`): Client-side sliding-window rate limiting to protect provider quotas.
+- **Client-Side Embeddings** (`semanticSimilarity.ts` & `vectorStore.ts`): Uses `@xenova/transformers` with browser-optimized ONNX runtime for on-device vector similarity.
+
+---
+
+## 📂 Project Directory Structure
 
 ```
-User Action
-    │
-    ▼
-┌─────────────────────────────┐
-│     Orchestrator Agent      │   Receives intent, routes to specialists
-└──────────┬──────────────────┘
-           │
-    ┌──────┼──────────────────────────────────────┐
-    │      │                                      │
-    ▼      ▼                                      ▼
-┌───────┐ ┌──────────────┐ ┌──────────┐ ┌───────────────────┐
-│ Goal  │ │  Skill Gap   │ │ Roadmap  │ │  Daily Planner    │
-│ Agent │ │  Agent       │ │ Agent    │ │  Agent            │
-└───────┘ └──────────────┘ └──────────┘ └───────────────────┘
-    │            │               │               │
-    ▼            ▼               ▼               ▼
-┌─────────────────────────────────────────────────────────┐
-│                    MCP Tool Layer                       │
-│  careerMcp  |  learningMcp  |  resourceMcp  |  m365Mcp │
-└─────────────────────────────────────────────────────────┘
-    │
-    ▼
-┌───────────────────┐
-│ Assessment Agent  │   Grades quizzes, updates XP
-│ Progress Agent    │   Logs chapter completions
-│ Reflection Agent  │   Curriculum audit and validation
-└───────────────────┘
-```
-
-### Agent Responsibilities
-
-| Agent | Responsibility |
-|---|---|
-| **Orchestrator** | Receives user intent, validates inputs, dispatches sub-tasks |
-| **Goal Agent** | Parses career goal parameters, stores in career schema |
-| **Skill Gap Agent** | Compares current profile skills vs. target level |
-| **Roadmap Agent** | Generates chronological learning milestones and prerequisites |
-| **Resource Curator** | Searches university catalogs and YouTube for best-match courses |
-| **Daily Planner** | Balances M365 tasks with available study windows |
-| **Deadline Guardian** | Validates timeline feasibility given pace requirements |
-| **Reflection/Critic** | Audits curriculum sequence for logical and pedagogical consistency |
-| **Assessment Agent** | Grades chapter quizzes, updates XP and badge status |
-| **Progress Agent** | Logs chapter completions, updates course progress metrics |
-
-All agent activity is visible in real-time via the **Agent Terminal** (floating widget, bottom-right corner of the app).
-
-### MCP Tools
-
-Each MCP server exposes typed tools that agents call:
-
-```typescript
-// learningMcp tools
-learningMcp.search_courses(topic, level, goal)        // Returns Course[]
-learningMcp.build_learning_roadmap(topic, ...)        // Returns custom Course
-learningMcp.create_daily_learning_plan(title, hours)  // Returns { activities }
-
-// careerMcp tools
-careerMcp.create_goal(params)      // Registers a new career goal
-careerMcp.get_user_skills()        // Returns current skill profile
-
-// productivityMcp tools
-productivityMcp.create_schedule(workHours, studyHours) // Returns DailySchedule
+src/
+├── App.tsx                        # Hash SPA routing & navigation state
+├── main.tsx                       # React 19 application root
+├── index.css                      # Global design system, glassmorphism tokens & animations
+│
+├── components/                    # Reusable UI components
+│   ├── Layout.tsx                 # Sidebar navigation, topbar status & layout frame
+│   ├── AgentTerminal.tsx          # Real-time multi-agent MCP execution terminal
+│   ├── ErrorBoundary.tsx          # Resilient crash prevention and recovery fallback
+│   ├── OfflineBanner.tsx          # Network status detection & offline indicator
+│   ├── Heatmap.tsx                # GitHub-style daily learning activity heatmap
+│   └── ProgressRing.tsx           # Animated SVG progress indicators
+│
+├── pages/                         # Core Application Views
+│   ├── Landing.tsx                # Visual overview and feature showcase
+│   ├── Dashboard.tsx              # Primary learner cockpit and analytics
+│   ├── DailyPlan.tsx              # Adaptive work-study daily schedule
+│   ├── Goals.tsx                  # Goal list & progress tracker
+│   ├── SetGoal.tsx                # AI goal roadmap generator wizard
+│   ├── GoalDetails.tsx            # Deep-dive goal milestones & tasks
+│   ├── Learning.tsx               # Course library & AI course search
+│   ├── CourseDetails.tsx          # Interactive textbook reader & chapter AI tutor
+│   ├── InterviewPrep.tsx          # Interactive AI mock interview simulator
+│   ├── Quiz.tsx                   # Standalone quiz assessment center
+│   ├── Resources.tsx              # Curated university & media resources
+│   ├── Achievements.tsx           # Badges, streak tracking & XP rewards
+│   ├── Profile.tsx                # Learner profile & skill radar visualization
+│   ├── WorkIntelligence.tsx       # Microsoft 365 sync & task analyzer
+│   └── Settings.tsx               # API keys, theme & profile configuration
+│
+├── services/                      # Core Intelligence Layer
+│   ├── stateManager.ts            # Persistent LocalStorage state with migration
+│   ├── microsoftGraphService.ts   # MSAL browser & M365 Graph integration
+│   ├── ai/
+│   │   ├── modelRouter.ts         # Multi-model routing & fallback engine
+│   │   ├── interviewAgent.ts      # Behavioral & technical interview generator
+│   │   ├── reflectionAgent.ts     # Curriculum audit & self-correction agent
+│   │   ├── verificationAgent.ts   # 2-tier quality validation engine
+│   │   ├── responseCache.ts       # LRU response caching system
+│   │   ├── semanticSimilarity.ts  # Client-side embedding & cosine similarity
+│   │   └── providers/             # Provider implementations
+│   │       ├── openRouterProvider.ts
+│   │       ├── groqProvider.ts
+│   │       ├── geminiProvider.ts
+│   │       └── ollamaProvider.ts
+│   ├── mcp/                       # Model Context Protocol Tool Servers
+│   │   ├── careerMcp.ts
+│   │   ├── learningMcp.ts
+│   │   ├── resourceMcp.ts
+│   │   ├── memoryMcp.ts
+│   │   ├── productivityMcp.ts
+│   │   ├── assessmentMcp.ts
+│   │   └── m365Mcp.ts
+│   ├── memory/
+│   │   └── vectorStore.ts         # In-browser semantic vector store
+│   └── utils/
+│       └── rateLimiter.ts         # Token bucket rate limiting utility
+│
+└── __tests__/                     # Automated Test Suites (Vitest)
+    ├── modelRouter.test.ts
+    ├── resourceMcp.test.ts
+    └── verificationAgent.test.ts
 ```
 
 ---
 
-## 🗺️ App Routes
+## 🔑 Environment Configuration
 
-CareerOS uses hash-based SPA routing (no backend required):
+Create a `.env` file in your root folder (or copy from `.env.example`):
 
+```bash
+# Windows Command Prompt
+copy .env.example .env
+
+# Mac / Linux / PowerShell
+cp .env.example .env
 ```
-/#/landing         Landing page
-/#/dashboard       Main dashboard
-/#/learning        Course library + AI Discoverer
-/#/course-details  Active course chapter reader
-/#/goals           Goal tracker
-/#/set-goal        Create new goal (AI generates everything)
-/#/goal-details    Goal deep-dive: milestones, resources, tasks
-/#/daily-plan      AI-balanced daily schedule
-/#/roadmap         Visual learning roadmap graph
-/#/quiz            Standalone quiz center
-/#/resources       Curated learning resources
-/#/achievements    Badges and streak tracker
-/#/profile         User profile, skills, heatmap
-/#/work-intel      Microsoft 365 work intelligence
-/#/settings        Profile configuration
+
+### Environment Variables Guide
+
+| Variable | Required? | Purpose / Provider | How to obtain |
+|---|---|---|---|
+| `VITE_OPENROUTER_API_KEY` | Optional | Claude 3.5 Sonnet & GPT-4o for complex planning | [openrouter.ai](https://openrouter.ai) |
+| `VITE_GROQ_API_KEY` | Optional | Llama 3.1 70B for ultra-fast instant inference | [console.groq.com](https://console.groq.com) |
+| `VITE_GEMINI_API_KEY` | Optional | Gemini 1.5 Flash for large context processing | [aistudio.google.com](https://aistudio.google.com) |
+| `VITE_OLLAMA_BASE_URL` | Optional | Local model endpoint (defaults to `http://localhost:11434`) | [ollama.ai](https://ollama.ai) |
+| `VITE_MICROSOFT_CLIENT_ID`| Optional | Microsoft 365 Azure App ID for live Graph sync | [portal.azure.com](https://portal.azure.com) |
+| `VITE_MICROSOFT_TENANT_ID`| Optional | Azure Tenant ID (`common` for multi-tenant) | Azure Portal |
+| `VITE_YOUTUBE_API_KEY`    | Optional | YouTube Data API v3 for live video discovery | [console.cloud.google.com](https://console.cloud.google.com) |
+| `VITE_GITHUB_TOKEN`       | Optional | GitHub API for repository exploration (rate limits) | [github.com/settings/tokens](https://github.com/settings/tokens) |
+| `VITE_ADZUNA_APP_ID`      | Optional | Live job market demand integration | [developer.adzuna.com](https://developer.adzuna.com) |
+| `VITE_ADZUNA_APP_KEY`     | Optional | Live job market demand API key | [developer.adzuna.com](https://developer.adzuna.com) |
+
+> [!NOTE]
+> All services gracefully degrade to simulated intelligent mock providers if keys are omitted.
+
+---
+
+## 🧪 Testing & Quality Assurance
+
+CareerOS comes with a comprehensive automated test suite powered by **Vitest** and **React Testing Library**:
+
+```bash
+# Run all automated tests
+npm test
+
+# Run tests in interactive UI mode
+npm run test:ui
+
+# Run tests in watch mode during development
+npm run test:watch
+
+# Run fast static code analysis
+npm run lint
 ```
+
+---
+
+## 🚢 Deployment Guide
+
+### Deploy to Vercel (Recommended)
+CareerOS includes [`vercel.json`](vercel.json) configured for single-page application routing.
+1. Push your repository to GitHub.
+2. Import the project in the [Vercel Dashboard](https://vercel.com).
+3. Set Framework Preset to **Vite**.
+4. (Optional) Add your environment variables under Settings → Environment Variables.
+5. Click **Deploy**.
+
+### Deploy to Netlify
+CareerOS includes [`netlify.toml`](netlify.toml) configured with redirect rules:
+1. Push your repository to GitHub.
+2. Link your repo in the [Netlify Dashboard](https://netlify.com).
+3. Build command: `npm run build`
+4. Publish directory: `dist`
+5. Click **Deploy Site**.
 
 ---
 
 ## 🎨 Design System
 
-The UI uses a dark glassmorphism theme built on a custom Tailwind config:
-
-```
-Color Tokens
-  --brand-bg: #050509        Deep space black (page background)
-  --brand-surface: #0b0c14   Card backgrounds
-  --brand-border: #1e2238    Subtle borders
-  --brand-accent: #6366f1    Indigo primary (buttons, highlights)
-  --brand-cyan: #06b6d4      Cyan secondary (stats, indicators)
-
-Typography
-  font-display: 'Inter'      Headings and UI labels
-  font-mono: 'JetBrains Mono' Code blocks and agent logs
-```
-
-Key UI patterns:
-- **Glassmorphism panels** with backdrop-blur and subtle borders
-- **Gradient glows** using box-shadow with accent colors
-- **Framer Motion** page transitions and card hover animations
-- **GitHub-style heatmap** for daily activity visualization
-- **Multi-dimensional score bars** for course quality ratings
+CareerOS features a modern **Deep Space Glassmorphism** design palette:
+- **Background**: `#050509` (Void Black) with ambient radial gradients
+- **Surfaces**: `#0b0c14` / `#131625` with `backdrop-blur-xl` and subtle `1px` translucent borders
+- **Primary Accent**: `#6366f1` (Electric Indigo) for actions and key metrics
+- **Secondary Accent**: `#06b6d4` (Cyber Cyan) for status indicators and active states
+- **Typography**: Clean hierarchy with `Inter` for interface elements and `JetBrains Mono` for agent terminal execution logs
 
 ---
 
-## 🙌 Contributing
+## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/my-feature`
-3. Commit your changes: `git commit -m 'feat: add my feature'`
-4. Push to your fork: `git push origin feature/my-feature`
+Contributions are welcome!
+1. Fork the Project (`https://github.com/ps-deepak-kumar/CareerOS/fork`)
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'feat: Add AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
 ---
 
 ## 📄 License
 
-MIT License — see [LICENSE](LICENSE) for details.
-
----
+Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
 
 <div align="center">
-  Built with care by <a href="https://github.com/ps-deepak-kumar">Deepak Kumar</a>
-  <br/>
-  <sub>Product Squad L2 Assignment</sub>
+  <sub>Built with ❤️ by <a href="https://github.com/ps-deepak-kumar">Deepak Kumar</a></sub>
 </div>
