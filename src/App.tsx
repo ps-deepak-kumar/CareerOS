@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Layout, PageId } from './components/Layout';
 import { AgentTerminal } from './components/AgentTerminal';
 import { ToastContainer } from './components/ToastContainer';
+import { OfflineBanner } from './components/OfflineBanner';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { stateManager } from './services/stateManager';
 
 // Import Pages
@@ -20,6 +22,7 @@ import Achievements from './pages/Achievements';
 import ProfilePage from './pages/Profile';
 import WorkIntelligence from './pages/WorkIntelligence';
 import SettingsPage from './pages/Settings';
+import InterviewPrep from './pages/InterviewPrep';
 
 function App() {
   const [activePage, setActivePage] = useState<PageId>('landing');
@@ -53,7 +56,8 @@ function App() {
         const validPages: PageId[] = [
           'landing', 'dashboard', 'daily-plan', 'goals', 'set-goal',
           'goal-details', 'learning', 'course-details', 'roadmap',
-          'quiz', 'resources', 'achievements', 'profile', 'work-intel', 'settings'
+          'quiz', 'resources', 'achievements', 'profile', 'work-intel',
+          'interview-prep', 'settings'
         ];
         if (validPages.includes(hash as PageId)) {
           setActivePage(hash as PageId);
@@ -148,6 +152,8 @@ function App() {
         return <ProfilePage />;
       case 'work-intel':
         return <WorkIntelligence />;
+      case 'interview-prep':
+        return <InterviewPrep />;
       case 'settings':
         return <SettingsPage />;
       default:
@@ -157,11 +163,16 @@ function App() {
 
   return (
     <>
+      {/* Offline/degraded mode banner */}
+      <OfflineBanner />
+
       <Layout
         activePage={activePage}
         onPageChange={handlePageChange}
       >
-        {renderActivePage()}
+        <ErrorBoundary pageName={activePage}>
+          {renderActivePage()}
+        </ErrorBoundary>
       </Layout>
 
       {/* Floating interactive multi-agent system monitor terminal */}

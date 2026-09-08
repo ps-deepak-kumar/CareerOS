@@ -229,12 +229,12 @@ export const Landing: React.FC<LandingProps> = ({ onNavigate }) => {
           </div>
 
           {/* With CareerOS */}
-          <div className="bg-zinc-900 border border-zinc-900 rounded-xl p-6 reveal-right">
+          <div className="bg-zinc-800 border border-zinc-700/60 rounded-2xl p-6 reveal-right shadow-md">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-lg">🚀</span>
               <h4 className="text-white font-bold text-xs uppercase tracking-wider">CareerOS Ecosystem</h4>
             </div>
-            <ul className="space-y-3 text-sm text-zinc-300">
+            <ul className="space-y-3 text-sm text-zinc-200">
               <li className="flex items-start gap-2.5">
                 <span className="text-base mt-0.5">✅</span>
                 <span>Study sessions calculated automatically in meeting gaps.</span>
@@ -254,15 +254,15 @@ export const Landing: React.FC<LandingProps> = ({ onNavigate }) => {
 
       {/* ── CTA FOOTER STRIP ── */}
       <section className="w-full reveal-scale">
-        <div className="bg-zinc-900 rounded-2xl p-8 text-center flex flex-col items-center gap-5">
+        <div className="bg-zinc-800 border border-zinc-700/60 rounded-2xl p-8 text-center flex flex-col items-center gap-5 shadow-lg">
           <span className="text-3xl">🎓</span>
           <h2 className="text-2xl font-black text-white">Start Your Career Acceleration</h2>
-          <p className="text-zinc-400 text-sm max-w-md">
+          <p className="text-zinc-300 text-sm max-w-md">
             Join thousands of professionals systematically building career-defining skills while staying ahead at work.
           </p>
           <button
             onClick={() => onNavigate('set-goal')}
-            className="flex items-center gap-2 px-8 py-3.5 rounded-xl bg-white text-zinc-900 font-bold text-sm hover:bg-zinc-100 transition-all duration-150 active:scale-95 shadow-lg"
+            className="flex items-center gap-2 px-8 py-3.5 rounded-xl bg-white text-zinc-900 font-bold text-sm hover:bg-zinc-100 transition-all duration-150 active:scale-95 shadow-md"
           >
             <span>Get Started Now</span>
             <ArrowRight size={15} />

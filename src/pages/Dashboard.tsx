@@ -313,15 +313,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Top Horizon Filters & Quick Actions */}
         <div className="flex flex-wrap items-center gap-2.5 text-xs w-full md:w-auto">
           {/* Horizon Switcher */}
-          <div className="flex bg-white p-1 rounded-xl border border-zinc-200 shadow-card">
+          <div className="flex bg-white p-1 rounded-xl border border-zinc-200 shadow-sm">
             {(['all', 'daily', 'weekly', 'monthly'] as HorizonTab[]).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveHorizon(tab)}
                 className={`px-3 py-1.5 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-200 ${
                   activeHorizon === tab
-                    ? 'bg-zinc-900 text-white shadow-sm'
-                    : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
+                    ? 'bg-zinc-800 text-white shadow-sm border border-zinc-800'
+                    : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
                 }`}
               >
                 {tab === 'all' ? '✨ All' : tab === 'daily' ? '⚡ Daily' : tab === 'weekly' ? '📅 Weekly' : '🗓️ Monthly'}
@@ -624,8 +624,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setWorkTimeframe('today')}
                   className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${
                     workTimeframe === 'today' 
-                      ? 'bg-blue-600 text-zinc-900 shadow-sm' 
-                      : 'text-zinc-500 hover:text-zinc-900'
+                      ? 'bg-zinc-800 text-white shadow-sm' 
+                      : 'text-zinc-600 hover:text-zinc-900'
                   }`}
                 >
                   ⚡ Today ({allWorkTasks.filter(t => isTaskInTimeframe(t, 'today')).length})
@@ -634,8 +634,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setWorkTimeframe('weekly')}
                   className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${
                     workTimeframe === 'weekly' 
-                      ? 'bg-blue-600 text-zinc-900 shadow-sm' 
-                      : 'text-zinc-500 hover:text-zinc-900'
+                      ? 'bg-zinc-800 text-white shadow-sm' 
+                      : 'text-zinc-600 hover:text-zinc-900'
                   }`}
                 >
                   📅 Weekly ({allWorkTasks.filter(t => isTaskInTimeframe(t, 'weekly')).length})
@@ -644,8 +644,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setWorkTimeframe('monthly')}
                   className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${
                     workTimeframe === 'monthly' 
-                      ? 'bg-blue-600 text-zinc-900 shadow-sm' 
-                      : 'text-zinc-500 hover:text-zinc-900'
+                      ? 'bg-zinc-800 text-white shadow-sm' 
+                      : 'text-zinc-600 hover:text-zinc-900'
                   }`}
                 >
                   🗓️ Monthly ({allWorkTasks.filter(t => isTaskInTimeframe(t, 'monthly')).length})
@@ -654,8 +654,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setWorkTimeframe('all')}
                   className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${
                     workTimeframe === 'all' 
-                      ? 'bg-blue-600 text-zinc-900 shadow-sm' 
-                      : 'text-zinc-500 hover:text-zinc-900'
+                      ? 'bg-zinc-800 text-white shadow-sm' 
+                      : 'text-zinc-600 hover:text-zinc-900'
                   }`}
                 >
                   All
@@ -668,8 +668,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <button
                     key={st}
                     onClick={() => setWorkFilter(st)}
-                    className={`px-2 py-0.5 rounded capitalize ${
-                      workFilter === st ? 'bg-slate-800 text-zinc-700 font-bold border border-zinc-200' : 'text-zinc-400 hover:text-zinc-600'
+                    className={`px-2 py-0.5 rounded capitalize transition-all ${
+                      workFilter === st ? 'bg-zinc-800 text-white font-bold' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
                     }`}
                   >
                     {st}
@@ -741,13 +741,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     </div>
 
                     <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-[10px] px-2 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-zinc-500 font-medium font-mono">
+                      <span className="text-[10px] px-2 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-zinc-600 font-medium font-mono">
                         {t.estimatedTime}h
                       </span>
                       <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded uppercase ${
-                        t.priority === 'high' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 
-                        t.priority === 'medium' ? 'bg-zinc-100 text-zinc-600 border border-yellow-500/20' : 
-                        'bg-slate-800 text-zinc-500 border border-zinc-200'
+                        t.priority === 'high' ? 'bg-red-500/10 text-red-600 border border-red-500/20' : 
+                        t.priority === 'medium' ? 'bg-amber-500/10 text-amber-700 border border-amber-500/20' : 
+                        'bg-zinc-100 text-zinc-600 border border-zinc-200'
                       }`}>
                         {t.priority}
                       </span>
@@ -785,7 +785,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               
               <button 
                 onClick={() => handleOpenAddTask('learning')}
-                className="flex items-center gap-1 text-[11px] font-bold text-zinc-700 hover:text-zinc-700 bg-zinc-100 hover:bg-zinc-100 border border-zinc-300 px-2.5 py-1 rounded-lg transition-all"
+                className="flex items-center gap-1 text-[11px] font-bold text-zinc-700 hover:text-zinc-900 bg-white hover:bg-zinc-50 border border-zinc-300 px-2.5 py-1 rounded-lg transition-all"
               >
                 <Plus size={12} />
                 <span>Add Study</span>
@@ -799,8 +799,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setLearnTimeframe('today')}
                   className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${
                     learnTimeframe === 'today' 
-                      ? 'bg-zinc-900 text-white shadow-sm' 
-                      : 'text-zinc-500 hover:text-zinc-900'
+                      ? 'bg-zinc-800 text-white shadow-sm' 
+                      : 'text-zinc-600 hover:text-zinc-900'
                   }`}
                 >
                   ⚡ Today ({allLearnTasks.filter(t => isTaskInTimeframe(t, 'today')).length})
@@ -809,8 +809,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setLearnTimeframe('weekly')}
                   className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${
                     learnTimeframe === 'weekly' 
-                      ? 'bg-zinc-900 text-white shadow-sm' 
-                      : 'text-zinc-500 hover:text-zinc-900'
+                      ? 'bg-zinc-800 text-white shadow-sm' 
+                      : 'text-zinc-600 hover:text-zinc-900'
                   }`}
                 >
                   📅 Weekly ({allLearnTasks.filter(t => isTaskInTimeframe(t, 'weekly')).length})
@@ -819,8 +819,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setLearnTimeframe('monthly')}
                   className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${
                     learnTimeframe === 'monthly' 
-                      ? 'bg-zinc-900 text-white shadow-sm' 
-                      : 'text-zinc-500 hover:text-zinc-900'
+                      ? 'bg-zinc-800 text-white shadow-sm' 
+                      : 'text-zinc-600 hover:text-zinc-900'
                   }`}
                 >
                   🗓️ Monthly ({allLearnTasks.filter(t => isTaskInTimeframe(t, 'monthly')).length})
@@ -829,8 +829,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   onClick={() => setLearnTimeframe('all')}
                   className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${
                     learnTimeframe === 'all' 
-                      ? 'bg-zinc-900 text-white shadow-sm' 
-                      : 'text-zinc-500 hover:text-zinc-900'
+                      ? 'bg-zinc-800 text-white shadow-sm' 
+                      : 'text-zinc-600 hover:text-zinc-900'
                   }`}
                 >
                   All
@@ -843,8 +843,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <button
                     key={st}
                     onClick={() => setLearnFilter(st)}
-                    className={`px-2 py-0.5 rounded capitalize ${
-                      learnFilter === st ? 'bg-slate-800 text-zinc-700 font-bold border border-zinc-200' : 'text-zinc-400 hover:text-zinc-600'
+                    className={`px-2 py-0.5 rounded capitalize transition-all ${
+                      learnFilter === st ? 'bg-zinc-800 text-white font-bold' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
                     }`}
                   >
                     {st}
@@ -920,9 +920,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
                         {Math.round((t.estimatedTime || 1) * 60)} min
                       </span>
                       <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded uppercase ${
-                        t.priority === 'high' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 
-                        t.priority === 'medium' ? 'bg-zinc-100 text-zinc-600 border border-yellow-500/20' : 
-                        'bg-slate-800 text-zinc-500 border border-zinc-200'
+                        t.priority === 'high' ? 'bg-red-500/10 text-red-600 border border-red-500/20' : 
+                        t.priority === 'medium' ? 'bg-amber-500/10 text-amber-700 border border-amber-500/20' : 
+                        'bg-zinc-100 text-zinc-600 border border-zinc-200'
                       }`}>
                         {t.priority}
                       </span>

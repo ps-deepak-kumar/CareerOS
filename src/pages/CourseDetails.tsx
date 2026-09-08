@@ -335,19 +335,19 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
       {/* =========================================================================
           ATTRACTIVE NO-SCROLL MULTI-TAB WORKSPACE RIBBON WITH DUAL SYMBOLS
          ========================================================================= */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 w-full p-2 bg-zinc-100 border border-zinc-200 rounded-2xl shadow-xl">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 w-full p-2 bg-white border border-zinc-200 rounded-2xl shadow-sm">
         
         {/* Tab 1: Textbook */}
         <button
           onClick={() => setActiveTab('textbook')}
           className={`flex items-center justify-center gap-2 py-2.5 px-2 rounded-xl text-xs font-bold font-display uppercase tracking-wider transition-all duration-200 text-center ${
             activeTab === 'textbook'
-              ? 'bg-zinc-50 to-violet-600 text-zinc-900 shadow-lg shadow-zinc-200 border border-white/20 scale-[1.02]'
+              ? 'bg-zinc-800 text-white shadow-sm border border-zinc-800'
               : 'bg-zinc-50 hover:bg-zinc-100 text-zinc-600 hover:text-zinc-900 border border-zinc-200 hover:border-zinc-300'
           }`}
         >
           <span className="text-sm">📖</span>
-          <BookOpen size={13} className={activeTab === 'textbook' ? 'text-zinc-900' : 'text-zinc-700'} />
+          <BookOpen size={13} className={activeTab === 'textbook' ? 'text-white' : 'text-zinc-600'} />
           <span className="truncate">Textbook</span>
         </button>
 
@@ -356,12 +356,12 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
           onClick={() => setActiveTab('github')}
           className={`flex items-center justify-center gap-2 py-2.5 px-2 rounded-xl text-xs font-bold font-display uppercase tracking-wider transition-all duration-200 text-center ${
             activeTab === 'github'
-              ? 'bg-zinc-50 to-violet-600 text-zinc-900 shadow-lg shadow-zinc-200 border border-white/20 scale-[1.02]'
+              ? 'bg-zinc-800 text-white shadow-sm border border-zinc-800'
               : 'bg-zinc-50 hover:bg-zinc-100 text-zinc-600 hover:text-zinc-900 border border-zinc-200 hover:border-zinc-300'
           }`}
         >
           <span className="text-sm">⭐</span>
-          <GithubIcon size={13} className={activeTab === 'github' ? 'text-zinc-900' : 'text-zinc-600'} />
+          <GithubIcon size={13} className={activeTab === 'github' ? 'text-white' : 'text-zinc-600'} />
           <span className="truncate">GitHub ({githubRepos.length})</span>
         </button>
 
@@ -370,12 +370,12 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
           onClick={() => setActiveTab('projects')}
           className={`flex items-center justify-center gap-2 py-2.5 px-2 rounded-xl text-xs font-bold font-display uppercase tracking-wider transition-all duration-200 text-center ${
             activeTab === 'projects'
-              ? 'bg-zinc-50 to-violet-600 text-zinc-900 shadow-lg shadow-zinc-200 border border-white/20 scale-[1.02]'
+              ? 'bg-zinc-800 text-white shadow-sm border border-zinc-800'
               : 'bg-zinc-50 hover:bg-zinc-100 text-zinc-600 hover:text-zinc-900 border border-zinc-200 hover:border-zinc-300'
           }`}
         >
           <span className="text-sm">🎥</span>
-          <Video size={13} className={activeTab === 'projects' ? 'text-zinc-900' : 'text-zinc-600'} />
+          <Video size={13} className={activeTab === 'projects' ? 'text-white' : 'text-zinc-600'} />
           <span className="truncate">Video Labs ({videoProjects.length})</span>
         </button>
 
@@ -384,12 +384,12 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
           onClick={() => setActiveTab('sandbox')}
           className={`flex items-center justify-center gap-2 py-2.5 px-2 rounded-xl text-xs font-bold font-display uppercase tracking-wider transition-all duration-200 text-center ${
             activeTab === 'sandbox'
-              ? 'bg-zinc-50 to-violet-600 text-zinc-900 shadow-lg shadow-zinc-200 border border-white/20 scale-[1.02]'
+              ? 'bg-zinc-800 text-white shadow-sm border border-zinc-800'
               : 'bg-zinc-50 hover:bg-zinc-100 text-zinc-600 hover:text-zinc-900 border border-zinc-200 hover:border-zinc-300'
           }`}
         >
           <span className="text-sm">💻</span>
-          <Terminal size={13} className={activeTab === 'sandbox' ? 'text-zinc-900' : 'text-zinc-600'} />
+          <Terminal size={13} className={activeTab === 'sandbox' ? 'text-white' : 'text-zinc-600'} />
           <span className="truncate">Code Lab</span>
         </button>
 
@@ -398,12 +398,12 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
           onClick={() => setActiveTab('quiz')}
           className={`flex items-center justify-center gap-2 py-2.5 px-2 rounded-xl text-xs font-bold font-display uppercase tracking-wider transition-all duration-200 text-center ${
             activeTab === 'quiz'
-              ? 'bg-zinc-50 to-violet-600 text-zinc-900 shadow-lg shadow-zinc-200 border border-white/20 scale-[1.02]'
+              ? 'bg-zinc-800 text-white shadow-sm border border-zinc-800'
               : 'bg-zinc-50 hover:bg-zinc-100 text-zinc-600 hover:text-zinc-900 border border-zinc-200 hover:border-zinc-300'
           }`}
         >
           <span className="text-sm">🧠</span>
-          <Award size={13} className={activeTab === 'quiz' ? 'text-zinc-900' : 'text-zinc-600'} />
+          <Award size={13} className={activeTab === 'quiz' ? 'text-white' : 'text-zinc-600'} />
           <span className="truncate">Quiz</span>
         </button>
 
@@ -412,12 +412,12 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
           onClick={() => setActiveTab('tutor')}
           className={`flex items-center justify-center gap-2 py-2.5 px-2 rounded-xl text-xs font-bold font-display uppercase tracking-wider transition-all duration-200 text-center ${
             activeTab === 'tutor'
-              ? 'bg-zinc-50 to-violet-600 text-zinc-900 shadow-lg shadow-zinc-200 border border-white/20 scale-[1.02]'
+              ? 'bg-zinc-800 text-white shadow-sm border border-zinc-800'
               : 'bg-zinc-50 hover:bg-zinc-100 text-zinc-600 hover:text-zinc-900 border border-zinc-200 hover:border-zinc-300'
           }`}
         >
           <span className="text-sm">🤖</span>
-          <Sparkles size={13} className={activeTab === 'tutor' ? 'text-zinc-900' : 'text-zinc-700'} />
+          <Sparkles size={13} className={activeTab === 'tutor' ? 'text-white' : 'text-zinc-600'} />
           <span className="truncate">AI Tutor</span>
         </button>
 
@@ -534,7 +534,7 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
                     {isPlayingMainVideo && (
                       <button
                         onClick={() => setIsPlayingMainVideo(false)}
-                        className="px-2.5 py-1 rounded-lg bg-slate-800 text-zinc-600 hover:text-zinc-900 text-[10px] font-mono font-bold uppercase transition-colors"
+                        className="px-2.5 py-1 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200 text-[10px] font-mono font-bold uppercase transition-colors"
                         title="Close Player"
                       >
                         Minimize
@@ -745,8 +745,8 @@ export const CourseDetails: React.FC<CourseDetailsProps> = ({ onNavigate, course
                       onClick={() => handleCopyClone(repo.cloneCommand || `git clone ${repo.url}.git`)}
                       className={`p-1 rounded-lg transition-all shrink-0 ml-2 flex items-center gap-1 text-[10px] ${
                         copiedCloneUrl === (repo.cloneCommand || `git clone ${repo.url}.git`)
-                          ? 'bg-emerald-600 text-zinc-900 font-bold px-2'
-                          : 'text-zinc-500 hover:text-zinc-900 hover:bg-slate-800'
+                          ? 'bg-emerald-600 text-white font-bold px-2'
+                          : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
                       }`}
                       title="Copy clone command"
                     >

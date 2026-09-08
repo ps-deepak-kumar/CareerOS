@@ -197,14 +197,15 @@ const generateMockHeatmapActivity = (): { [dateStr: string]: number } => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // Real initial activity for current consecutive streak in the last two weeks (e.g. today and past 3 days)
-  for (let i = 0; i < 4; i++) {
+  // Real 2-week active usage period: Seed past 14 days up to today with dark/high-activity color (score 4-5)
+  for (let i = 0; i < 14; i++) {
     const d = new Date();
     d.setDate(today.getDate() - i);
     d.setHours(0, 0, 0, 0);
     const dateString = getLocalDateString(d);
-    activity[dateString] = i === 0 ? 3 : 2;
+    activity[dateString] = 5; // Max intensity / dark emerald color
   }
+
   return activity;
 };
 

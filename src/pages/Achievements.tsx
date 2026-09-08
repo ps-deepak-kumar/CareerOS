@@ -173,13 +173,13 @@ export const Achievements: React.FC = () => {
 
       {/* NAVIGATION TABS (BADGES, CERTIFICATES, LEADERBOARD) */}
       <div className="flex justify-between items-center flex-wrap gap-4 border-b border-zinc-200 pb-3">
-        <div className="flex bg-white p-1 rounded-xl border border-zinc-200">
+        <div className="flex bg-white p-1 rounded-xl border border-zinc-200 shadow-sm">
           <button
             onClick={() => setActiveTab('badges')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeTab === 'badges'
-                ? 'bg-zinc-900 text-white shadow-card'
-                : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
+                ? 'bg-zinc-800 text-white shadow-sm border border-zinc-800'
+                : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
             <Award size={14} />
@@ -189,8 +189,8 @@ export const Achievements: React.FC = () => {
             onClick={() => setActiveTab('certificates')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeTab === 'certificates'
-                ? 'bg-zinc-900 text-white shadow-card'
-                : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
+                ? 'bg-zinc-800 text-white shadow-sm border border-zinc-800'
+                : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
             <FileCheck size={14} />
@@ -200,8 +200,8 @@ export const Achievements: React.FC = () => {
             onClick={() => setActiveTab('leaderboard')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeTab === 'leaderboard'
-                ? 'bg-zinc-900 text-white shadow-card'
-                : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
+                ? 'bg-zinc-800 text-white shadow-sm border border-zinc-800'
+                : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
             <Users size={14} />
@@ -218,8 +218,8 @@ export const Achievements: React.FC = () => {
                 onClick={() => setBadgeCategory(cat)}
                 className={`px-3 py-1 rounded-lg border capitalize transition-all ${
                   badgeCategory === cat
-                    ? 'border-zinc-300 bg-zinc-100 text-zinc-900 font-bold'
-                    : 'border-zinc-200 text-zinc-500 hover:text-zinc-700 hover:bg-zinc-50'
+                    ? 'bg-zinc-800 text-white font-bold border-zinc-800'
+                    : 'border-zinc-200 bg-white text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
                 }`}
               >
                 {cat}
@@ -339,8 +339,8 @@ export const Achievements: React.FC = () => {
                       onClick={() => handleOpenCertificate(c)}
                       className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
                         isEligible 
-                          ? 'btn-primary shadow-card' 
-                          : 'bg-slate-800 text-zinc-500 hover:text-zinc-900'
+                          ? 'btn-primary shadow-sm' 
+                          : 'bg-zinc-100 border border-zinc-200 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-200'
                       }`}
                     >
                       <FileCheck size={13} />

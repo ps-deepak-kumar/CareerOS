@@ -21,6 +21,7 @@ export type PageId =
   | 'achievements'
   | 'profile'
   | 'work-intel'
+  | 'interview-prep'
   | 'settings';
 
 interface LayoutProps {
@@ -40,16 +41,17 @@ export const Layout: React.FC<LayoutProps> = ({
   const profile = stateManager.getProfile();
 
   const navigationItems = [
-    { id: 'dashboard',    label: 'Home Dashboard',        icon: Home,      emoji: '🏠' },
-    { id: 'daily-plan',  label: 'My Daily Plan',          icon: Calendar,  emoji: '📅' },
-    { id: 'goals',       label: 'Goals & Targets',        icon: Target,    emoji: '🎯' },
-    { id: 'learning',    label: 'Courses & Lessons',      icon: BookOpen,  emoji: '📚' },
-    { id: 'roadmap',     label: 'Skill Roadmap',          icon: Map,       emoji: '🗺️' },
-    { id: 'quiz',        label: 'Tests & Assessments',    icon: FileText,  emoji: '📝' },
-    { id: 'resources',   label: 'Resource Library',       icon: Link2,     emoji: '🔗' },
-    { id: 'achievements',label: 'Badges & Achievements',  icon: Trophy,    emoji: '🏆' },
-    { id: 'profile',     label: 'My Career Profile',      icon: User,      emoji: '👤' },
-    { id: 'work-intel',  label: 'Work & Job Insights',    icon: Briefcase, emoji: '💼' },
+    { id: 'dashboard',      label: 'Home Dashboard',        icon: Home,      emoji: '🏠' },
+    { id: 'daily-plan',    label: 'My Daily Plan',          icon: Calendar,  emoji: '📅' },
+    { id: 'goals',         label: 'Goals & Targets',        icon: Target,    emoji: '🎯' },
+    { id: 'learning',      label: 'Courses & Lessons',      icon: BookOpen,  emoji: '📚' },
+    { id: 'roadmap',       label: 'Skill Roadmap',          icon: Map,       emoji: '🗺️' },
+    { id: 'quiz',          label: 'Tests & Assessments',    icon: FileText,  emoji: '📝' },
+    { id: 'resources',     label: 'Resource Library',       icon: Link2,     emoji: '🔗' },
+    { id: 'achievements',  label: 'Badges & Achievements',  icon: Trophy,    emoji: '🏆' },
+    { id: 'profile',       label: 'My Career Profile',      icon: User,      emoji: '👤' },
+    { id: 'work-intel',    label: 'Work & Job Insights',    icon: Briefcase, emoji: '💼' },
+    { id: 'interview-prep',label: 'Interview Prep',         icon: Search,    emoji: '🎤' },
   ] as const;
 
   const handleNavClick = (id: PageId) => {
@@ -107,13 +109,13 @@ export const Layout: React.FC<LayoutProps> = ({
                 onClick={() => handleNavClick(item.id)}
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-150 ${
                   isActive
-                    ? 'bg-zinc-900 text-white'
+                    ? 'bg-zinc-800 text-white shadow-sm'
                     : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
                 }`}
               >
                 <span className="text-base shrink-0">{item.emoji}</span>
                 <span className="truncate text-left">{item.label}</span>
-                {isActive && <ChevronRight size={12} className="ml-auto shrink-0 opacity-50" />}
+                {isActive && <ChevronRight size={12} className="ml-auto shrink-0 opacity-70 text-zinc-300" />}
               </button>
             );
           })}
@@ -125,7 +127,7 @@ export const Layout: React.FC<LayoutProps> = ({
             onClick={() => handleNavClick('settings')}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all ${
               activePage === 'settings'
-                ? 'bg-zinc-900 text-white'
+                ? 'bg-zinc-800 text-white shadow-sm'
                 : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
@@ -259,7 +261,7 @@ export const Layout: React.FC<LayoutProps> = ({
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
                     className={`flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all ${
-                      isActive ? 'bg-zinc-900 text-white' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
+                      isActive ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
                     }`}
                   >
                     <span className="text-base">{item.emoji}</span>

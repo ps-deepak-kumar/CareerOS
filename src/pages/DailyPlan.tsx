@@ -212,7 +212,7 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={() => setTimeFilter('today')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-              timeFilter === 'today' ? 'bg-zinc-900 text-white shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+              timeFilter === 'today' ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-600 hover:text-zinc-900'
             }`}
           >
             ⚡ Today's Sprint
@@ -220,7 +220,7 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={() => setTimeFilter('7days')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-              timeFilter === '7days' ? 'bg-zinc-900 text-white shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+              timeFilter === '7days' ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-600 hover:text-zinc-900'
             }`}
           >
             📅 7-Day Horizon
@@ -228,7 +228,7 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={() => setTimeFilter('month')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-              timeFilter === 'month' ? 'bg-zinc-900 text-white shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+              timeFilter === 'month' ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-600 hover:text-zinc-900'
             }`}
           >
             🗓️ Monthly Agenda
@@ -239,7 +239,7 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={() => setViewMode('timeline')}
             className={`px-3 py-1 rounded-lg transition-all ${
-              viewMode === 'timeline' ? 'bg-slate-800 text-zinc-900 font-bold' : 'text-zinc-500 hover:text-zinc-900'
+              viewMode === 'timeline' ? 'bg-zinc-800 text-white font-bold' : 'text-zinc-500 hover:text-zinc-900'
             }`}
           >
             24h Timeline
@@ -247,7 +247,7 @@ export const DailyPlan: React.FC = () => {
           <button
             onClick={() => setViewMode('blocks')}
             className={`px-3 py-1 rounded-lg transition-all ${
-              viewMode === 'blocks' ? 'bg-slate-800 text-zinc-900 font-bold' : 'text-zinc-500 hover:text-zinc-900'
+              viewMode === 'blocks' ? 'bg-zinc-800 text-white font-bold' : 'text-zinc-500 hover:text-zinc-900'
             }`}
           >
             Task Matrix

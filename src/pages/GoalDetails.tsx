@@ -303,7 +303,7 @@ export const GoalDetails: React.FC<GoalDetailsProps> = ({ onNavigate, goalId, se
             <div className="flex justify-end gap-3 mt-2">
               <button
                 onClick={() => setShowDeleteModal(false)}
-                className="px-4 py-2 rounded-lg border border-zinc-200 hover:bg-slate-800 text-xs font-mono text-zinc-600 transition-colors"
+                className="px-4 py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 text-xs font-mono text-zinc-700 transition-colors"
               >
                 Cancel
               </button>
@@ -312,7 +312,7 @@ export const GoalDetails: React.FC<GoalDetailsProps> = ({ onNavigate, goalId, se
                   stateManager.removeGoal(goal.id);
                   onNavigate('goals');
                 }}
-                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-zinc-900 text-xs font-bold font-mono transition-colors shadow-lg shadow-red-900/30"
+                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold font-mono transition-colors shadow-sm"
               >
                 Confirm Delete Everywhere
               </button>

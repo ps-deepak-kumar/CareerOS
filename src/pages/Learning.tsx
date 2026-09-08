@@ -241,7 +241,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
       <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 border-b border-zinc-200 pb-3">
         
         {/* Tab Buttons */}
-        <div className="flex bg-white p-1.5 rounded-xl border border-zinc-200 overflow-x-auto text-xs gap-1 shadow-md">
+        <div className="flex bg-white p-1.5 rounded-xl border border-zinc-200 overflow-x-auto text-xs gap-1 shadow-sm">
           {([
             { id: 'my', label: 'Active Curriculums', count: activeCourses.length },
             { id: 'wishlist', label: '🔖 Saved Wishlist', count: wishlistCourses.length },
@@ -257,15 +257,19 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                   handleSearchSubmit('Agentic AI & LLMs');
                 }
               }}
-              className={`px-4 py-2 rounded-lg font-bold font-sans uppercase tracking-wider transition-all flex items-center gap-1.5 shrink-0 ${
+              className={`px-4 py-2 rounded-lg font-bold font-sans uppercase tracking-wider transition-all flex items-center gap-2 shrink-0 ${
                 activeTab === tab.id
-                  ? 'bg-gradient-to-r from-zinc-800 to-zinc-900 text-zinc-900 shadow-card'
-                  : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
+                  ? 'bg-zinc-800 text-white shadow-sm border border-zinc-800'
+                  : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
               }`}
             >
               <span>{tab.label}</span>
               {tab.count !== null && (
-                <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-600">
+                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full border ${
+                  activeTab === tab.id 
+                    ? 'bg-zinc-700 text-zinc-100 border-zinc-600' 
+                    : 'bg-zinc-100 border-zinc-200 text-zinc-600'
+                }`}>
                   {tab.count}
                 </span>
               )}
@@ -275,14 +279,14 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
 
         {/* Search & Layout View Toggle */}
         <div className="flex items-center gap-2.5">
-          <div className="flex items-center gap-2 bg-white border border-zinc-200 rounded-xl px-3.5 py-2 w-full md:w-64 focus-within:border-zinc-300 transition-all text-xs shadow-inner">
+          <div className="flex items-center gap-2 bg-white border border-zinc-200 rounded-xl px-3.5 py-2 w-full md:w-64 focus-within:border-zinc-300 transition-all text-xs shadow-sm">
             <Search size={13} className="text-zinc-700 shrink-0" />
             <input 
               type="text" 
               value={searchTopic}
               onChange={(e) => setSearchTopic(e.target.value)}
               placeholder="Search courses, topics..."
-              className="bg-transparent text-xs text-zinc-900 placeholder-slate-500 focus:outline-none w-full"
+              className="bg-transparent text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none w-full"
             />
           </div>
 
@@ -290,7 +294,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded-lg transition-all ${
-                viewMode === 'grid' ? 'bg-zinc-900 text-white font-bold shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+                viewMode === 'grid' ? 'bg-zinc-800 text-white font-bold shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
               }`}
               title="Grid View"
             >
@@ -299,7 +303,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
             <button
               onClick={() => setViewMode('list')}
               className={`p-2 rounded-lg transition-all ${
-                viewMode === 'list' ? 'bg-zinc-900 text-white font-bold shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
+                viewMode === 'list' ? 'bg-zinc-800 text-white font-bold shadow-sm' : 'text-zinc-500 hover:text-zinc-900'
               }`}
               title="List View"
             >
@@ -311,7 +315,7 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
 
       {/* FILTER BUTTONS & LEVEL SELECTORS */}
       {activeTab !== 'discovery' && (
-        <div className="flex items-center justify-between gap-3 flex-wrap bg-white border border-zinc-200 p-3 rounded-2xl shadow-md">
+        <div className="flex items-center justify-between gap-3 flex-wrap bg-white border border-zinc-200 p-3 rounded-2xl shadow-sm">
           {/* Level Filter */}
           <div className="flex items-center gap-1.5 flex-wrap text-xs">
             <span className="text-[10px] font-mono font-bold uppercase text-zinc-500 pl-1">Level:</span>
@@ -321,8 +325,8 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                 onClick={() => setDifficultyFilter(diff)}
                 className={`px-3 py-1 rounded-lg text-xs font-bold font-sans uppercase tracking-wider transition-all ${
                   difficultyFilter === diff
-                    ? 'bg-zinc-900 text-white shadow-sm'
-                    : 'bg-zinc-50 border border-zinc-200 text-zinc-500 hover:text-zinc-900'
+                    ? 'bg-zinc-800 text-white shadow-sm'
+                    : 'bg-zinc-50 border border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
                 }`}
               >
                 {diff === 'all' ? 'All Levels' : diff}
@@ -339,8 +343,8 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                 onClick={() => setProviderCategory(prov)}
                 className={`px-3 py-1 rounded-lg text-xs font-bold font-sans uppercase tracking-wider capitalize transition-all ${
                   providerCategory === prov
-                    ? 'bg-slate-700 text-zinc-900 font-bold shadow-sm'
-                    : 'bg-zinc-50 border border-zinc-200 text-zinc-500 hover:text-zinc-900'
+                    ? 'bg-zinc-800 text-white font-bold shadow-sm'
+                    : 'bg-zinc-50 border border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
                 }`}
               >
                 {prov === 'all' ? 'All Providers' : prov}
@@ -370,36 +374,23 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
                     : getVideoProjectsForTopic(course.title);
 
                   return (
-                    <div
-                      key={course.id}
-                      className="p-5 bg-zinc-50 to-zinc-50 border-2 border-zinc-300 hover:border-zinc-300 rounded-2xl flex flex-col justify-between gap-4 transition-all duration-300 hover:-translate-y-1.5 shadow-card hover:shadow-[0_20px_45px_rgba(99,102,241,0.28)] relative group overflow-hidden"
+                    <div 
+                      key={course.id} 
+                      className={`glass-panel p-5 flex flex-col justify-between gap-4 transition-all duration-300 rounded-2xl relative shadow-md ${
+                        isCompleted 
+                          ? 'border-emerald-500/30 bg-zinc-50' 
+                          : 'border-zinc-200 hover:border-zinc-300 bg-white'
+                      }`}
                     >
-                      {/* Top Accent Gradient Bar */}
-                      <div className="absolute top-0 left-0 right-0 h-1 bg-zinc-50 to-cyan-400" />
-
-                      {/* Top Action Hover Overlay */}
-                      <div className="absolute top-3.5 right-3.5 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
-                        {!isWishlist ? (
-                          <button
-                            title="Save to Wishlist"
-                            onClick={() => handleWishlist(course.id)}
-                            className="p-1.5 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-600 hover:text-zinc-600 hover:border-amber-500/50 transition-all shadow-md"
-                          >
-                            <Bookmark size={13} />
-                          </button>
-                        ) : (
-                          <button
-                            title="Move to Active"
-                            onClick={() => handleMoveToActive(course.id)}
-                            className="p-1.5 rounded-lg bg-zinc-100 border border-amber-900/50 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 transition-all shadow-md"
-                          >
-                            <BookmarkCheck size={13} />
-                          </button>
-                        )}
+                      {/* Top Action Bar */}
+                      <div className="flex items-center justify-between">
+                        <span className="pill text-[9px] text-zinc-600 border-zinc-200">
+                          {course.provider || 'University Masterclass'}
+                        </span>
                         <button
-                          title="Remove Course"
                           onClick={() => setConfirmRemoveId(course.id)}
-                          className="p-1.5 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-600 hover:text-zinc-600 hover:border-rose-500/50 transition-all shadow-md"
+                          className="p-1 text-zinc-400 hover:text-red-500 hover:bg-zinc-100 rounded-lg transition-colors"
+                          title="Remove curriculum"
                         >
                           <Trash2 size={13} />
                         </button>
@@ -407,14 +398,14 @@ export const Learning: React.FC<LearningProps> = ({ onNavigate, setSelectedCours
 
                       {/* Remove confirmation overlay */}
                       {isConfirmingRemove && (
-                        <div className="absolute inset-0 bg-black/95 backdrop-blur-md rounded-2xl z-20 flex flex-col items-center justify-center gap-3 p-5 text-center">
+                        <div className="absolute inset-0 bg-white/95 backdrop-blur-md rounded-2xl z-20 flex flex-col items-center justify-center gap-3 p-5 text-center border border-zinc-200 shadow-xl">
                           <p className="text-sm text-zinc-900 font-bold">Remove this curriculum?</p>
                           <p className="text-xs text-zinc-500">Will be removed from your active courses.</p>
                           <div className="flex gap-2.5 mt-2">
                             <button onClick={() => setConfirmRemoveId(null)} className="btn-secondary text-xs py-1.5 px-4">
                               Cancel
                             </button>
-                            <button onClick={() => handleRemoveCourse(course.id)} className="px-4 py-1.5 rounded-lg text-xs font-bold text-zinc-900 bg-red-600 hover:bg-red-500 transition-colors shadow-md">
+                            <button onClick={() => handleRemoveCourse(course.id)} className="px-4 py-1.5 rounded-lg text-xs font-bold text-white bg-red-600 hover:bg-red-500 transition-colors shadow-md">
                               Remove
                             </button>
                           </div>

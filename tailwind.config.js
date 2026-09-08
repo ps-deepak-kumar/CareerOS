@@ -8,16 +8,16 @@ export default {
     extend: {
       colors: {
         brand: {
-          bg: "#FFFFFF",
-          surface: "#FAFAFA",
+          bg: "#FAFAFA",
+          surface: "#FFFFFF",
           surface2: "#F4F4F5",
           border: "#E4E4E7",
           borderHover: "#D4D4D8",
-          borderDark: "#A1A1AA",
-          black: "#09090B",
-          charcoal: "#18181B",
+          borderDark: "#71717A",
+          black: "#18181B",
+          charcoal: "#27272A",
           muted: "#71717A",
-          text: "#3F3F46",
+          text: "#27272A",
         }
       },
       fontFamily: {

@@ -187,14 +187,14 @@ export const Quiz: React.FC = () => {
               <span>1. Choose Assessment Subject</span>
             </label>
 
-            <div className="grid grid-cols-2 gap-3 p-1 bg-zinc-50 rounded-xl border border-zinc-200">
+            <div className="grid grid-cols-2 gap-3 p-1 bg-white rounded-xl border border-zinc-200 shadow-sm">
               <button
                 type="button"
                 onClick={() => setTopicSource('custom')}
                 className={`py-2 px-3 rounded-lg text-xs font-bold font-display transition-all ${
                   topicSource === 'custom'
-                    ? 'bg-zinc-900 text-white shadow-md'
-                    : 'text-zinc-500 hover:text-zinc-900'
+                    ? 'bg-zinc-800 text-white shadow-sm'
+                    : 'text-zinc-600 hover:text-zinc-900'
                 }`}
               >
                 ✍️ Write Topic / Subject
@@ -204,8 +204,8 @@ export const Quiz: React.FC = () => {
                 onClick={() => setTopicSource('course')}
                 className={`py-2 px-3 rounded-lg text-xs font-bold font-display transition-all ${
                   topicSource === 'course'
-                    ? 'bg-zinc-900 text-white shadow-md'
-                    : 'text-zinc-500 hover:text-zinc-900'
+                    ? 'bg-zinc-800 text-white shadow-sm'
+                    : 'text-zinc-600 hover:text-zinc-900'
                 }`}
               >
                 📚 Select from Enrolled Courses
@@ -342,7 +342,7 @@ export const Quiz: React.FC = () => {
                 type="button"
                 onClick={() => setAllowHints(!allowHints)}
                 className={`w-11 h-6 rounded-full transition-colors relative p-0.5 ${
-                  allowHints ? 'bg-zinc-900' : 'bg-slate-800'
+                  allowHints ? 'bg-zinc-800' : 'bg-zinc-300'
                 }`}
               >
                 <div className={`w-5 h-5 rounded-full bg-white transition-transform ${

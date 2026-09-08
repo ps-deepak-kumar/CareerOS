@@ -377,7 +377,7 @@ export const WorkIntelligence: React.FC = () => {
               <button
                 onClick={handleConnectMicrosoft}
                 disabled={isSyncing}
-                className="px-5 py-2.5 bg-blue-600 hover:bg-zinc-700 disabled:opacity-50 text-zinc-900 rounded font-bold text-xs select-none font-display uppercase tracking-wider transition-all flex items-center gap-2"
+                className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded font-bold text-xs select-none font-display uppercase tracking-wider transition-all flex items-center gap-2"
               >
                 <span>Connect Microsoft Calendar</span>
               </button>
@@ -408,7 +408,7 @@ export const WorkIntelligence: React.FC = () => {
 
               {/* Range Filters */}
               <div className="flex justify-between items-center gap-4 flex-wrap">
-                <div className="flex bg-zinc-100 border border-zinc-200 rounded p-0.5 select-none text-[10px]">
+                <div className="flex bg-white border border-zinc-200 rounded p-0.5 select-none text-[10px]">
                   {(['today', '7days', 'month'] as const).map(filter => (
                     <button
                       key={filter}
@@ -418,7 +418,7 @@ export const WorkIntelligence: React.FC = () => {
                         fetchMsCalendar(filter);
                       }}
                       className={`px-3 py-1 rounded font-bold font-display tracking-wider uppercase transition-all ${
-                        msEventsFilter === filter ? 'bg-blue-600 text-zinc-900 shadow' : 'text-slate-450 hover:text-zinc-700'
+                        msEventsFilter === filter ? 'bg-zinc-800 text-white shadow' : 'text-zinc-600 hover:text-zinc-900'
                       }`}
                     >
                       {filter === 'today' ? 'Today' : filter === '7days' ? '7 Days' : 'This Month'}
@@ -430,7 +430,7 @@ export const WorkIntelligence: React.FC = () => {
                   <button
                     onClick={() => fetchMsCalendar(msEventsFilter)}
                     disabled={isSyncing}
-                    className="px-3 py-1.5 bg-zinc-100 hover:bg-slate-850 border border-zinc-200 rounded font-semibold text-[10px] text-zinc-600 font-display uppercase tracking-wider transition-all"
+                    className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 rounded font-semibold text-[10px] text-zinc-700 font-display uppercase tracking-wider transition-all"
                   >
                     Refresh Calendar
                   </button>

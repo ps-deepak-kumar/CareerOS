@@ -19,11 +19,11 @@ export const Heatmap: React.FC = () => {
   const years = [2035, 2034, 2033, 2032, 2031, 2030, 2029, 2028, 2027, 2026, 2025];
 
   const getIntensityClass = (val: number) => {
-    if (val === 0) return 'bg-white border-zinc-200 hover:border-zinc-200';
-    if (val <= 2) return 'bg-white border-zinc-200 hover:border-emerald-500'; // Faint/visited green
-    if (val <= 4) return 'bg-white border-zinc-200 hover:border-emerald-400';
-    if (val <= 6) return 'bg-white border-zinc-200 hover:border-emerald-300';
-    return 'bg-white border-zinc-200 hover:border-white scale-105 shadow-[0_0_8px_rgba(57,211,83,0.3)]'; // Max intensity neon green
+    if (val === 0) return 'bg-zinc-100 border-zinc-200 hover:border-zinc-300';
+    if (val <= 2) return 'bg-emerald-200 border-emerald-300 hover:border-emerald-400'; // Low activity
+    if (val <= 4) return 'bg-emerald-400 border-emerald-500 hover:border-emerald-600'; // Medium activity
+    if (val <= 6) return 'bg-emerald-500 border-emerald-600 hover:border-emerald-700'; // High activity
+    return 'bg-emerald-600 border-emerald-700 hover:border-emerald-800 scale-105 shadow-[0_0_8px_rgba(16,185,129,0.5)]'; // Max intensity
   };
 
   const formatDateTooltip = (date: Date, score: number) => {
@@ -227,11 +227,11 @@ export const Heatmap: React.FC = () => {
         {/* Legend */}
         <div className="flex items-center gap-1.5 text-[9px] text-zinc-400 font-bold uppercase font-sans">
           <span>Less</span>
-          <div className="w-[8px] h-[8px] rounded-[1px] bg-white border border-zinc-200" />
-          <div className="w-[8px] h-[8px] rounded-[1px] bg-white border border-zinc-200" />
-          <div className="w-[8px] h-[8px] rounded-[1px] bg-white border border-zinc-200" />
-          <div className="w-[8px] h-[8px] rounded-[1px] bg-white border border-zinc-200" />
-          <div className="w-[8px] h-[8px] rounded-[1px] bg-white border border-zinc-200" />
+          <div className="w-[8px] h-[8px] rounded-[1px] bg-zinc-100 border border-zinc-200" />
+          <div className="w-[8px] h-[8px] rounded-[1px] bg-emerald-200 border border-emerald-300" />
+          <div className="w-[8px] h-[8px] rounded-[1px] bg-emerald-400 border border-emerald-500" />
+          <div className="w-[8px] h-[8px] rounded-[1px] bg-emerald-500 border border-emerald-600" />
+          <div className="w-[8px] h-[8px] rounded-[1px] bg-emerald-600 border border-emerald-700" />
           <span>More</span>
         </div>
 

@@ -55,10 +55,10 @@ export const SettingsPage: React.FC = () => {
                 <button
                   key={mode.id}
                   onClick={() => setModelMode(mode.id as any)}
-                  className={`py-2 text-[10px] font-bold font-display uppercase tracking-wider rounded border transition-colors ${
+                  className={`py-2 text-[10px] font-bold font-display uppercase tracking-wider rounded-lg border transition-colors ${
                     modelMode === mode.id 
-                      ? 'border-violet-500 text-zinc-900 bg-zinc-100' 
-                      : 'border-zinc-200 text-zinc-500 hover:border-zinc-200 bg-zinc-50'
+                      ? 'bg-zinc-800 border-zinc-800 text-white shadow-sm' 
+                      : 'border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 bg-white'
                   }`}
                 >
                   {mode.label}
@@ -83,7 +83,7 @@ export const SettingsPage: React.FC = () => {
               <span className="text-zinc-600">Enable Agent feedback updates</span>
               <button 
                 onClick={() => setNotifySetting(!notifySetting)}
-                className={`w-10 h-6 rounded-full p-1 transition-colors ${notifySetting ? 'bg-violet-600' : 'bg-slate-800'}`}
+                className={`w-10 h-6 rounded-full p-1 transition-colors ${notifySetting ? 'bg-zinc-800' : 'bg-zinc-300'}`}
               >
                 <div className={`w-4 h-4 rounded-full bg-white transition-transform ${notifySetting ? 'translate-x-4' : 'translate-x-0'}`} />
               </button>

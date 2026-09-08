@@ -133,8 +133,8 @@ export const SetGoal: React.FC<SetGoalProps> = ({ onNavigate }) => {
                   onClick={() => setDifficulty(lvl)}
                   className={`p-3.5 rounded-lg border text-[10px] font-bold uppercase tracking-wider font-display transition-colors ${
                     difficulty === lvl 
-                      ? 'border-zinc-300 text-zinc-900 bg-zinc-100' 
-                      : 'border-zinc-200 text-zinc-500 hover:border-zinc-200 bg-zinc-50'
+                      ? 'bg-zinc-800 border-zinc-800 text-white shadow-sm' 
+                      : 'border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 bg-white'
                   }`}
                 >
                   {lvl}
@@ -153,7 +153,7 @@ export const SetGoal: React.FC<SetGoalProps> = ({ onNavigate }) => {
               onChange={(e) => setExpectedOutcome(e.target.value)}
               placeholder="e.g. Deploy production-grade LangGraph agent servers connecting Outlook MCP calendar hooks."
               rows={4}
-              className="bg-zinc-100 border border-zinc-200 rounded-lg p-3 text-xs text-zinc-900 placeholder-slate-500 focus:outline-none focus:border-zinc-300 resize-none font-sans"
+              className="bg-white border border-zinc-200 rounded-lg p-3 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-zinc-400 resize-none font-sans"
             />
           </div>
         );
@@ -170,9 +170,9 @@ export const SetGoal: React.FC<SetGoalProps> = ({ onNavigate }) => {
                 step="15"
                 value={deadlineDays}
                 onChange={(e) => setDeadlineDays(parseInt(e.target.value))}
-                className="flex-1 accent-indigo-650 cursor-pointer h-1.5 bg-zinc-100 rounded-full"
+                className="flex-1 accent-indigo-650 cursor-pointer h-1.5 bg-zinc-200 rounded-full"
               />
-              <span className="text-xs font-bold text-zinc-900 font-mono bg-zinc-100 border border-zinc-200 px-3 py-1.5 rounded-lg shrink-0">
+              <span className="text-xs font-bold text-zinc-900 font-mono bg-white border border-zinc-200 px-3 py-1.5 rounded-lg shrink-0 shadow-sm">
                 {deadlineDays} Days
               </span>
             </div>
@@ -192,8 +192,8 @@ export const SetGoal: React.FC<SetGoalProps> = ({ onNavigate }) => {
                   onClick={() => setStudyTime(time)}
                   className={`p-3 rounded-lg border text-[10px] font-bold uppercase tracking-wider font-display transition-colors ${
                     studyTime === time 
-                      ? 'border-zinc-300 text-zinc-900 bg-zinc-100' 
-                      : 'border-zinc-200 text-zinc-500 hover:border-zinc-200 bg-zinc-50'
+                      ? 'bg-zinc-800 border-zinc-800 text-white shadow-sm' 
+                      : 'border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 bg-white'
                   }`}
                 >
                   {time}
@@ -215,8 +215,8 @@ export const SetGoal: React.FC<SetGoalProps> = ({ onNavigate }) => {
                   onClick={() => setLearningStyle(style)}
                   className={`p-2.5 rounded-lg border text-[9px] font-bold uppercase tracking-wider font-display transition-colors ${
                     learningStyle === style 
-                      ? 'border-zinc-300 text-zinc-900 bg-zinc-100' 
-                      : 'border-zinc-200 text-zinc-500 hover:border-zinc-200 bg-zinc-50'
+                      ? 'bg-zinc-800 border-zinc-800 text-white shadow-sm' 
+                      : 'border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 bg-white'
                   }`}
                 >
                   {style}

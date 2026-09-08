@@ -33,6 +33,13 @@ export const AgentTerminal: React.FC = () => {
       case 'Resource Curator Agent': return 'text-zinc-600 border-emerald-500/20 bg-zinc-100';
       case 'Daily Planner Agent': return 'text-zinc-600 border-orange-500/20 bg-zinc-100';
       case 'Progress Agent': return 'text-zinc-600 border-teal-500/20 bg-zinc-100';
+      case 'Quality Verification Agent': return 'text-emerald-700 border-emerald-500/30 bg-emerald-50';
+      case 'Assessment Agent': return 'text-indigo-700 border-indigo-500/30 bg-indigo-50';
+      // Phase 1 — Model Router
+      case 'Model Router Agent': return 'text-violet-700 border-violet-500/30 bg-violet-50';
+      // Phase 5 — New Agents
+      case 'Reflection Agent': return 'text-rose-700 border-rose-500/30 bg-rose-50';
+      case 'Interview Agent': return 'text-sky-700 border-sky-500/30 bg-sky-50';
       default: return 'text-zinc-500 border-zinc-200 bg-zinc-100';
     }
   };

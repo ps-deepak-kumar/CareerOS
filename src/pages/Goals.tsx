@@ -83,8 +83,8 @@ export const Goals: React.FC<GoalsProps> = ({ onNavigate, setSelectedGoalIdForDe
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-2 font-bold tracking-wider uppercase border-b-2 transition-all ${
               activeTab === tab
-                ? 'border-zinc-900 text-zinc-900'
-                : 'border-transparent text-zinc-400 hover:text-zinc-700'
+                ? 'border-zinc-800 text-zinc-900'
+                : 'border-transparent text-zinc-500 hover:text-zinc-800'
             }`}
           >
             {tab}

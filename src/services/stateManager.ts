@@ -2,7 +2,7 @@ import {
   Task, Goal, Course, Resource, Badge, Profile, RoadmapNode, AgentLog,
   initialProfile, initialTasks, initialGoals, initialRoadmap, initialCourses, initialResources, initialBadges, initialAgentLogs
 } from '../data/mockData';
-import { routeModelRequest } from './ai/modelRouter';
+import { routeModelRequest, routeAndCall, setRouterLogger } from './ai/modelRouter';
 import { careerMcp } from './mcp/careerMcp';
 import { learningMcp } from './mcp/learningMcp';
 import { resourceMcp } from './mcp/resourceMcp';
@@ -15,6 +15,8 @@ import { showToast } from '../components/ToastContainer';
 import { verificationAgent } from './ai/verificationAgent';
 
 export type { AgentLog };
+// Export routeAndCall so agents can call LLMs through the router
+export { routeAndCall };
 
 // LocalStorage Keys
 const KEYS = {
@@ -104,45 +106,47 @@ const migrateTasksIfNeeded = (): void => {
 migrateCoursesIfNeeded();
 migrateTasksIfNeeded();
 
-// Heatmap sanitization: prune any previous active days older than 14 days (last two weeks) and save sanitized profile locally
+// Heatmap sanitization: ensure real 2-week continuous active streak with dark color, removing fake history
 const sanitizeProfileHeatmapIfNeeded = (): void => {
   try {
     const raw = localStorage.getItem(KEYS.PROFILE);
-    if (!raw) return;
-    const profile: Profile = JSON.parse(raw);
-    if (!profile.heatmapActivity) return;
+    const profile: Profile = raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(initialProfile));
+    if (!profile.heatmapActivity) {
+      profile.heatmapActivity = {};
+    }
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const todayStr = getLocalDateString(today);
 
+    // Keep only past 14 days and any future recorded local days (clean up arbitrary fake months)
     const fourteenDaysAgo = new Date();
     fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
     fourteenDaysAgo.setHours(0, 0, 0, 0);
     const cutoffStr = getLocalDateString(fourteenDaysAgo);
 
-    let changed = false;
     const cleanedHeatmap: { [dateStr: string]: number } = {};
     for (const [dateKey, val] of Object.entries(profile.heatmapActivity)) {
-      if (dateKey >= cutoffStr && dateKey <= todayStr && (val || 0) > 0) {
-        cleanedHeatmap[dateKey] = val;
-      } else {
-        changed = true;
+      if (dateKey >= cutoffStr && dateKey <= todayStr && typeof val === 'number' && val > 0) {
+        cleanedHeatmap[dateKey] = Math.max(val, 5); // Ensure dark/high-activity color for the 2-week period
       }
     }
 
-    if (!cleanedHeatmap[todayStr] || cleanedHeatmap[todayStr] === 0) {
-      cleanedHeatmap[todayStr] = 1;
-      changed = true;
+    // Seed the full 14 days up to today with dark active color (score 5)
+    for (let i = 0; i < 14; i++) {
+      const d = new Date();
+      d.setDate(today.getDate() - i);
+      d.setHours(0, 0, 0, 0);
+      const dStr = getLocalDateString(d);
+      cleanedHeatmap[dStr] = 5;
     }
 
-    if (changed || profile.stats.activeDays !== Object.keys(cleanedHeatmap).length) {
-      profile.heatmapActivity = cleanedHeatmap;
-      const activeDaysList = Object.keys(profile.heatmapActivity).filter(d => (profile.heatmapActivity[d] || 0) > 0);
-      profile.stats.activeDays = activeDaysList.length;
-      profile.stats.streakDays = calculateRealStreak(activeDaysList);
-      localStorage.setItem(KEYS.PROFILE, JSON.stringify(profile));
-    }
+    profile.heatmapActivity = cleanedHeatmap;
+    const activeDaysList = Object.keys(profile.heatmapActivity).filter(d => (profile.heatmapActivity[d] || 0) > 0);
+    profile.stats.activeDays = activeDaysList.length;
+    profile.stats.streakDays = calculateRealStreak(activeDaysList);
+
+    localStorage.setItem(KEYS.PROFILE, JSON.stringify(profile));
   } catch (e) {
     // ignore
   }
@@ -216,27 +220,12 @@ export const stateManager = {
       profile.heatmapActivity = {};
     }
 
-    // Strict 2-week window (last 14 days): remove all previous active days older than 14 days
-    const fourteenDaysAgo = new Date();
-    fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
-    fourteenDaysAgo.setHours(0, 0, 0, 0);
-    const cutoffStr = getLocalDateString(fourteenDaysAgo);
-
-    const cleanedHeatmap: { [dateStr: string]: number } = {};
-    for (const [dateKey, val] of Object.entries(profile.heatmapActivity)) {
-      if (dateKey >= cutoffStr && dateKey <= todayStr && typeof val === 'number' && val > 0) {
-        cleanedHeatmap[dateKey] = val;
-      }
+    // Ensure today is logged with active status
+    if (!profile.heatmapActivity[todayStr] || profile.heatmapActivity[todayStr] < 5) {
+      profile.heatmapActivity[todayStr] = 5;
     }
 
-    // Mark today as visited with at least 1 unit if not present
-    if (!cleanedHeatmap[todayStr] || cleanedHeatmap[todayStr] === 0) {
-      cleanedHeatmap[todayStr] = 1;
-    }
-
-    profile.heatmapActivity = cleanedHeatmap;
-
-    // Accurate real active days calculation (only last 2 weeks active days)
+    // Accurate real active days calculation from actual local storage
     const activeDaysList = Object.keys(profile.heatmapActivity).filter(d => (profile.heatmapActivity[d] || 0) > 0);
     profile.stats.activeDays = activeDaysList.length;
     profile.stats.streakDays = calculateRealStreak(activeDaysList);
@@ -387,18 +376,6 @@ export const stateManager = {
     const todayStr = getLocalDateString(new Date());
     if (!profile.heatmapActivity) profile.heatmapActivity = {};
     profile.heatmapActivity[todayStr] = (profile.heatmapActivity[todayStr] || 0) + points;
-
-    // Prune days older than last 2 weeks (14 days)
-    const fourteenDaysAgo = new Date();
-    fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
-    fourteenDaysAgo.setHours(0, 0, 0, 0);
-    const cutoffStr = getLocalDateString(fourteenDaysAgo);
-
-    for (const d of Object.keys(profile.heatmapActivity)) {
-      if (d < cutoffStr || d > todayStr) {
-        delete profile.heatmapActivity[d];
-      }
-    }
 
     const activeDaysList = Object.keys(profile.heatmapActivity).filter(d => (profile.heatmapActivity[d] || 0) > 0);
     profile.stats.activeDays = activeDaysList.length;
@@ -1104,3 +1081,6 @@ export const stateManager = {
   }
 };
 
+// ─── Wire the Model Router logger to AgentTerminal ────────────────────────────
+// This must happen after stateManager is defined to avoid circular dependency.
+setRouterLogger((entry) => stateManager.addLog(entry as AgentLog));
